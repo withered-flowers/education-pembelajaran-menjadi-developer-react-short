@@ -1,4 +1,851 @@
 ---
+import BaseLayout from "../../layouts/BaseLayoutWithSlides.astro";
+import { Code } from "astro/components";
+import { Icon } from "astro-icon";
+
+const title = "Pengenalan Git";
 ---
 
-<h1>Pengenalan Git</h1>
+<BaseLayout title={title}>
+  <div class="slides">
+    <section>
+      <div class="flex flex-row justify-center gap-6">
+        <Icon name="mdi:linux" class="w-48" />
+        <Icon name="mdi:git" class="w-48" />
+      </div>
+      <h1>Pengenalan Linux Command & Git</h1>
+    </section>
+
+    <section>
+      <h2>Agenda</h2>
+      <ul class="w-full text-left">
+        <li>
+          <a href="#command-line-interface">CLI</a>
+        </li>
+        <li>
+          <a href="#linux-command">Linux Command</a>
+        </li>
+        <li>
+          <a href="#git">Git</a>
+        </li>
+        <li>
+          <a href="#github">Github</a>
+        </li>
+        <li>
+          <a href="#gh"><code>gh</code></a>
+        </li>
+        <li>
+          <a href="#demo">Demo</a>
+        </li>
+      </ul>
+    </section>
+
+    <section id="command-line-interface">
+      <section>
+        <h2>CLI</h2>
+
+        <p>Makhluk aneh macam apakah ini?</p>
+
+        <blockquote class="w-full text-3xl">
+          Command Line Interface (CLI) adalah sebuah tampilan antarmuka yang
+          dinavigasikan dengan menuliskan perintah, bukan dengan menggunakan
+          gestur mouse / tampilan GUI.
+        </blockquote>
+
+        <p>Dunia hitam dan putih !</p>
+      </section>
+
+      <section>
+        <h2>Tipe-tipe CLI</h2>
+
+        <ul>
+          <li>CMD</li>
+          <li>PowerShell</li>
+          <li>Bash</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>CMD</h2>
+
+        <table class="text-2xl">
+          <thead>
+            <tr>
+              <th>CMD</th>
+              <th>PowerShell</th>
+              <th>Bash</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Untuk Windows</td>
+              <td>Untuk sistem admin, berdasarkan .NET Framework</td>
+              <td>Untuk Unix / Linux</td>
+            </tr>
+            <tr>
+              <td>Merupakan default di Windows</td>
+              <td>Built-in di Windows sejak 2007 ke atas</td>
+              <td
+                >Default di WSL dan Unix / Linux serta macOS (before Big Sur)</td
+              >
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </section>
+
+    <section id="linux-command">
+      <section>
+        <div class="flex flex-col justify-center items-center">
+          <Icon name="mdi:linux" class="w-36" />
+        </div>
+        <h2>Linux Command</h2>
+      </section>
+
+      <section>
+        <h2>Yuk buka terminal !</h2>
+
+        <p>Windows buka dengan <strong>Git Bash</strong></p>
+        <p>Linux dan macOS buka dengan Terminal</p>
+      </section>
+
+      <section>
+        <h2>Perintah <code>man</code></h2>
+
+        <p class="text-left">
+          Merupakan perintah untuk melihat manual dari perintah yang ingin
+          digunakan
+        </p>
+
+        <p class="text-left">
+          <code>man whoami</code> - Untuk melihat manual / kegunaan dari perintah
+          <strong>whoami</strong>
+        </p>
+      </section>
+
+      <section>
+        <h2>Bekerja dengan directory</h2>
+
+        <table class="text-2xl">
+          <thead>
+            <tr>
+              <td>Perintah</td>
+              <td>Deskripsi</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>pwd</code></td>
+              <td
+                ><strong>print working directory</strong>, menjelaskan posisi
+                tempat kita berada sekarang</td
+              >
+            </tr>
+            <tr>
+              <td><code>mkdir</code></td>
+              <td><strong>make directory</strong>, membuat suatu folder</td>
+            </tr>
+            <tr>
+              <td><code>ls</code></td>
+              <td
+                ><strong>list</strong>, menampilkan isi dari folder sekarang</td
+              >
+            </tr>
+            <tr>
+              <td><code>cd</code></td>
+              <td
+                ><strong>change directory</strong>, pindah ke directory yang
+                lainnya</td
+              >
+            </tr>
+            <tr>
+              <td><code>rm -rf</code></td>
+              <td
+                ><strong>remove recursive force</strong>, menghapus file /
+                folder secara paksa (tanpa konfirmasi)</td
+              >
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2>Bekerja dengan files</h2>
+
+        <table class="text-2xl">
+          <thead>
+            <tr>
+              <td>Perintah</td>
+              <td>Deskripsi</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>touch</code></td>
+              <td
+                >Perintah untuk membuat sebuah file baru pada folder yang sedang
+                dituju</td
+              >
+            </tr>
+            <tr>
+              <td><code>code</code></td>
+              <td
+                >Perintah untuk membuka VSCode pada folder yang sedang dituju</td
+              >
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="text-left text-2xl">
+          Untuk bisa menggunakan perintah <code>code</code>, kita harus
+          menginstall <code>VSCode</code> terlebih dahulu dan mendaftarkan VSCode
+          pada Environment Variable
+        </p>
+
+        <div class="text-left text-2xl">
+          Buka VSCode, tekan <code>CTRL + Shift + P</code>, lalu ketik <code
+            >Shell Command: Install 'code' command in PATH</code
+          >
+          lalu tekan ENTER
+        </div>
+      </section>
+
+      <section>
+        <h2>Mau lebih lengkap bacanya?</h2>
+
+        <a
+          href="https://dev.to/awwsmm/101-bash-commands-and-tips-for-beginners-to-experts-30je"
+          target="_blank"
+        >
+          dev.to/awwsmm/101-bash-commands-and-tips-for-beginners-to-experts-30je
+        </a>
+      </section>
+
+      <section>
+        <h2>Mau belajar dengan bermain?</h2>
+
+        <a href="https://briandavidhall.com/bashy" target="_blank"
+          >briandavidhall.com/bashy</a
+        >
+      </section>
+    </section>
+
+    <section id="git">
+      <section>
+        <div class="flex flex-col justify-center items-center">
+          <Icon name="mdi:git" class="w-36" />
+        </div>
+        <h2>Git</h2>
+
+        <ul>
+          <li>
+            <i>Tool</i> yang sering digunakan dalam pengembangan perangkat lunak
+          </li>
+          <li>Wajib dikuasai oleh <i>programmer zaman kekinian</i></li>
+          <li>Tapi... ini apaan sih?</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Git (ii)</h2>
+
+        <ul>
+          <li>Sistem pengontrol versi (Version Control System)</li>
+          <li>Diciptakan oleh Linus Torvald (Pembuat OS Linux)</li>
+          <li>
+            Mencatat setiap perubahan file pada proyek yang dikerjakan (baik
+            sendiri maupun ramai-ramai)
+          </li>
+          <li>Dikenal dengan <strong>distributed revision control</strong></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Manfaat Git</h2>
+
+        <ul>
+          <li>
+            <strong>Mesin waktu</strong> dari kode yang dituliskan di dalam folder
+            (<strong>repository</strong>)
+          </li>
+          <li>
+            Menyimpan riwayat perubahan file dalam bentuk sejumlah <strong
+              >commit</strong
+            >, bahkan bisa melihat dilakukan oleh siapa dan kapan
+          </li>
+          <li>
+            Bisa membuat <strong>cabang</strong> dari fitur kode yang akan dibuat,
+            tanpa perlu dilakukan di <strong>tempat utama</strong> yang kita miliki,
+            disebut dengan istilah <strong>branch</strong>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Manfaat Git (ii)</h2>
+
+        <ul>
+          <li>
+            Setelah cabang dirasa ingin diimplementasikan ke kode utama, bisa
+            melakuan penggabungan atas kode yang sudah dibuat, disebut dengan <strong
+              >merge</strong
+            >
+          </li>
+        </ul>
+      </section>
+    </section>
+
+    <section id="github">
+      <div class="flex flex-col justify-center items-center">
+        <Icon name="mdi:github" class="w-36" />
+      </div>
+      <h2>Github</h2>
+
+      <ul>
+        <li>
+          Sebuah layanan komputasi awan untuk menyimpan & mengelola repositori <code
+            >git</code
+          >
+        </li>
+        <li>Diakuisisi oleh <code>Microsoft</code> pada tahun 2018</li>
+        <li>
+          Bisa menaruh <code>unlimited</code> proyek yang bersifat publik maupun
+          privat
+        </li>
+      </ul>
+    </section>
+
+    <section id="gh">
+      <h2>gh</h2>
+
+      <ul>
+        <li>Sebuah tool command-line yang dibuat oleh github</li>
+        <li>
+          Digunakan untuk mempermudah hidup apabila menggunakan platform github
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Istilah dalam Git</h2>
+
+      <table class="text-xl">
+        <tbody>
+          <tr>
+            <td><code>repo(sitory)</code></td>
+            <td>Folder project kita berada</td>
+          </tr>
+          <tr>
+            <td><code>remote</code></td>
+            <td>sumber lain yang memiliki repo, di luar komputer kita</td>
+          </tr>
+          <tr>
+            <td>clone</td>
+            <td>mengambil repo dari sumber remote</td>
+          </tr>
+          <tr>
+            <td><code>commit</code></td>
+            <td>menyimpan / merekam (snapshot) kode dari repo</td>
+          </tr>
+          <tr>
+            <td><code>branch</code></td>
+            <td>cabang dari sebuah commit</td>
+          </tr>
+          <tr>
+            <td><code>checkout</code></td>
+            <td
+              >proses untuk berpindah dari satu commit / satu cabang ke commit /
+              cabang lainnya</td
+            >
+          </tr>
+          <tr>
+            <td><code>merge</code></td>
+            <td>proses untuk menggabungkan branch</td>
+          </tr>
+          <tr>
+            <td><code>push</code></td>
+            <td>mengirimkan commit ke repo (biasanya remote repo)</td>
+          </tr>
+          <tr>
+            <td><code>pull</code></td>
+            <td>mengambil commit dari repo (biasanya remote repo)</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Istilah dalam GitHub</h2>
+
+      <table class="text-xl">
+        <tbody>
+          <tr>
+            <td><code>fork(ing)</code></td>
+            <td
+              >membuat kopi / duplikat dari repo publik orang lain (beserta
+              rekam jejaknya)</td
+            >
+          </tr>
+          <tr>
+            <td colspan={2} class="center-text"
+              >(sebagai jembatan antara repo original dengan repo yang
+              diduplikat)</td
+            >
+          </tr>
+          <tr>
+            <td><code>pull request</code></td>
+            <td>permintaan untuk menggabungkan (merge) kode</td>
+          </tr>
+          <tr>
+            <td colspan={2} class="center-text"
+              >(umumnya digunakan ketika ingin menggabungkan kode repo kita ke
+              repo sumber fork)</td
+            >
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="demo">
+      <section>
+        <h2>Demo</h2>
+
+        <p>
+          Mohon registrasi github terlebih dahulu pada <a
+            href="https://github.com/signup">link ini</a
+          >
+        </p>
+
+        <div class="flex flex-col justify-center items-center w-full">
+          <img src="/assets/git-introduction/01.png" />
+        </div>
+      </section>
+    </section>
+
+    <section>
+      <section>
+        <h2>Demo - Lokal Repo to Github</h2>
+
+        <p>
+          Pada bagian demo ini kita akan menggunakan github sebagai tempat kita
+          menaruh kode secara remote
+        </p>
+        <p>
+          Unduh <code>git</code> terlebih dahulu <a href="https://git-scm.com/"
+            >di sini</a
+          >
+        </p>
+      </section>
+
+      <section>
+        <h2>Demo - Lokal Repo to Github (ii)</h2>
+
+        <div class="mb-8">
+          Setelah proses instalasi, kita akan konfigurasi <code>git</code>
+        </div>
+        <Code
+          code={`git config --global user.name "Nama Lengkap"\n` +
+            `git config --global user.email "Email yang digunakan"\n`}
+          lang={"sh"}
+        />
+
+        <div class="animate-pulse text-2xl mt-8">
+          Perintah di atas akan mengkonfigurasi nama dan email yang digunakan
+          untuk melakukan <code>commit</code> ke dalam git
+        </div>
+      </section>
+
+      <section>
+        <h2>Demo - Lokal Repo to Github (iii)</h2>
+
+        <p>Selanjutnya kita akan membuat <code>repository</code></p>
+
+        <div class="text-2xl mb-8">
+          (<code>repository</code> adalah tempat penyimpanan kode di dalam <code
+            >git</code
+          >)
+        </div>
+
+        <ol class="text-2xl w-full text-left">
+          <li class="py-2">
+            Buka terminal yang digunakan di sistem operasi masing masing (<code
+              >cmd</code
+            >, <code>pwsh</code>, <code>bash</code>, <code>zsh</code>)
+          </li>
+          <li class="py-2">Buat sebuah folder untuk memulai proyek</li>
+          <li class="py-2">Ketikkan perintah <code>git init</code></li>
+          <li class="py-2">
+            Apabila kita melihat hidden foldernya pada proyek yang dibuat, akan
+            terbentuk sebuah folder dengan nama <code>.git</code>
+          </li>
+        </ol>
+
+        <div class="flex flex-col justify-center items-center w-full">
+          <img src="/assets/git-introduction/02.png" />
+        </div>
+      </section>
+
+      <section>
+        <h2>Demo - Lokal Repo to Github (iv)</h2>
+
+        <ol class="text-2xl w-full text-left" start={5}>
+          <li class="py-2">
+            Membuka folder yang sudah dibuat tadi dengan menggunakan VSCode
+          </li>
+          <li class="py-2">
+            Membuat sebuah file baru dengan nama <code>index.js</code>
+          </li>
+          <li class="py-2">
+            Menuliskan kode untuk menghasilkan output <code
+              >Halo, namaku xxx</code
+            >
+          </li>
+          <li class="py-2">Membuka terminal pada VSCode</li>
+          <li class="py-2">
+            Menuliskan perintah berikut: <code>git add .</code>
+          </li>
+          <li class="py-2">
+            Menuliskan perintah berikut: <code
+              >git commit -m "feat: ini commit-an pertamaku"</code
+            >
+          </li>
+        </ol>
+
+        <div class="flex flex-col justify-center items-center w-full">
+          <img src="/assets/git-introduction/03.png" />
+        </div>
+      </section>
+
+      <section>
+        <h2>Demo - Lokal Repo to Github (v)</h2>
+
+        <ol class="text-2xl w-full text-left" start={11}>
+          <li class="py-2">Membuat repository baru pada github</li>
+          <div class="flex flex-col justify-center items-center w-full">
+            <img src="/assets/git-introduction/04.png" />
+          </div>
+          <li class="py-2">
+            Repository Name (nama repositori): <code>repo-pertama</code>
+          </li>
+          <li class="py-2">
+            description: <code>Ini adalah repo pertamaku</code>
+          </li>
+          <li class="py-2">Repository Visibility: <code>public</code></li>
+          <li class="py-2">Tekan tombol <code>Create Repository</code></li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>Demo - Lokal Repo to Github (vi)</h2>
+
+        <ol class="text-2xl w-full text-left" start={16}>
+          <li class="py-2">
+            Akan diberikan halaman pembuka repo kosong pada github, lihat bagian <code
+              >Push an existing repo from the command line</code
+            >
+          </li>
+          <div class="flex flex-col justify-center items-center w-full">
+            <img src="/assets/git-introduction/05.png" />
+          </div>
+          <li class="py-2">
+            Ketikkan 3 baris perintah tersebut pada terminal lokal kita
+          </li>
+          <div class="flex flex-col justify-center items-center w-full">
+            <img src="/assets/git-introduction/06.png" />
+          </div>
+          <li class="py-2">
+            Refresh halaman github tadi kemudian lihat hasilnya.
+          </li>
+        </ol>
+      </section>
+    </section>
+
+    <section>
+      <section>
+        <h2>Demo - Github Repo to Lokal</h2>
+
+        <p>
+          Kita akan mencoba untuk membuat repo terlebih dahulu pada github
+          kemudian memodifikasinya di lokal
+        </p>
+      </section>
+
+      <section>
+        <h2>Demo - Github Repo to Lokal (ii)</h2>
+
+        <ol class="text-2xl w-full text-left">
+          <li class="py-2">
+            Membuat repo yang baru pada github dengan nama <code
+              >repo-kedua</code
+            >
+          </li>
+          <li class="py-2">
+            Pada bagian <code>Add .gitignore</code>, pilih template dengan nama <code
+              >Node</code
+            >
+          </li>
+          <li class="py-2">
+            Pada bagian <code>Choose a license</code>, pilih <code
+              >MIT License</code
+            >
+          </li>
+          <li class="py-2">
+            Apabila sudah, tekan tombol <code>Create repository</code>
+          </li>
+          <div class="flex flex-col justify-center items-center w-full">
+            <img src="/assets/git-introduction/07.png" />
+          </div>
+        </ol>
+      </section>
+
+      <section>
+        <h2>Demo - Github Repo to Lokal (iii)</h2>
+
+        <ol class="text-2xl w-full text-left" start={5}>
+          <li class="py-2">
+            Pada halaman github, pilih tombol <code>Code</code>, kemudian tekan
+            tombol <code>Copy</code>
+          </li>
+          <div class="flex flex-col justify-center items-center w-full">
+            <img src="/assets/git-introduction/08.png" class="w-80" />
+          </div>
+          <li class="py-2">
+            Pada terminal, ketik perintah <code
+              >git clone [paste link github tadi, tanpa kurung siku ini yah !]</code
+            >
+          </li>
+          <div class="flex flex-col justify-center items-center w-full">
+            <img src="/assets/git-introduction/09.png" class="w-128" />
+          </div>
+        </ol>
+      </section>
+
+      <section>
+        <h2>Demo - Github Repo to Lokal (iv)</h2>
+
+        <ol class="text-2xl w-full text-left" start={7}>
+          <li class="py-2">
+            Buka folder yang sudah di-clone tersebut dengan menggunakan VSCode
+          </li>
+          <li class="py-2">
+            Pada terminal VSCode, kita akan membuat cabang baru dengan
+            menggunakan <code>git checkout -b branch-baru</code>
+          </li>
+          <li class="py-2">
+            Pada VSCode buat sebuah file baru dengan nama <code>index.js</code> kemudian
+            masukkan perintah untuk menuliskan <code
+              >Halo, aku repo kedua, dibuat oleh xxx</code
+            >
+          </li>
+          <li class="py-2">
+            Lakukan add, commit dan push dengan perintah sebagai berikut
+          </li>
+        </ol>
+
+        <Code
+          code={`git add .\n` +
+            `git commit -m "feat: ini pada branch-baru"\n` +
+            `git push -u origin branch-baru`}
+          lang={"sh"}
+        />
+
+        <ol class="text-2xl w-full text-left" start={11}>
+          <li class="py-2">
+            Refresh kembali halaman github kemudian lihat hasilnya, masih kosong
+            bukan?
+          </li>
+          <li class="py-2">
+            Pada halaman github, pindah ke halaman branch-baru
+          </li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>Demo - Github Repo to Lokal (v)</h2>
+
+        <ol class="text-2xl w-full text-left" start={13}>
+          <div class="flex flex-col justify-center items-center w-full">
+            <img src="/assets/git-introduction/10.png" />
+          </div>
+        </ol>
+      </section>
+    </section>
+
+    <section>
+      <section>
+        <h2>Demo - gh</h2>
+
+        <p>
+          Pada bagian demo ini kita akan menggunakan <code>gh</code> tools untuk
+          mempersingkat pembuatan repo di github
+        </p>
+        <p></p><p>
+          Unduh <code>gh</code> terlebih dahulu <a
+            href="https://github.com/cli/cli">di sini</a
+          >
+        </p>
+      </section>
+
+      <section>
+        <h2>Demo - gh (ii)</h2>
+
+        <ol class="text-2xl w-full text-left">
+          <li class="py-2">
+            Pada terminal, login via <code>gh</code> dengan menggunakan <code
+              >gh auth login</code
+            >
+          </li>
+          <li class="py-2">
+            What account do you want to log into? <code>GitHub.com</code>
+          </li>
+          <li class="py-2">
+            What is your preferred protocol for Git operations? <code
+              >HTTPS</code
+            >
+          </li>
+          <li class="py-2">
+            Authenticate Git with your GitHub credentials? <code>Y</code>
+          </li>
+          <li class="py-2">
+            How would you like to authenticate GitHub CLI? <code
+              >Login with a web browser</code
+            >
+          </li>
+          <li class="py-2">
+            Copy <code>one-time code</code>, kemudian tekan Enter
+          </li>
+          <li class="py-2">
+            Apabila semua berjalan baik baik saja, seharusnya di terminal
+            seperti ini
+          </li>
+          <div class="flex flex-col justify-center items-center w-full">
+            <img src="/assets/git-introduction/11.png" />
+          </div>
+        </ol>
+      </section>
+
+      <section>
+        <h2>Demo - gh (iii)</h2>
+
+        <ol class="text-2xl w-full text-left">
+          <li class="py-2">Buka terminal, pindah ke folder kosong</li>
+          <li class="py-2">
+            Membuat repo kosong pada github dengan perintah sebagai berikut
+          </li>
+          <code
+            >gh repo create repo-ketiga --public --gitignore Node --license mit
+            --clone</code
+          >
+          <ul>
+            <li><code>--public</code> - Membuat repo publik</li>
+            <li>
+              <code>--gitignore Node</code> - Membuat .gitignore berdasarkan template
+              NodeJS
+            </li>
+            <li>
+              <code>--license mit</code> - Membuat license sesuai dengan template
+              MIT
+            </li>
+            <li>
+              <code>--clone</code> - Membuat repo di github sekaligus clone ke folder
+              lokal yang kita miliki
+            </li>
+          </ul>
+          <li class="py-2">
+            Selanjutnya kita tinggal melakukan hal hal yang seharusnya kita
+            lakukan...
+          </li>
+          <li class="py-2">
+            Apabila ingin clone repo saja, bisa menggunakan <code
+              >gh repo clone xxx</code
+            >
+          </li>
+        </ol>
+
+        <div class="animate-pulse mt-8 text-2xl text-red-400">
+          Jauh lebih mudah bukan?
+        </div>
+      </section>
+    </section>
+
+    <section>
+      <h2>QnA</h2>
+    </section>
+
+    <section>
+      <h2>Waktunya Tantangan</h2>
+
+      <a href="https://github.com/menjadi-react-developer/challenge-git"
+        >Klik di sini</a
+      >
+    </section>
+
+    <section>
+      <h2>Hint: Tantangan</h2>
+
+      <ul class="text-left text-3xl w-full">
+        <li>Forking hanya bisa dilakukan di github saja</li>
+        <ul class="text-left">
+          <li>Buka dan Login ke situs github.com</li>
+          <li>Buka repository yang ingin diforking</li>
+          <li>
+            <div class="flex flex-row gap-2 items-center justify-left">
+              Tekan tombol <strong>Fork</strong> di kanan atas
+              <Icon name="octicon:repo-forked-24" class="w-16" />
+            </div>
+          </li>
+          <li>
+            Setelah di Fork, akan ada sebuah repository baru di profile Anda
+          </li>
+          <li>
+            <strong>clone</strong> repo yang diforking tersebut ke komputer Anda
+          </li>
+          <li>Buka Folder yang telah diclone tersebut di komputer Anda</li>
+          <li>
+            Buat sebuah <strong>branch</strong> baru dengan nama yang diharapkan
+          </li>
+          <li>
+            Lakukan modifikasi data, kemudian <strong>commit</strong> dan <strong
+              >push</strong
+            >
+          </li>
+          <li>
+            Buka github.com kembali, kemudian lakukan <strong>PR</strong> dari repository
+            yang Anda miliki ke repository yang diharapkan
+          </li>
+        </ul>
+      </ul>
+    </section>
+
+    <section id="referensi">
+      <h2>Referensi</h2>
+
+      <ul class="text-2xl">
+        <li>
+          https://medium.com/@fahmiprasetiiio/belajar-git-untuk-pemula-7625c686c68f
+        </li>
+        <li>https://www.atlassian.com/git/tutorials/what-is-version-control</li>
+        <li>https://www.atlassian.com/git/tutorials/what-is-git</li>
+        <li>
+          https://www.youtube.com/watch?v=lTMZxWMjXQU&list=PLFIM0718LjIVknj6sgsSceMqlq242-jNf
+        </li>
+      </ul>
+    </section>
+
+    <!-- <section data-markdown>
+      <textarea data-template>
+        
+      </textarea>
+    </section> -->
+  </div>
+</BaseLayout>
+
+<style>
+  .center-text {
+    @apply animate-pulse text-center;
+  }
+
+  .red {
+    @apply text-red-400;
+  }
+</style>

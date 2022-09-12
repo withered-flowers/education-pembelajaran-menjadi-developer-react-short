@@ -1,0 +1,149 @@
+---
+import { Icon } from "astro-icon";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+export interface Lectures {
+  icon: string;
+  link: string;
+  title: string;
+}
+
+const lectures: Lectures[] = [
+  {
+    icon: "logos:git-icon",
+    link: "/git-intro",
+    title: "Pengenalan Git & Linux Command",
+  },
+  {
+    icon: "logos:javascript",
+    link: "/js-promise-async",
+    title: "JavaScript - Promise & Async",
+  },
+  {
+    icon: "logos:javascript",
+    link: "/js-dom",
+    title: "JavaScript - DOM",
+  },
+  {
+    icon: "logos:react",
+    link: "/react-intro",
+    title: "React JS - Pengenalan",
+  },
+  {
+    icon: "logos:react",
+    link: "/react-hooks",
+    title: "React JS - Hooks",
+  },
+  {
+    icon: "logos:axios",
+    link: "/react-list-and-axios",
+    title: "React JS - List dan Axios",
+  },
+  {
+    icon: "logos:react",
+    link: "/react-komponen-i",
+    title: "React JS - Komponen dan UI Framework",
+  },
+  {
+    icon: "logos:react",
+    link: "/react-komponen-ii",
+    title: "React JS - Komponen dan UI Framework Bagian 2",
+  },
+  {
+    icon: "logos:react-router",
+    link: "/react-navigasi",
+    title: "React JS - Navigasi",
+  },
+  {
+    icon: "logos:react",
+    link: "/react-review-i",
+    title: "React JS - Review 1",
+  },
+  {
+    icon: "logos:redux",
+    link: "/react-redux",
+    title: "React JS - Redux",
+  },
+  {
+    icon: "logos:redux-saga",
+    link: "/react-redux-middleware",
+    title: "React JS - Redux Middleware",
+  },
+  {
+    icon: "zustand",
+    link: "/react-zustand",
+    title: "React JS - Zustand",
+  },
+  {
+    icon: "firebase",
+    link: "/react-firebase-authentication",
+    title: "React JS - Firebase Authentication",
+  },
+  {
+    icon: "logos:react",
+    link: "/react-review-ii",
+    title: "React JS - Review 2",
+  },
+  {
+    icon: "logos:netlify",
+    link: "/deployment-dan-recap",
+    title: "Deployment dan Recap",
+  },
+];
+---
+
+<BaseLayout title="React Developer - DTS Kominfo">
+  <div class="px-4 flex flex-col items-center">
+    <p class="text-base md:text-xl mb-10">Konten Pembelajaran</p>
+
+    <ul>
+      {
+        lectures.map((lecture, index) => (
+          <li>
+            <div>
+              <Icon name={lecture.icon} />
+            </div>
+            <div>
+              <p>
+                <a href={lecture.link}>{lecture.title}</a>
+              </p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</BaseLayout>
+
+<style>
+  ul {
+    @apply px-4 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-2;
+    /* @apply px-4 grid md:grid-rows-12 xl:grid-rows-8 md:grid-flow-col md:auto-cols-fr gap-2; */
+  }
+
+  li {
+    @apply flex flex-row items-center mb-2;
+  }
+
+  li > div:first-child {
+    @apply mr-2;
+  }
+
+  a {
+    @apply hover:text-blue-500 hover:underline;
+  }
+
+  svg {
+    @apply w-12 h-12;
+  }
+</style>
+
+<!-- ---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Menjadi Deveoper React - Short">
+  <main>
+    <h1 class="text-3xl font-bold">This is just an example</h1>
+  </main>
+</Layout> -->

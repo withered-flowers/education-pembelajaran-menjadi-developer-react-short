@@ -1,4 +1,481 @@
 ---
+import BaseLayout from "../../layouts/BaseLayoutWithSlides.astro";
+import { Icon } from "astro-icon";
+
+const mdCodes = await Astro.glob("./examples/*.md");
+
+const findContent = (title: string) => {
+  return mdCodes?.find((md) => md?.frontmatter?.title === title)!.Content;
+};
+
+const PromiseHowToDeclare = findContent("promise-how-to-declare");
+const PromiseHowToUse = findContent("promise-how-to-use");
+const PromiseSimpleEx = findContent("promise-simple-example");
+const PromiseSimpleExFnDeclare = findContent(
+  "promise-fn-simple-example-declare"
+);
+const PromiseSimpleExFnUse = findContent("promise-fn-simple-example-usage");
+
+const title = "JS - Promise";
 ---
 
-<h1>JS - Promise & Async</h1>
+<BaseLayout title={title}>
+  <div class="p-4">
+    <div class="slides">
+      <section>
+        <div class="flex flex-row justify-center gap-6">
+          <Icon name="simple-icons:javascript" class="w-48" />
+        </div>
+        <h1>JavaScript - Promise</h1>
+      </section>
+
+      <section>
+        <h2>Agenda</h2>
+        <ul>
+          <li>Review Nested Callback</li>
+          <li>Promise</li>
+          <li>Async / Await</li>
+          <li>QnA</li>
+          <li>Waktunya Tantangan</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Nested Callback</h2>
+
+        <p>Mari kita coba lihat kode tentang nested callback ini</p>
+
+        <a
+          href="https://stackblitz.com/edit/mrd-js-promise-02?file=index.js"
+          target="_blank">Klik di sini</a
+        >
+      </section>
+
+      <section>
+        <h2>Intro Promise</h2>
+
+        <p class="fragment">Bagaimana <i>perasaannya membuat callback?</i></p>
+
+        <p class="flex flex-row gap-8 justify-center items-center fragment">
+          <Icon name="twemoji:astonished-face" class="w-12" />
+          Membagongkan bukan?
+          <Icon name="twemoji:astonished-face" class="w-12" />
+        </p>
+
+        <p class="flex flex-row gap-8 justify-center items-center fragment">
+          <Icon name="noto:exploding-head" class="w-12" />
+          <i>Apalagi pas nested callback khaque</i>
+          <Icon name="noto:exploding-head" class="w-12" />
+        </p>
+
+        <p class="fragment text-red-400 animate-pulse">
+          Nah sekarang mari kita coba memperingan masalah dengan teknik baru !
+        </p>
+      </section>
+
+      <section>
+        <h2>Promise</h2>
+
+        <ul>
+          <li>
+            Merupakan teknik baru yang diperkenalkan dalam ES6 (Standard
+            JavaScript tahun 2015)
+          </li>
+          <li>
+            Diperkenalkan sebagai teknik abstraksi callback, untuk menghindari <i
+              >Callback Hell</i
+            >
+          </li>
+          <li>
+            Promise adalah suatu konsep yang membuat program <code
+              >Berjanji</code
+            > untuk melakukan sesuatu yang tidak diketahui akan diselesaikan kapan
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Promise (ii)</h2>
+
+        <blockquote>
+          <code>Promise</code> merepresentasikan operasi atau aksi yang belum diselesaikan
+          sekarang, tapi akan diselesaikan nanti di masa depan dan bersifat asynchronous.
+        </blockquote>
+      </section>
+
+      <section>
+        <h2>Promise (iii)</h2>
+
+        <p>Mari kita lihat kondisi Janji di dunia nyata</p>
+
+        <ul class="text-3xl">
+          <li class="mb-2">
+            Premis <code>Janji</code>: Saya tidak akan marah ketika menonton <i
+              >Layangan Putus</i
+            >
+          </li>
+          <li class="mb-2">
+            Kondisi <code>Janji</code>
+            <strong>diuji</strong>: Ketika saya menonton Layangan Putus
+          </li>
+          <li class="mb-2">
+            Kondisi <code>Janji</code>
+            <strong>terpenuhi</strong>: Ketika nonton tidak emosi
+          </li>
+          <li>
+            Kondisi <code>Janji</code>
+            <strong>ditolak</strong>: Ketika nonton emosi dan banting meja gara
+            gara pelakor
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Promise (iv)</h2>
+
+        <p>Mari kita lihat Promise dalam ES6</p>
+
+        <p>Beberapa kondisi atau <i>state</i> dalam <code>Promise:</code></p>
+        <ul class="text-3xl">
+          <li class="mb-2">
+            <code>pending</code> - Merupakan kondisi awal, ketika kita membuat <code
+              >Promise</code
+            >, belum terpenuhi / ditolak
+          </li>
+          <li class="mb-2">
+            <code>fulfilled</code> - Merupakan kondisi di mana <code
+              >Promise</code
+            > sudah terpenuhi
+          </li>
+          <li>
+            <code>rejected</code> - Merupakan kondisi di mana <code
+              >Promise</code
+            > gagal terpenuhi
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Barulah sekarang kita masuk ...</h2>
+        <p class="animate-pulse text-red-400 fragment">
+          Bagaimana cara membuat promise?
+        </p>
+      </section>
+
+      <section>
+        <h2>Deklarasi Promise</h2>
+
+        <div>
+          <PromiseHowToDeclare />
+        </div>
+      </section>
+
+      <section>
+        <h2>Deklarasi Promise (ii)</h2>
+
+        <div>
+          <PromiseHowToUse />
+        </div>
+      </section>
+
+      <section>
+        <h2>Deklarasi Promise (iii)</h2>
+
+        <p>Mari kita lihat contoh penggunaan promise sederhana</p>
+
+        <div>
+          <PromiseSimpleEx />
+        </div>
+      </section>
+
+      <section>
+        <h2>Deklarasi Promise (iv)</h2>
+
+        <ul class="text-3xl">
+          <li class="mb-2 fragment">
+            Cara sebelumnya adalah cara sederhana untuk membuat <code
+              >Promise</code
+            > yang tidak bisa menerima parameter
+          </li>
+          <li class="mb-2 fragment">
+            Sekarang pertanyaannya: <span class="text-red-400"
+              >Bagaimana bila promise mau menerima parameter?</span
+            >
+          </li>
+          <li class="fragment">
+            Inilah yang umum digunakan: <span class="animate-pulse"
+              >Bungkus <code>Promise</code> dalam sebuah fungsi !</span
+            >
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Deklarasi Promise (v)</h2>
+
+        <p>Contoh deklarasi Promise dibungkus fungsi</p>
+
+        <div>
+          <PromiseSimpleExFnDeclare />
+        </div>
+      </section>
+
+      <section>
+        <h2>Deklarasi Promise (vi)</h2>
+
+        <p>Contoh penggunaan Promise dibungkus fungsi</p>
+        <div>
+          <PromiseSimpleExFnUse />
+        </div>
+      </section>
+
+      <section>
+        <h2>Promise Chaining</h2>
+
+        <p>Masih belum terlihat yah <i>enak</i>-nya promise?</p>
+
+        <ul class="text-3xl">
+          <li class="mb-2">
+            Penyederhaan callback hell pada Promise menggunakan Promise Chaining
+          </li>
+          <li class="mb-2">Janji berantai yang diselesaikan berurutan</li>
+          <li>
+            Kita coba mengubah callback hell yang dapat dilihat <a
+              href="https://stackblitz.com/edit/mrd-js-promise-03?file=index.js"
+              target="_blank">di sini</a
+            >
+          </li>
+        </ul>
+
+        <p class="text-3xl animate-pulse">
+          Mari kita coba lihat kode Promise yang berlapis
+        </p>
+      </section>
+
+      <section>
+        <h2>Promise Chaining</h2>
+
+        <p>Mari kita coba selesaikan masalah tersebut dengan Promise</p>
+        <p class="text-3xl">
+          Kode untuk promise chaining dapat dilihat <a
+            href="https://stackblitz.com/edit/mrd-js-promise-04?file=index.js"
+            target="_blank">di sini</a
+          >
+        </p>
+      </section>
+
+      <section>
+        <h2>Promise Chaining (ii)</h2>
+
+        <p class="flex flex-row gap-8 justify-center items-center fragment">
+          <Icon name="twemoji:exploding-head" class="w-12" />
+          Kok sepertinya... itu seperti callback hell yah?
+          <Icon name="twemoji:exploding-head" class="w-12" />
+        </p>
+
+        <p class="flex flex-row gap-8 justify-center items-center fragment">
+          <Icon name="twemoji:exploding-head" class="w-24" />
+          <span
+            >Karena kita menggunakannya salah, terjadilah <strong
+              class="text-red-400">Promise Hell</strong
+            >
+          </span>
+          <Icon name="twemoji:exploding-head" class="w-24" />
+        </p>
+
+        <div class="my-8">&nbsp;</div>
+
+        <p class="fragment">Lalu solusinya bagaimana?</p>
+      </section>
+
+      <section>
+        <h2>Promise Chaining (iii)</h2>
+
+        <p>
+          Mari kita coba lihat kode berikut yah <a
+            href="https://stackblitz.com/edit/mrd-js-promise-05?file=index.js"
+            target="_blank">di sini</a
+          >
+        </p>
+      </section>
+
+      <section>
+        <h2>Promise Chaining (iv)</h2>
+
+        <p class="flex flex-row gap-8 justify-center items-center fragment">
+          <Icon name="twemoji:thinking-face" class="w-12" />
+          Kok sepertinya... masih ada yang aneh yah?
+          <Icon name="twemoji:thinking-face" class="w-12" />
+        </p>
+
+        <p class="flex flex-row gap-8 justify-center items-center fragment">
+          <Icon name="twemoji:thinking-face" class="w-24" />
+          <span
+            >Promise yang di-<strong>return</strong> bisa langsung masuk ke <strong
+              >.then()</strong
+            >
+          </span>
+          <Icon name="twemoji:thinking-face" class="w-24" />
+        </p>
+
+        <p class="flex flex-row gap-8 justify-center items-center fragment">
+          <Icon name="twemoji:thinking-face" class="w-36" />
+          <span
+            >Fungsi <strong>gabungKata</strong> sudah Promise ... jadi seharusnya
+            bisa seperti ...</span
+          >
+          <Icon name="twemoji:thinking-face" class="w-36" />
+        </p>
+      </section>
+
+      <section>
+        <h2>Promise Chaining (v)</h2>
+
+        <p>
+          Mari kita coba lihat kode penyelesaiannya berikut yah <a
+            href="https://stackblitz.com/edit/mrd-js-promise-06?file=index.js"
+            target="_blank">di sini</a
+          >
+        </p>
+      </section>
+
+      <section>
+        <h2>Promise Chaining (vi)</h2>
+
+        <p class="flex flex-row gap-8 justify-center items-center fragment">
+          <Icon name="twemoji:exploding-head" class="w-12" />
+          Wah jadinya pendek !
+          <Icon name="twemoji:exploding-head" class="w-12" />
+        </p>
+
+        <ul class="text-3xl fragment">
+          <li class="mb-2">
+            Promise Chaining yang benar akan membuat kode menjadi lebih
+            sederhana daripada callback
+          </li>
+          <li class="mb-2">
+            Kode dapat lebih mudah terbaca karena alurnya se-akan-akan terjadi
+            secara berurutan, sehingga alur dari kode akan lebih mudah dibaca
+            dan dicari kesalahan kode ada dimana
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Async / Await</h2>
+
+        <blockquote>
+          Psst... ternyata ada loh yang lebih pendek lagi dari Promise, namanya
+          adalah <strong>async / await</strong>
+        </blockquote>
+
+        <ul class="text-3xl">
+          <li>Merupakan pengembangan lanjutan dari <strong>Promise</strong></li>
+          <li>Backward Compatible dengan <strong>Promise</strong></li>
+          <li>
+            (Apapun yang ditulis dengan <strong>Promise</strong> bisa dijadikan <strong
+              >async / await</strong
+            >)
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Async / Await (ii)</h2>
+
+        <p>
+          Mari kita lihat cara penulisannya dengan melihat kode <strong
+            >fs Promises</strong
+          > dan versi <strong>async / awaitnya</strong>
+          <a
+            href="https://stackblitz.com/edit/mrd-js-promise-07?file=index.js"
+            target="_blank">di sini</a
+          >
+        </p>
+      </section>
+
+      <section>
+        <h2>Async / Await (iii)</h2>
+
+        <p>
+          Setelah melihat cara penulisannya, mari kita selesaikan permasalahan <strong
+            >gabungKata</strong
+          > dengan versi <strong>async / await</strong>
+        </p>
+        <p>
+          Yuk lihat kodenya <a
+            href="https://stackblitz.com/edit/mrd-js-promise-08?file=index.js"
+            target="_blank">di sini</a
+          >
+        </p>
+      </section>
+
+      <section>
+        <h2>Async / Await (iv)</h2>
+
+        <p class="flex flex-row gap-8 justify-center items-center fragment">
+          <Icon name="twemoji:exploding-head" class="w-12" />
+          Jadi sependek itu !?
+          <Icon name="twemoji:exploding-head" class="w-12" />
+        </p>
+
+        <p class="flex flex-row gap-8 justify-center items-center fragment">
+          <Icon name="twemoji:baby-angel" class="w-24" />
+          <span
+            >Pembelajaran hari ini: Pergunakan cara <strong
+              >async / await</strong
+            > sebisa mungkin !</span
+          >
+          <Icon name="twemoji:baby-angel" class="w-24" />
+        </p>
+      </section>
+
+      <section>
+        <h2>QnA</h2>
+      </section>
+
+      <section>
+        <h2>Waktunya Tantangan</h2>
+
+        <a
+          href="https://github.com/menjadi-react-developer/challenge-promises"
+          target="_blank">Klik di sini</a
+        >
+      </section>
+
+      <section id="referensi">
+        <h2>Referensi</h2>
+
+        <ul class="text-2xl">
+          <li>https://web.dev/promises/</li>
+          <li>https://javascript.info/async-await</li>
+          <li>https://github.com/withered-flowers/education-promise</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .slides {
+    ul {
+      @apply w-full text-left;
+    }
+
+    div {
+      @apply text-3xl mb-4;
+    }
+
+    blockquote {
+      @apply w-full border-2 border-slate-700;
+    }
+
+    code {
+      @apply font-bold;
+    }
+
+    .danger {
+      @apply animate-pulse text-red-400 border-red-400;
+    }
+  }
+</style>

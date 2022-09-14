@@ -1,4 +1,419 @@
 ---
+import BaseLayout from "../../layouts/BaseLayoutWithSlides.astro";
+import { Icon } from "astro-icon";
+
+const mdCodes = await Astro.glob("./examples/*.md");
+
+const findContent = (title: string) => {
+  return mdCodes?.find((md) => md?.frontmatter?.title === title)!.Content;
+};
+
+const ExampleDomStructure = findContent("example-dom-structure");
+const ExampleDomSelector = findContent("example-dom-selector");
+
+const title = "JS - DOM";
 ---
 
-<h1>JS - DOM</h1>
+<BaseLayout title={title}>
+  <div class="p-4">
+    <div class="slides">
+      <section>
+        <div class="flex flex-row justify-center gap-6">
+          <Icon name="simple-icons:javascript" class="w-48" />
+          <Icon name="simple-icons:html5" class="w-48" />
+        </div>
+        <h1>JavaScript</h1>
+        <h1>DOM</h1>
+      </section>
+
+      <section>
+        <h2>Agenda</h2>
+        <ul>
+          <li>Intro to DOM</li>
+          <li><i>Nyemplung</i> DOM lebih Dalam</li>
+          <li>QnA</li>
+          <li>Waktunya Tantangan</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Intro to DOM</h2>
+
+        <blockquote>
+          DOM atau <strong>Document Object Model</strong> adalah cara untuk memanipulasi
+          dokumen HTML secara JavaScript di dalam Browser kita
+        </blockquote>
+      </section>
+
+      <section>
+        <h2>Intro to DOM (ii)</h2>
+
+        <ul class="sm-content">
+          <li>TL;DR Cara untuk manipulasi HTML secara JS di Browser kita</li>
+          <li>
+            DOM merepresentasikan HTML secara <i>pohon-pohon node</i> (<strong
+              >tree of nodes</strong
+            >)
+          </li>
+          <li>
+            Di dalam DOM ada fungsi untuk menambah, menghapus, dan memodifikasi
+            dokumen HTML secara efektif
+          </li>
+          <li>
+            DOM bersifat <i>cross-platform</i> dan <i>language-independent</i> dan
+            bisa digunakan untuk memodifikasi dokumen HTML dan XML
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Intro to DOM (iii)</h2>
+
+        <p class="text-3xl fragment">
+          Mari kita lihat contoh kode sebagai berikut
+        </p>
+
+        <div class="fragment">
+          <ExampleDomStructure />
+        </div>
+
+        <p class="text-3xl fragment">
+          Kira kira bagaimanakah struktur pohon node-nya?
+        </p>
+      </section>
+
+      <section>
+        <h2>Intro to DOM (iv)</h2>
+
+        <Icon name="dom" class="w-full mx-auto scale-50 -my-[20rem]" />
+      </section>
+
+      <section>
+        <h2>Intro to DOM (v)</h2>
+
+        <p class="text-3xl">Mari kita coba bedah pohon nodenya</p>
+
+        <ul class="sm-content">
+          <li class="fragment">
+            Pada pohon node yang dibuat, <strong>document</strong> adalah node teratas
+            (<strong>root node</strong>)
+          </li>
+          <li class="fragment">
+            <strong>root node</strong> memiliki sebuah anak, yaitu sebuah <strong
+              >element</strong
+            > dengan nama html (tag html), disebut dengan <i>document element</i
+            > (element teratas yang mewakili document)
+          </li>
+          <li class="fragment">
+            element <strong>html</strong> memiliki 2 anak, yaitu element <strong
+              >head</strong
+            > dan element <strong>body</strong>
+          </li>
+          <li class="fragment">
+            element <strong>head</strong> memiliki sebuah anak, yaitu sebuah element
+            dengan nama <strong>title</strong>, yang memilki <strong
+              >text</strong
+            > dengan nilai <strong>Belajar DOM</strong>
+          </li>
+          <li class="fragment">
+            element <strong>body</strong> memiliki dua buah anak, yaitu element <strong
+              >p</strong
+            > dan element <strong>a</strong>
+          </li>
+          <li class="fragment">
+            element <strong>p</strong> memiliki <strong>text</strong> dengan nilai
+            <strong>Paragraf 1</strong>
+          </li>
+          <li class="fragment">
+            element <strong>a</strong> memiliki <strong>text</strong> dengan nilai
+            <strong>Google</strong> dan memiliki <strong>attribut</strong>
+            <strong>href</strong> dengan nilai <strong
+              >https://www.google.com</strong
+            >
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2><i>Nyemplung</i> DOM lebih dalam</h2>
+
+        <p class="text-3xl text-left fragment">
+          Setelah belajar tentang pohon node-nya, mari kita belajar tentang cara
+          manipulasi node-nya !
+        </p>
+
+        <p class="text-3xl text-left fragment">
+          JavaScript menyediakan banyak fungsi yang dapat digunakan untuk DOM:
+        </p>
+
+        <ul class="sm-content">
+          <li class="fragment">Seleksi Element</li>
+          <li class="fragment">Manipulasi Element</li>
+          <li class="fragment">Main dengan Event</li>
+          <li class="fragment">
+            dan masih ada banyak lagi... namun yang kita fokuskan adalah yang di
+            atas yah !
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>DOM - Seleksi Element</h2>
+
+        <p class="text-3xl text-left fragment">
+          Ada banyak sekali fungsi yang bisa digunakan untuk seleksi element,
+          namun yang akan kita fokuskan adalah:
+        </p>
+        <ul class="sm-content">
+          <li class="fragment">
+            <code>getElementById()</code>, untuk memilih elemen berdasarkan id
+            yang di-input
+          </li>
+          <li class="fragment">
+            <code>querySelector()</code>, untuk memilih elemen berdasarkan <i
+              >selector</i
+            > CSS-nya (Hanya satu)
+          </li>
+          <li class="fragment">
+            <code>querySelectorAll()</code>, untuk memilih elemen berdasarkan <i
+              >selector</i
+            > CSS-nya (Bisa banyak, dalam bentuk <strong>array</strong>)
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>DOM - Seleksi Element (ii)</h2>
+
+        <p class="text-3xl fragment">
+          Misalkan kita punya struktur HTML sebagai berikut
+        </p>
+
+        <div class="fragment">
+          <ExampleDomSelector />
+        </div>
+
+        <p class="text-3xl fragment">
+          Mari kita lihat contoh untuk memilih element DOM, klik <a
+            href="https://stackblitz.com/edit/mrd-oop2-02?file=index.html"
+            target="_blank">di sini</a
+          >
+        </p>
+      </section>
+
+      <section>
+        <h2>DOM - Manipulasi Element</h2>
+
+        <p class="text-3xl">
+          Nah, setelah selesai belajar untuk memilih, sekarang kita bisa belajar
+          untuk memanipulasi
+        </p>
+
+        <p class="text-3xl fragment">
+          Manipulasi di sini bukan berarti kita <i
+            >memengaruhi orang lain loh yah</i
+          >
+        </p>
+        <p class="text-3xl fragment">
+          Namun lebih ke <strong>memodifikasi</strong> / <strong
+            >mengubah</strong
+          > isi (text), nilai, ataupun attribut element yang sudah / akan ada
+        </p>
+      </section>
+
+      <section>
+        <h2>DOM - Manipulasi Element (ii)</h2>
+
+        <p class="text-3xl text-left fragment">
+          Ada banyak sekali fungsi yang bisa digunakan untuk manipulasi element,
+          namun yang akan kita fokuskan adalah:
+        </p>
+        <ul class="sm-content">
+          <li class="fragment">
+            <code>createElement()</code>, untuk membuat sebuah elemen baru
+          </li>
+          <li class="fragment">
+            <code>appendChild()</code>, untuk menambahkan <i>anakan</i> ke dalam
+            suatu node yang akan dijadikan orang tua
+          </li>
+          <li class="fragment">
+            <code>append()</code>, untuk menambahkan sebuah node di akhir sebuah
+            node yang dianggap orang tua
+          </li>
+          <li class="fragment">
+            <code>innerHTML</code>, untuk mendapatkan dan meng-set konten dari
+            elemen html yang terpilih
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>DOM - Manipulasi Element (iii)</h2>
+
+        <p class="text-3xl fragment">
+          Nah, sudah cukup panas yah <i>mesinnya</i> !
+        </p>
+        <p class="text-3xl fragment">
+          Mari kita coba membuat kodenya yah, klik <a
+            href="https://stackblitz.com/edit/mrd-oop2-03?file=index.html"
+            target="_blank">di sini</a
+          >
+        </p>
+        <p class="text-3xl fragment">
+          Setelah selesai mempelajari manipulasi elemen, mari kita masuk materi
+          selanjutnya: <strong>Main dengan event</strong>
+        </p>
+      </section>
+
+      <section>
+        <h2>DOM - Main dengan Event</h2>
+
+        <p class="text-3xl text-left fragment">
+          Event, adalah sebuah aksi yang terjadi di dalam browser, yang membuat
+          aplikasi terasa lebih <strong>hidup</strong> dan <strong
+            >interaktif</strong
+          >
+        </p>
+
+        <p class="text-3xl text-left fragment">Contoh dari event</p>
+
+        <ul class="sm-content">
+          <li class="fragment">
+            Sebuah <strong>button</strong> yang bisa di-<strong>click</strong> dan
+            akan menampilkan dialog box
+          </li>
+          <li class="fragment">
+            Membaca tombol yang sedang ditekan oleh user (misalnya tombol
+            panah), kemudian memberikan respon dari tombol yang ditekan
+          </li>
+          <li class="fragment">dan lain lainnya ...</li>
+        </ul>
+
+        <div class="text-3xl fragment">
+          <div>Nah pertanyaannya adalah:</div>
+          <div class="animate-pulse text-red-400">
+            Bagaimana cara kita membuat dan menggunakannya?
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>DOM - Main dengan Event (ii)</h2>
+
+        <p class="text-3xl text-left fragment">
+          Cara untuk mendeklarasikan event ada 2:
+        </p>
+        <ul class="sm-content">
+          <li class="fragment">
+            Secara HTML - menggunakan <strong>on[namaevent]</strong> pada element,
+            contoh: <strong>onclick="namaFungsi"</strong>
+          </li>
+          <li class="fragment">
+            Secara JS - menggunakan <strong
+              >element.addEventListener(namaEvent, namaFungsi)</strong
+            >
+          </li>
+        </ul>
+
+        <p class="text-3xl fragment">Loh kok ada <i>fungsi</i> lagi?</p>
+        <p class="text-3xl fragment">
+          Ya ! karena di dalam deklarasi event, kita tidak bisa lari dari <strong
+            >fungsi</strong
+          > yang akan dibuat
+        </p>
+
+        <p class="text-3xl fragment animate-pulse text-red-400">
+          Tapi eventnya yang ada itu apa aja yah?
+        </p>
+      </section>
+
+      <section>
+        <h2>DOM - Main dengan Event (iii)</h2>
+
+        <p class="text-3xl text-left fragment">Contoh event dalam javascript</p>
+        <ul class="sm-content">
+          <li class="fragment"><code>click</code></li>
+          <li class="fragment"><code>keypress</code></li>
+        </ul>
+
+        <p class="text-3xl text-left fragment">
+          Dan masih ada event lainnya lagi (namun tidak kita bahas di sini yah
+          !)
+        </p>
+        <ul class="sm-content fragment">
+          <li><code>hover</code></li>
+          <li><code>submit</code></li>
+          <li><code>blur</code></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>DOM - Main dengan Event (iv)</h2>
+
+        <p class="text-3xl fragment">
+          Yuk tanpa bak bik buk lagi, mari kita lihat contoh kodenya, klik <a
+            href="https://stackblitz.com/edit/mrd-oop2-04?file=index.html,index2.html"
+            target="_blank">di sini</a
+          >
+        </p>
+
+        <p class="flex flex-row gap-8 justify-center items-center fragment">
+          <Icon name="twemoji:exploding-head" class="w-24" />
+          Wah kodenya panjang yah
+          <Icon name="twemoji:exploding-head" class="w-24" />
+        </p>
+
+        <p class="text-3xl fragment">
+          Memang beginilah cara untuk melakukan DOM dengan javascript yah,
+          panjang dan (cukup) menantang !
+        </p>
+      </section>
+
+      <section>
+        <h2>QnA</h2>
+      </section>
+
+      <section>
+        <h2>Waktunya Tantangan</h2>
+
+        <a
+          href="https://github.com/menjadi-react-developer/challenge-dom"
+          target="_blank">Klik di sini</a
+        >
+      </section>
+
+      <section id="referensi">
+        <h2>Referensi</h2>
+
+        <ul class="text-2xl">
+          <li>https://www.javascripttutorial.net/javascript-dom/</li>
+          <li>https://www.w3schools.com/js/js_htmldom.asp</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .slides {
+    ul {
+      @apply w-full text-left;
+    }
+
+    div {
+      @apply text-3xl mb-4;
+    }
+
+    blockquote {
+      @apply w-full border-2 border-slate-700;
+    }
+
+    .sm-content {
+      @apply text-3xl text-left;
+
+      li {
+        @apply mb-2;
+      }
+    }
+  }
+</style>

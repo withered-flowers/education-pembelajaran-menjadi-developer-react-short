@@ -16,7 +16,7 @@ const PromiseSimpleExFnDeclare = findContent(
 );
 const PromiseSimpleExFnUse = findContent("promise-fn-simple-example-usage");
 
-const title = "JS - Promise";
+const title = "JS - Promise & Async Await";
 ---
 
 <BaseLayout title={title}>
@@ -26,13 +26,13 @@ const title = "JS - Promise";
         <div class="flex flex-row justify-center gap-6">
           <Icon name="simple-icons:javascript" class="w-48" />
         </div>
-        <h1>JavaScript - Promise</h1>
+        <h1>JavaScript - Promise & Async Await</h1>
       </section>
 
       <section>
         <h2>Agenda</h2>
         <ul>
-          <li>Review Nested Callback</li>
+          <li>Recall Nested Callback</li>
           <li>Promise</li>
           <li>Async / Await</li>
           <li>QnA</li>
@@ -41,7 +41,7 @@ const title = "JS - Promise";
       </section>
 
       <section>
-        <h2>Nested Callback</h2>
+        <h2>Recall Nested Callback</h2>
 
         <p>Mari kita coba lihat kode tentang nested callback ini</p>
 
@@ -371,7 +371,7 @@ const title = "JS - Promise";
 
         <ul class="text-3xl">
           <li>Merupakan pengembangan lanjutan dari <strong>Promise</strong></li>
-          <li>Backward Compatible dengan <strong>Promise</strong></li>
+          <li><i>Backward Compatible</i> dengan <strong>Promise</strong></li>
           <li>
             (Apapun yang ditulis dengan <strong>Promise</strong> bisa dijadikan <strong
               >async / await</strong
@@ -421,9 +421,8 @@ const title = "JS - Promise";
 
         <p class="flex flex-row gap-8 justify-center items-center fragment">
           <Icon name="twemoji:baby-angel" class="w-24" />
-          <span
-            >Pembelajaran hari ini: Pergunakan cara <strong
-              >async / await</strong
+          <span>
+            Pembelajaran hari ini: Pergunakan cara <strong>async / await</strong
             > sebisa mungkin !</span
           >
           <Icon name="twemoji:baby-angel" class="w-24" />
@@ -458,6 +457,10 @@ const title = "JS - Promise";
 
 <style>
   .slides {
+    i {
+      @apply italic;
+    }
+
     ul {
       @apply w-full text-left;
     }

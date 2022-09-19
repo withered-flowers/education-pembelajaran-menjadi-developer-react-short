@@ -1,0 +1,48 @@
+---
+import CustomHeader from "../components/CustomHeader.astro";
+import CustomFooter from "../components/CustomFooter.astro";
+
+import "../styles/tailwind.css";
+
+const { title } = Astro.props;
+---
+
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css"
+      integrity="sha512-ITH3NSfntO7uI5n+BnxGNXpzDUoOsmAXuG37UDONLxNYIdc0EBBOOQ1xyc+t9ag9ETSuBXFApx+Rod0uURfDYw=="
+      crossorigin="anonymous"
+      referrerPolicy="no-referrer"
+    />
+
+    <link href="/assets/react-intro/slides.css" rel="stylesheet" />
+    <link href="/assets/react-intro/custom-slides.css" rel="sylesheet" />
+
+    <title>{title}</title>
+  </head>
+  <body>
+    <div
+      class="bg-slate-100 min-w-full h-[100vmin] flex flex-col justify-between"
+    >
+      <!-- div header -->
+      <CustomHeader />
+
+      <!-- slot content -->
+      <div class="reveal deck1 min-w-full">
+        <slot />
+      </div>
+      <!-- <div class="bg-slate-200 flex flex-row justify-between h-full">Konten</div> -->
+
+      <!-- div footer -->
+      <CustomFooter />
+    </div>
+
+    <script type="module" src="/assets/react-intro/slides.js"></script>
+  </body>
+</html>

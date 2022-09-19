@@ -1,4 +1,856 @@
 ---
+import BaseLayout from "../../layouts/BaseLayoutWithSlidesReact.astro";
+import { Icon } from "astro-icon";
+
+// custom component for demo
+import CardComboComponent from "../../components/react-intro/CardComboComponent.astro";
+import ImageComponent from "../../components/react-intro/ImageComponent.astro";
+import TextComponent from "../../components/react-intro/TextComponent.astro";
+import ButtonComponent from "../../components/react-intro/ButtonComponent.astro";
+
+const mdCodes = await Astro.glob("./examples/*.md");
+
+const findContent = (title: string) => {
+  return mdCodes?.find((md) => md?.frontmatter?.title === title)!.Content;
+};
+
+const TableImperativeVsDeclarative = findContent(
+  "table-imperative-vs-declarative"
+);
+const ExampleCodeImperative = findContent("example-code-imperative");
+const ExampleCodeDeclarative = findContent("example-code-declarative");
+const InitializeReact = findContent("initialize-react");
+const FolderStructureReact = findContent("folder-structure-react");
+const RunReact = findContent("run-react");
+const ExampleListDOM = findContent("example-list-dom");
+const ExampleListReact = findContent("example-list-react");
+const ExampleJSX = findContent("example-jsx");
+const ExampleTranspileJSXBefore = findContent("example-transpile-jsx-before");
+const ExampleTranspileJSXAfter = findContent("example-transpile-jsx-after");
+const ExampleAttributeToProps = findContent("example-attribute-to-props");
+const ExampleBeforeAfterProps = findContent("example-before-after-props");
+const ExamplePropsFunctional01 = findContent("example-props-functional-01");
+const ExamplePropsFunctional02 = findContent("example-props-functional-02");
+const ExamplePropsFunctional03 = findContent("example-props-functional-03");
+const ExamplePropsClass01 = findContent("example-props-class-01");
+const ExamplePropsClass02 = findContent("example-props-class-02");
+
+const title = "Pengenalan React";
 ---
 
-<h1>React JS - Pengenalan</h1>
+<BaseLayout title={title}>
+  <div class="p-4">
+    <div class="slides">
+      <section class="center">
+        <div class="flex flex-row justify-center gap-6">
+          <Icon
+            name="simple-icons:react"
+            class="w-48 animate-spin-slow duration-1000"
+          />
+        </div>
+        <h1>Pengenalan React</h1>
+      </section>
+
+      <section class="center">
+        <div class="flex flex-row justify-center w-full">
+          <img
+            src="/assets/react-intro/meme.jpeg"
+            alt="meme-react"
+            class="mx-auto w-full"
+          />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>WARNING</h2>
+
+        <p class="text-3xl text-left">Sebelum materi ini dimulai, pastikan:</p>
+        <ul class="sm-content">
+          <li>Visual Studio Code sudah terpasang</li>
+          <li>NodeJS sudah terpasang</li>
+          <li>(Optional), Install React Developer Tools Extension</li>
+          <ul>
+            <li>
+              Untuk Firefox, bisa klik
+              <a
+                href="https://addons.mozilla.org/en-US/firefox/addon/react-devtools/"
+                target="_blank">di sini</a
+              >
+            </li>
+            <li>
+              Untuk Chrome, bisa klik
+              <a
+                href="https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en"
+                target="_blank">di sini</a
+              >
+            </li>
+          </ul>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Agenda</h2>
+
+        <p class="text-3xl text-left">Apa saja yang akan dibahas?</p>
+        <ul class="sm-content">
+          <li>Apa itu React</li>
+          <li>Inisialisasi React</li>
+          <li>DOM vs React</li>
+          <li>Core Concept React</li>
+          <li>QnA</li>
+          <li>Waktunya Tantangan</li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Apa itu React</h2>
+
+        <p class="text-3xl text-left fragment">
+          Sebelum kita masuk ke React...
+        </p>
+        <p class="text-3xl text-left fragment">
+          Ada baiknya kita mengetahui hal ini terlebih dahulu...
+        </p>
+        <p class="text-3xl text-left fragment">
+          Apakah itu Pemrograman secara <strong>Imperatif</strong> vs
+          <strong>Deklaratif</strong>
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Imperatif vs Deklaratif</h2>
+
+        <div class="text-3xl fragment">
+          <TableImperativeVsDeclarative />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>Imperatif vs Deklaratif (ii)</h2>
+
+        <p class="sm-content fragment">
+          Mari kita analogikan: <strong>Pesan Pizza</strong>
+        </p>
+        <p class="sm-content fragment"><strong>Imperatif</strong></p>
+        <ol class="sm-content w-full fragment">
+          <li>Telepon Koki Pizza</li>
+          <li>Memberikan urutan membuat Pizza ke Kokinya secara Detail</li>
+          <li>Meminta Koki untuk membungkus Pizza dan memberikan ke Teller</li>
+          <li>
+            Meminta Teller untuk memberikan ke delivery dan mengarahkan delivery
+            sampai dengan tujuan
+          </li>
+          <li>Menerima Pizza dan bayar</li>
+        </ol>
+        <p class="sm-content fragment"><strong>Deklaratif</strong></p>
+        <ol class="sm-content w-full fragment">
+          <li>Telpon Penjual Pizza, kasih Alamat</li>
+          <li>Duduk manis, menunggu, pizza tiba tiba sampai, bayar</li>
+        </ol>
+        <p class="fragment animate-pulse text-red-400">Pilih yang mana?</p>
+      </section>
+
+      <section class="center">
+        <h2>Imperatif vs Deklaratif (iii)</h2>
+
+        <p class="fragment text-3xl text-left">
+          Mari kita melihat secara kodingan
+        </p>
+
+        <div class="fragment flex flex-row gap-2">
+          <div class="text-3xl basis-4/6">
+            <ExampleCodeImperative />
+          </div>
+
+          <div class="text-3xl self-center place-self-center text-center grow">
+            <strong>Imperatif</strong>
+            <p class="text-3xl">Instruksi secara langkah per langkah</p>
+          </div>
+        </div>
+
+        <div class="fragment flex flex-row gap-2">
+          <div class="text-3xl basis-4/6">
+            <ExampleCodeDeclarative />
+          </div>
+
+          <div class="text-3xl self-center place-self-center text-center grow">
+            <strong>Deklaratif</strong>
+            <p class="text-3xl"><i>Ngasih tau</i> saja inginnya apa</p>
+          </div>
+        </div>
+
+        <p class="fragment animate-pulse text-red-400">Pilih yang mana?</p>
+      </section>
+
+      <section class="center">
+        <h2>Jadi React itu adalah...</h2>
+
+        <ul class="sm-content">
+          <li>
+            Sebuah <strong>Pustaka (Library)</strong> UI yang Deklaratif (ingat yah,
+            <strong>BUKAN</strong>
+            <i>Framework</i>)
+          </li>
+          <li>
+            Kita bisa memberitahukan apa yang kita inginkan dari sisi UI ke
+            React, dan React akan <i>mikirin harus gimana</i> untuk meng-update DOM-nya
+          </li>
+        </ul>
+
+        <div class="fragment mx-auto my-12 p-2 bg-slate-700 w-[70%]">
+          <div class="flex flex-row gap-4 items-center justify-center w-full">
+            <Icon name="simple-icons:react" class="w-12 text-[#61DBFB]" />
+            <p class="text-[#61DBFB] text-5xl">React</p>
+            <Icon name="simple-icons:react" class="w-12 text-[#61DBFB]" />
+          </div>
+          <p class="text-slate-300">
+            Sebuah Pustaka JavaScript untuk membangun tampilan antar-muka
+          </p>
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>Sejarah React</h2>
+
+        <div class="flex flex-col items-center w-full">
+          <img
+            src="/assets/react-intro/react-history.png"
+            class="w-[75%]"
+            alt="Sejarah React"
+          />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>React Sangat Populer</h2>
+
+        <p class="text-3xl">Perusahaan pengguna React</p>
+
+        <div class="grid grid-cols-5 items-center w-full pt-8 py-4 gap-8">
+          <div class="flex flex-col items-center">
+            <Icon name="logos:airbnb" class="w-24" />
+            <p class="text-3xl">AirBNB</p>
+          </div>
+          <div class="flex flex-col items-center">
+            <Icon name="logos:netflix-icon" class="w-24" />
+            <p class="text-3xl">Netflix</p>
+          </div>
+          <div class="flex flex-col items-center">
+            <Icon name="logos:whatsapp" class="w-24" />
+            <p class="text-3xl">Whatsapp</p>
+          </div>
+          <div class="flex flex-col items-center">
+            <Icon name="mdi:instagram" class="w-24" />
+            <p class="text-3xl">Instagram</p>
+          </div>
+          <div class="flex flex-col items-center">
+            <Icon name="logos:khan-academy-icon" class="w-24" />
+            <p class="text-3xl">Khan Academy</p>
+          </div>
+          <div class="flex flex-col items-center">
+            <Icon name="logos:paypal" class="w-24" />
+            <p class="text-3xl">Paypal</p>
+          </div>
+          <div class="flex flex-col items-center">
+            <Icon name="cib:uber" class="w-24" />
+            <p class="text-3xl">Uber</p>
+          </div>
+          <div class="flex flex-col items-center">
+            <Icon name="logos:slack-icon" class="w-24" />
+            <p class="text-3xl">Slack</p>
+          </div>
+          <div class="flex flex-col items-center">
+            <Icon name="simple-icons:microsoft" class="w-24" />
+            <p class="text-3xl">Microsoft</p>
+          </div>
+          <div class="flex flex-col items-center">
+            <Icon name="logos:facebook" class="w-24" />
+            <p class="text-3xl">Facebook</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>Inisialisasi React</h2>
+
+        <p class="sm-content">Tanpa ba bi bu lagi ...</p>
+        <p class="sm-content">Mari buat project React !</p>
+        <p class="sm-content">
+          Dengan menggunakan <strong>create-react-app</strong> atau
+          <strong>CRA</strong>
+        </p>
+
+        <InitializeReact />
+
+        <p class="text-3xl pt-8 animate-pulse text-red-400">WARNING:</p>
+        <p class="text-3xl animate-pulse text-red-400">
+          Perintah di atas memerlukan waktu yang cukup lama, dan kuota yang
+          cukup besar yah !
+        </p>
+        <p class="text-3xl animate-pulse text-red-400">
+          Per Mei 2022, satu project React dengan CRA adalah sekitar 300MB ++
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Struktur Folder React Project</h2>
+
+        <p class="sm-content">
+          Pada saat CRA dibuat, kira kira struktur foldernya adalah sebagai
+          berikut:
+        </p>
+        <div class="text-3xl">
+          <FolderStructureReact />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>Struktur Folder React Project (ii)</h2>
+
+        <p class="text-3xl text-left"><strong>node_modules</strong></p>
+
+        <img
+          class="mx-auto w-96 fragment"
+          src="https://i.imgflip.com/4iuwew.jpg"
+        />
+        <ul class="sm-content fragment">
+          <li>Merupakan barang paling berat satu semesta</li>
+          <li>
+            Tempat menaruh dependency (package) eksternal dari project kita
+          </li>
+          <li>
+            Ketika kita mengetik <strong>npm install</strong> maka package tersebut
+            akan didownload dan diletakkan di sini
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Struktur Folder React Project (iii)</h2>
+
+        <p class="text-3xl text-left"><strong>public</strong></p>
+        <ul class="sm-content fragment">
+          <li>
+            Tempat menaruh file yang statik (index.html, pustaka javascript,
+            gambar, dan aset lainnya)
+          </li>
+          <li>
+            File yang diletakkan pada folder ini
+            <strong>TIDAK AKAN</strong> diproses oleh Webpack
+          </li>
+          <li>
+            (Webpack merupakan tools <strong>bundler</strong> dari project berbasis
+            CRA)
+          </li>
+          <li>
+            (bundler adalah tools untuk membuat kode kita menjadi lebih
+            terstruktur dan kecil ketika dijalankan di production)
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Struktur Folder React Project (iv)</h2>
+
+        <p class="text-3xl text-left"><strong>src</strong></p>
+        <ul class="sm-content fragment">
+          <li>Tempat menaruh file yang akan diproses oleh webpack</li>
+          <li>
+            mis: <strong>App.jsx</strong> / <strong>App.js</strong> yang memiliki
+            file JSX harus diproses oleh webpack supaya bisa menjadi JavaScript biasa
+            (istilahnya di-<i>Transpile</i>)
+          </li>
+          <li>
+            <strong>App.js</strong> merupakan file komponen utama, dan
+            <strong>index.js</strong> merupakan "gerbang utama" (<i
+              >entry point</i
+            >) untuk menjembatani html dengan aplikasi React yang dibuat
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Struktur Folder React Project (v)</h2>
+
+        <p class="text-3xl text-left">
+          <strong>package.json & package_lock.json</strong>
+        </p>
+        <ul class="sm-content fragment">
+          <li>
+            Berisi listing dari package / dependency yang dipasang pada
+            <strong>node_modules</strong>
+          </li>
+          <li>
+            Selain listing, berisi juga metadata dari project yang sedang dibuat
+          </li>
+          <li>
+            package_lock.json berisi "kunci" untuk memastikan package yang akan
+            didownload nantinya adalah sama dengan yang diinginkan
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Yuk jalanin Aplikasi Reactnya</h2>
+
+        <p class="text-3xl text-left">Cara menjalankannya adalah dengan</p>
+        <RunReact />
+
+        <div class="flex flex-col items-center justify-center gap-2 fragment">
+          <img
+            src="/assets/react-intro/start-react-ss.png"
+            class="w-1/3"
+            alt="Gambar React Berjalan"
+            class="fragment"
+          />
+          <p class="text-3xl animate-pulse">
+            Yes aplikasi React-nya berjalan !!!
+          </p>
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>DOM vs React</h2>
+
+        <p class="sm-content fragment">
+          Padahal kan dengan DOM bisa bisa saja.
+        </p>
+        <p class="sm-content fragment">Kenapa React bisa selaku itu sih?</p>
+        <p class="sm-content fragment">
+          Mari kita coba lihat dari kode yang dibuat dengan DOM vs dibuat dengan
+          React
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>DOM vs React (ii)</h2>
+
+        <div class="flex flex-row gap-2">
+          <div class="fragment w-1/2">
+            <ExampleListDOM />
+          </div>
+          <div class="fragment w-1/2">
+            <ExampleListReact />
+          </div>
+        </div>
+
+        <p class="text-3xl animate-pulse text-red-400 fragment">
+          Pilih yang mana?
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Core Concept React</h2>
+
+        <p class="text-3xl text-left">Konsep Utama dalam React:</p>
+        <ul class="sm-content">
+          <li>JSX</li>
+          <li>Komponen</li>
+          <li>Props</li>
+          <li>Render Kondisional (Conditional Rendering)</li>
+          <li>State (Sneak Peek)</li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>JSX</h2>
+
+        <p class="sm-content fragment">
+          Umumnya pada HTML standar ataupun Pustaka / Framework lainnya, kita
+          menuliskan "JS" di dalam HTML
+        </p>
+        <ul class="sm-content">
+          <li class="fragment">
+            <div class="flex flex-row gap-4 items-center">
+              <Icon name="logos:angular-icon" class="w-12" />
+              <p>=&gt;</p>
+              <code class="text-3xl"
+                >&lt;div *ngFor="let user of users"&gt;</code
+              >
+            </div>
+          </li>
+          <li class="fragment">
+            <div class="flex flex-row gap-4 items-center">
+              <Icon name="logos:vue" class="w-12" />
+              <p>=&gt;</p>
+              <code class="text-3xl">&lt;div v-for="user in users"&gt;</code>
+            </div>
+          </li>
+          <li class="fragment">
+            <div class="flex flex-row gap-4 items-center">
+              <Icon name="logos:ember-tomster" class="w-12" />
+              <p>=&gt;</p>
+              <code>&lcub;&lcub;#each user in users&rcub;&rcub;</code>
+            </div>
+          </li>
+        </ul>
+
+        <p class="sm-content fragment">
+          Namun pada JSX, kita akan menuliskan HTML di dalam "JS" !
+        </p>
+        <ul class="sm-content">
+          <li class="fragment">
+            <div class="flex flex-row gap-4 items-center">
+              <Icon name="logos:react" class="w-12" />
+              <p>=&gt;</p>
+              <code class="text-3xl">&lcub;users.map(createUser)&rcub;</code>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>JSX (ii)</h2>
+
+        <ul class="sm-content">
+          <li>
+            JSX (JavaSCript XML) membolehkan kita untuk menuliskan kode yang
+            mirip XML untuk kepentingan simplisitas dan elegan, kemudian akan
+            dikonversi (<i>transpile</i>) menjadi fungsi JS
+          </li>
+          <li>Terlihat seperti gabungan dari JavaScript dan HTML</li>
+        </ul>
+
+        <ExampleJSX />
+
+        <p class="animate-pulse text-red-400 text-3xl">
+          Catatan: Dalam JSX, penulisan JavaScript ada di dalam kurung kurawal
+          &lcub; ... &rcub;
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>JSX (iii)</h2>
+
+        <p class="sm-content">
+          Perlu diingat juga bahwa JSX itu TIDAK SAMA dengan HTML
+        </p>
+
+        <div class="flex flex-row gap-4 justify-center items-center">
+          <div><ExampleTranspileJSXBefore /></div>
+          <div>
+            <div>=&gt;</div>
+            <div class="text-2xl">(JS'ed)</div>
+          </div>
+          <div><ExampleTranspileJSXAfter /></div>
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>Komponen</h2>
+
+        <ul class="sm-content">
+          <li>
+            Anggap saja Komponen itu adalah seperti <strong>blok LEGO</strong>,
+            yang bisa digabungkan untuk membuat suatu struktur bangunan
+          </li>
+          <li>
+            Modularitas seperti ini memperbolehkan kita untuk menambahkan,
+            mengganti, ataupun menghancurkan komponen tanpa perlu menyentuh
+            aplikasi / komponen lainnya
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Komponen (ii)</h2>
+
+        <div class="mt-8">
+          <CardComboComponent />
+          <p class="text-2xl">Card Component</p>
+        </div>
+
+        <div class="flex flex-row gap-16 justify-center items-center">
+          <div class="flex flex-col items-center">
+            <ImageComponent />
+            <p class="text-2xl">Image Component</p>
+          </div>
+          <div class="flex flex-col items-center h-24">
+            <TextComponent />
+            <p class="text-2xl">Text Component</p>
+          </div>
+          <div class="flex flex-col items-center h-24">
+            <ButtonComponent />
+            <p class="text-2xl">Button Component</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>Komponen (iii)</h2>
+
+        <ul class="sm-content">
+          <li>Komponen itu mirip dengan Fungsi</li>
+          <ul class="sm-content">
+            <li>
+              Input, berupa <strong>props</strong> dan <strong>state</strong>
+            </li>
+            <li>Output, berupa <strong>UI</strong> yang dideklarasikan</li>
+          </ul>
+          <li>
+            Komponen itu <strong>SANGAT MANTAP</strong> karena unsur
+            <strong>dapat digunakan kembali</strong>
+            <i>reusability</i>
+          </li>
+          <li>
+            Sekali komponen sudah didefinisikan, bisa dipakai berkali-kali di
+            mana saja, hanya butuh supply data ke dalam komponen
+          </li>
+          <li>Cara penulisan komponen</li>
+          <ul class="sm-content">
+            <li>
+              Class Component (lebih powerful, namun lebih susah penggunaannya)
+            </li>
+            <li>
+              Functional Component (<strong>SANGAT DIREKOMENDASIKAN</strong>
+              karena jauh lebih mudah)
+            </li>
+          </ul>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Komponen - Demo</h2>
+
+        <p class="sm-content">
+          Pada demo ini kita akan membuat folder <strong>components</strong> di dalam
+          folder <strong>src</strong>, kemudian kita akan membuat 2 buah file
+          dengan nama <strong>ButtonClass</strong> dan
+          <strong>ButtonFunctional</strong>
+        </p>
+
+        <p class="sm-content">
+          Demo dapat dilihat
+          <a
+            href="https://stackblitz.com/edit/mrd-pengenalan-react-03?file=src%2FApp.js"
+            target="_blank">di sini</a
+          >
+        </p>
+
+        <p class="text-3xl animate-pulse text-red-400">
+          Walaupun demo ini diberikan, SANGAT DISARANKAN untuk mencoba
+          mengetiknya sendiri di dalam VSCode, karena tulisan tangan sendiri
+          akan jauh lebih teringat oleh memori tangan kita (muscle memory never
+          lies) dan bisa menambah jam terbang kita terhadap React !
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Komponen - Demo (Hasil Akhir)</h2>
+
+        <p class="sm-content">
+          Hasil akhir dari demonya adalah sebagai berikut:
+        </p>
+
+        <div class="sm-content">
+          <a href="/react-intro/demos/components" target="_blank"
+            >Klik di sini</a
+          >
+        </div>
+
+        <p class="text-3xl animate-pulse text-red-400">
+          Hasil output bisa berbeda apabila diketik secara manual
+        </p>
+        <p class="text-3xl animate-pulse text-red-400">
+          dikarenakan adanya CSS yang telah disuntik ke dalam component
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Props</h2>
+
+        <p class="sm-content">Masih ingat HTML kan?</p>
+        <p class="sm-content fragment">
+          Atribut pada HTML bisa diartikan sebagai
+          <strong>Data yang bisa mengubah suatu keadaan dari element</strong>
+        </p>
+        <div class="fragment">
+          <ExampleAttributeToProps />
+        </div>
+
+        <p class="sm-content fragment">
+          Nah dengan cara yang mirip seperti ini juga, kita bisa men-transfer
+          data sebagai property ke dalam sebuah Komponen React
+        </p>
+
+        <p class="sm-content fragment">
+          Hal ini disebut dengan <strong>props</strong>
+        </p>
+
+        <p class="text-3xl fragment">
+          Mari kita coba modifikasi kode sebelumnya dengan
+          <strong>props</strong>
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Props (ii)</h2>
+
+        <p class="sm-content">Cara deklarasi Props</p>
+        <div>
+          <ExampleBeforeAfterProps />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>Props (iii)</h2>
+
+        <p class="sm-content">Cara menggunakan props (Functional)</p>
+
+        <div class="r-stack">
+          <div class="fragment fade-in-then-out">
+            <ExamplePropsFunctional01 />
+          </div>
+          <div class="fragment fade-in-then-out">
+            <ExamplePropsFunctional02 />
+          </div>
+          <div class="fragment">
+            <ExamplePropsFunctional03 />
+          </div>
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>Props (iv)</h2>
+
+        <p class="sm-content">Cara menggunakan props (Class)</p>
+
+        <div class="r-stack">
+          <div class="fragment fade-in-then-out">
+            <ExamplePropsClass01 />
+          </div>
+          <div class="fragment">
+            <ExamplePropsClass02 />
+          </div>
+        </div>
+
+        <p class="text-3xl fragment">
+          Contoh kode props Class dan Functional dapat dilihat
+          <a
+            href="https://stackblitz.com/edit/mrd-pengenalan-react-04?file=src%2FApp.js"
+            target="_blank">di sini</a
+          >
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Extra: Conditional Rendering</h2>
+
+        <p class="sm-content">
+          Bagaimana bila sekarang kita ingin menggunakan props, tapi ingin
+          memiliki "default value" (nilai default bila props tidak digunakan)?
+        </p>
+
+        <p class="sm-content">
+          Salah satu solusinya adalah dengan menggunakan conditional rendering
+          ini.
+        </p>
+
+        <p class="sm-content">
+          Kunci utamanya adalah dengan menggunakan <strong
+            >ternary operator</strong
+          >
+        </p>
+
+        <p class="text-3xl">
+          <code>kondisi ? exprJikaBenar : exprJikaSalah</code>
+        </p>
+
+        <p class="text-3xl fragment">
+          Contoh kode conditional rendering dapat dilihat
+          <a
+            href="https://stackblitz.com/edit/mrd-pengenalan-react-05?file=src%2FApp.js"
+            target="_blank">di sini</a
+          >
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>State (Sneak Peek)</h2>
+
+        <div class="flex flex-row items-center justify-center w-full">
+          <img src="/assets/react-intro/state.png" alt="State" />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>To be Continue...</h2>
+
+        <p class="sm-content fragment">
+          Kepala sudah panas dan overheat bukan?
+        </p>
+
+        <p class="sm-content fragment">
+          Sebenarnya masih ada beberapa hal utama dari React yang belum kita
+          pelajari loh...
+        </p>
+
+        <p class="sm-content fragment">
+          Kita simpan untuk pertemuan selanjutnya yah !
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>QnA</h2>
+      </section>
+
+      <section class="center">
+        <h2>Waktunya Tantangan</h2>
+
+        <a
+          href="https://github.com/menjadi-react-developer/challenge-react-intro"
+          target="_blank">Klik di sini</a
+        >
+      </section>
+
+      <section id="referensi" class="center">
+        <h2>Referensi</h2>
+
+        <ul class="text-2xl">
+          <li>
+            https://2muchcoffee.com/blog/best-examples-of-websites-built-with-react/
+          </li>
+          <li>
+            https://www.freecodecamp.org/news/html-vs-jsx-whats-the-difference/
+          </li>
+          <li>
+            https://www.techdiagonal.com/reactjs_courses/beginner/reactjs-component-state/
+          </li>
+          <li>https://beta.reactjs.org/</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .slides {
+    .center {
+      @apply mx-auto w-full flex flex-row justify-center;
+    }
+
+    .left {
+      @apply mx-auto w-full top-16;
+    }
+
+    ul {
+      @apply w-full text-left;
+    }
+
+    div {
+      @apply text-3xl;
+    }
+
+    blockquote {
+      @apply w-full border-2 border-slate-700;
+    }
+
+    .sm-content {
+      @apply text-3xl text-left;
+
+      li {
+        @apply mb-2;
+      }
+    }
+  }
+</style>

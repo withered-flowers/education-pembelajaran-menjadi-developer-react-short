@@ -1,4 +1,942 @@
 ---
+import BaseLayout from "../../layouts/BaseLayoutWithSlidesLottieReact.astro";
+import { Icon } from "astro-icon";
+
+const mdCodes = await Astro.glob("./examples/*.md");
+
+const findContent = (title: string) => {
+  return mdCodes?.find((md) => md?.frontmatter?.title === title)!.Content;
+};
+
+const ReactIntroOldClassComponent = findContent(
+  "react-intro-old-class-component"
+);
+const ReactIntroNewFunctionComponent = findContent(
+  "react-intro-new-function-component"
+);
+const ReactHooksUseStateDeclare = findContent("react-hooks-use-state-declare");
+const ReactHooksUseEffectExplain01 = findContent(
+  "react-hooks-use-effect-explain-01"
+);
+const ReactHooksUseEffectExplain02 = findContent(
+  "react-hooks-use-effect-explain-02"
+);
+const ReactHooksUseEffectRealLifeCase = findContent(
+  "react-hooks-use-effect-real-life-case"
+);
+const ReactHooksUseContextCase01 = findContent(
+  "react-hooks-use-context-case-01"
+);
+const ReactHooksUseContextCase02 = findContent(
+  "react-hooks-use-context-case-02"
+);
+const ReactHooksUseContextCase03 = findContent(
+  "react-hooks-use-context-case-03"
+);
+const ReactHooksUseContextHowTo01 = findContent(
+  "react-hooks-use-context-how-to-01"
+);
+const ReactHooksUseContextHowTo02 = findContent(
+  "react-hooks-use-context-how-to-02"
+);
+const ReactHooksUseContextHowTo03 = findContent(
+  "react-hooks-use-context-how-to-03"
+);
+const ReactHooksUseContextHowTo04 = findContent(
+  "react-hooks-use-context-how-to-04"
+);
+const ReactHooksUseContextHowTo05 = findContent(
+  "react-hooks-use-context-how-to-05"
+);
+const ReactHooksUseContextHowTo06 = findContent(
+  "react-hooks-use-context-how-to-06"
+);
+const ReactHooksUseReducerHowTo01 = findContent(
+  "react-hooks-use-reducer-how-to-01"
+);
+const ReactHooksUseReducerHowTo02 = findContent(
+  "react-hooks-use-reducer-how-to-02"
+);
+
+const title = "React - Hooks";
 ---
 
-<h1>React JS - Hooks</h1>
+<BaseLayout title={title}>
+  <div class="p-4">
+    <div class="slides">
+      <section class="center">
+        <div class="flex flex-row justify-center gap-6">
+          <Icon
+            name="simple-icons:react"
+            class="w-48 animate-spin-slow duration-1000"
+          />
+        </div>
+        <h1>React - Hooks</h1>
+      </section>
+
+      <section class="center">
+        <h2>Agenda</h2>
+
+        <p class="text-3xl text-left">Apa saja yang akan dibahas?</p>
+        <ul class="sm-content">
+          <li>Apa itu Hooks</li>
+          <li>Basic Hooks</li>
+          <li>Advanced Hooks</li>
+          <li>QnA</li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Apa itu Hooks</h2>
+
+        <p class="text-red-400 animate-pulse">JASMERAH</p>
+
+        <p class="sm-content fragment">
+          Dulu, React itu dedefinisikan dalam <strong>class</strong>, namun
+          sejak React 16.8, React itu menggunakan <strong>function</strong>
+        </p>
+
+        <blockquote class="fragment">
+          Hooks adalah <strong>fungsi</strong> yang disediakan oleh React yang membuat
+          functional component dalam React bisa mengakses fitur fitur React (Sebelumnya
+          hanya dapat digunakan di class component saja).
+        </blockquote>
+      </section>
+
+      <section class="center">
+        <h2>Apa itu Hooks (ii)</h2>
+
+        <div class="r-stack">
+          <div class="fragment fade-out" data-fragment-index="0">
+            <p class="sm-content">The class ways</p>
+            <ReactIntroOldClassComponent />
+          </div>
+          <div class="fragment fade-in" data-fragment-index="0">
+            <p class="sm-content">The function ways</p>
+            <ReactIntroNewFunctionComponent />
+          </div>
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>Apa itu Hooks (iii)</h2>
+
+        <ul class="sm-content">
+          <li>
+            <strong>useState</strong>, serta fungsi lain yang diawali dengan <strong
+              >use</strong
+            >, merupakan suatu <strong>Hook</strong>
+          </li>
+          <li>Memperbolehkan kita untuk menggunakan fungsi inti dari React</li>
+          <li>
+            <strong>State</strong> adalah salah satu yang bisa digunakan, tapi akan
+            ada yang lain selain <strong>State</strong> yang bisa digunakan
+          </li>
+          <li>
+            <strong>Hook</strong> harus didefinisikan dengan cara <strong
+              >import</strong
+            >
+          </li>
+          <li>
+            Sama sekali tidak perlu menggunakan <strong>class</strong> !
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Cara Penggunaan Hooks</h2>
+
+        <ul class="sm-content">
+          <li>
+            <strong>Hooks</strong> hanya bisa didefinisikan di atas atas Komponen
+            atau di dalam Hooks
+          </li>
+          <li>
+            <strong>Hooks</strong> tidak bisa dipanggil di dalam kondisional, iterasi,
+            ataupun nested function
+          </li>
+          <li>
+            <strong>Hooks</strong> hanya bisa dipanggil dari Fungsi React
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Hooks Dasar</h2>
+
+        <ul class="sm-content">
+          <li>useState</li>
+          <li>useEffect</li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>useState</h2>
+
+        <ul class="sm-content">
+          <li>
+            Hook yang memperbolehkan kita mengakses <strong>state</strong> dari komponen
+          </li>
+          <li>
+            Anggap saja <strong>state</strong> adalah suatu data "keadaan" dari sebuah
+            komponen sekarang ini
+          </li>
+          <li>
+            Misal pada Applikasi Todos yang memiliki component TodosForm, maka
+            kita memiliki "keadaan" (state) sebuah input untuk memanipulasi
+            input yang ada pada TodosForm dengan nama <strong>todo</strong>
+          </li>
+          <li>
+            Merupakan suatu ide yang bagus apabila memiliki BANYAK variabel
+            state apabila state tersebut tidak berhubungan
+          </li>
+          <li>
+            Namun, apabila berhubungan (sering ganti state <i>barengan</i>),
+            maka
+            <strong>ada baiknya</strong> digabungkan menjadi suatu Object / Array
+          </li>
+          <li>
+            State ini sifatnya <strong>private</strong> terhadap suatu komponennya.
+            Apabila kita membuat 2 komponen di tempat yang berbeda, maka tiap komponen
+            tersebut akan memiliki statenya masing masing (tidak sharing state)
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>useState - Declare & Use</h2>
+
+        <div>
+          <ReactHooksUseStateDeclare />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>useState - Demo</h2>
+
+        <p class="sm-content">
+          Mari kita coba untuk melihat kode yang sudah dibuat kemarin yah !
+        </p>
+
+        <p class="sm-content">Kode tersebut dapat dilihat dengan</p>
+
+        <a
+          href="https://stackblitz.com/edit/mrd-react-hooks-01a?file=src%2Fcontainers%2FToDo.jsx"
+          target="_blank"
+        >
+          Klik di sini
+        </a>
+      </section>
+
+      <section class="center">
+        <h2>useEffect</h2>
+
+        <ul class="sm-content">
+          <li>
+            Hooks Effect ini memperbolehkan kita untuk menggunakan <strong
+              >side effect</strong
+            >
+            di dalam function component
+          </li>
+          <li>
+            <strong>Side effect</strong> yang dimaksudkan adalah seperti <i
+              >nyomot</i
+            > data, mendengarkan subscription, dan mengganti DOM secara manual di
+            dalam function component
+          </li>
+          <li>
+            Secara default, <strong>useEffect</strong> ini akan berjalan <strong
+              >ketika pertama kali komponen dirender</strong
+            > dan <strong>setiap kali state yang dipilih terupdate</strong>
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>useEffect - Demo</h2>
+
+        <p class="sm-content">
+          Mari kita coba dari sisi penggunaan <strong>useEffect</strong> untuk mengganti
+          DOM secara manual
+        </p>
+
+        <p class="sm-content">
+          Mari kita ubah file containers <strong>ToDo.jsx</strong>
+        </p>
+
+        <div>
+          <ReactHooksUseEffectExplain01 />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>useEffect - Deep Dive</h2>
+
+        <div class="sm-content">
+          <ReactHooksUseEffectExplain02 />
+        </div>
+
+        <ul class="sm-content">
+          <li>Function</li>
+          <ul>
+            <li>
+              Fungsi yang memiliki kode imperatif, yang mungkin ada efek samping
+              (mengubah sesuatu), mis, mengubah DOM, atau mendengarkan event -
+              resize window dan melihat ukuran window, dll
+            </li>
+            <li>
+              Pada Fungsi di atas, kita meminta React untuk mengganti title dari
+              page (Memanipulasi DOM) dan menuliskan console log saja
+            </li>
+          </ul>
+          <li>Dependency List</li>
+          <ul>
+            <li>
+              Defaultnya, useEffect akan berjalan setiap render terjadi (tiap
+              ada perubahan terhadap state APAPUN).
+            </li>
+            <li>
+              Pada Dependency List di atas, kita meminta React untuk memanggil
+              fungsi dalam useEffect HANYA ketika state
+              <strong>todos</strong> berubah.
+            </li>
+          </ul>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>useEffect - Kapan Digunakan?</h2>
+
+        <p class="sm-content">
+          Jadi sekarang pertanyaannya berdasarkan demo sekilas tadi, <i
+            >kapan sih</i
+          > penggunaan
+          <strong>useEffect</strong> ?
+        </p>
+
+        <ul class="sm-content">
+          <li>
+            Ketika ingin membaca dan menyimpan data di media penyimpanan lokal
+          </li>
+          <li>Ketika ingin mengambil data dari API / Database</li>
+          <li>
+            Mendengarkan (Subscribe) terhadap sesuatu, e.g. <i>websocket</i>,
+            custom event, dsb
+          </li>
+          <li>Mengupdate DOM secara manual</li>
+          <li>
+            Menunggu suatu state untuk berubah sebelum kita menjalankan sesuatu.
+            <ul>
+              <li>
+                Contoh: Kita memiliki sebuah halaman untuk edit, kemudian kita
+                harus me-nembak API untuk update data di server (remote data),
+                dan setelah itu kita harus mengupdate state (local data)
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>useEffect - Notes</h2>
+
+        <p class="sm-content">
+          Beberapa notes ketika menggunakan <strong>useEffect</strong>
+        </p>
+
+        <ul class="sm-content">
+          <li>
+            Ketika kita hanya ingin menggunakan <strong>useEffect</strong> satu kali
+            saja, maka, pada <i>dependency list</i>, kita <strong>PERLU</strong>
+            memberikan array kosong
+          </li>
+          <li>
+            Apabila kita tidak memberikan array kosong, maka, <strong
+              >SETIAP</strong
+            > semua state ada yang berubah, <strong>useEffect</strong> akan berjalan
+            (bisa jadi infinite loop / infinite fetch data !)
+          </li>
+          <li>
+            Umumnya, kita hanya akan <i>fetch</i> data satu kali untuk halaman yang
+            ada,
+            <strong>KECUALI</strong> ada perubahan yang harus membuat kita <i
+              >fetch</i
+            > ulang
+          </li>
+          <li>
+            Seperti halnya dengan <strong>useState</strong> yang bisa dibuat banyak,
+            <strong>useEffect</strong> di dalam sebuah component pun bisa dibuat
+            banyak. Sehingga kita bisa memisahkan logic sesuai dengan kebutuhan effect
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>useEffect - Use Case Dunia Nyata</h2>
+
+        <p class="sm-content">
+          Sneak peek real use case dalam penggunaan <strong>useEffect</strong>
+        </p>
+
+        <div>
+          <ReactHooksUseEffectRealLifeCase />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>useEffect - Demo</h2>
+
+        <p class="sm-content">
+          Yuk tanpa lama lama lagi, kita coba memasukkan useEffect di dalam kode
+          ToDo yang dibuat yah !
+        </p>
+
+        <p class="sm-content">Kode dapat dilihat</p>
+
+        <a
+          href="https://stackblitz.com/edit/mrd-react-hooks-01b?file=src%2FApp.js"
+          target="_blank">Klik di sini</a
+        >
+      </section>
+
+      <section class="center">
+        <h2>Hooks Lanjutan</h2>
+
+        <ul class="sm-content">
+          <li>Context & setContext</li>
+          <li>useReducer</li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Context</h2>
+
+        <div class="r-stack">
+          <div class="fragment fade-out" data-fragment-index="0">
+            <div class="w-full flex flex-row justify-center">
+              <img src="/assets/react-hooks/state-lifting.webp" />
+            </div>
+
+            <p class="sm-content">
+              Ketika kita menggunakan props itu, rasanya baik baik saja yah?
+            </p>
+
+            <p class="sm-content">
+              Bisa <i>mindahin</i> atau <i>angkat</i> state yang dibutuhkan ke level
+              lebih tinggi?
+            </p>
+
+            <p class="sm-content">
+              Bisa passing dari data dari Komponen OrangTua ke Komponen
+              Anakannya?
+            </p>
+          </div>
+
+          <div class="fragment current-visible" data-fragment-index="0">
+            <p class="sm-content">Semua akan baik baik saja sampai dengan...</p>
+          </div>
+
+          <div class="fragment">
+            <div class="w-full flex flex-row justify-center">
+              <img class="w-96" src="/assets/react-hooks/props-drilling.webp" />
+            </div>
+
+            <p class="sm-content">Terjadi suatu kondisi seperti ini</p>
+
+            <ul class="sm-content">
+              <li>
+                Kita mau sharing props antar komponen, namun ternyata cabangnya
+                banyak sekali !
+              </li>
+              <li>
+                Mungkin kita butuh passing propsnya seperti ini: Komponen
+                OrangTua -&gt; Anak -&gt; Cucu -&gt; Cicit dst
+              </li>
+              <li>
+                Padahal kita sekarang butuh hanya dari si OrangTua -&gt; Cicit
+                saja
+              </li>
+              <li>
+                Kondisi ini disebut dengan <strong>props drilling</strong>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>Context</h2>
+
+        <div class="w-full flex flex-row justify-center">
+          <lottie-player
+            src="https://assets3.lottiefiles.com/packages/lf20_t2kquukz.json"
+            background="transparent"
+            speed="0.75"
+            style="width: 300px; height: 300px;"
+            loop
+            autoplay
+          />
+        </div>
+
+        <p class="sm-content">
+          Bagaimana bila seandainya kita memiliki suatu cara untuk men-<i
+            >teleport</i
+          > data dari props OrangTua secara langsung ke Cicit secara instant?
+        </p>
+
+        <p class="sm-content">
+          Solusinya adalah kita menggunakan <strong>Context</strong>
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Context (ii)</h2>
+
+        <p class="sm-content">
+          Misalkan kita menginginkan beberapa Header yang ada di dalam section
+          yang sama akan selalu memiliki ukuran yang sama
+        </p>
+
+        <p class="sm-content">
+          Bila saja kita bisa mem-passing ukuran dari section ke komponennya ...
+        </p>
+
+        <div class="w-full flex flex-row justify-center items-center gap-4">
+          <span>
+            <ReactHooksUseContextCase01 />
+          </span>
+          <span> -----</span>
+          <span>
+            <ReactHooksUseContextCase02 />
+          </span>
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>Context (iii)</h2>
+
+        <p class="sm-content">
+          Loh... Bagaimana caranya <strong>Heading</strong> "meminta" data dari tempat
+          lain yang secara hierarki ada di atas nya dia <i>banget</i>?
+        </p>
+
+        <p class="sm-content">
+          Di sinilah <strong>Context</strong> bekerja !
+        </p>
+
+        <p class="sm-content">Langkahnya adalah sebagai berikut:</p>
+
+        <ul class="sm-content">
+          <li>Membuat <strong>context</strong></li>
+          <li>
+            Menyediakan <strong>context</strong> dari komponen yang menyediakan data
+          </li>
+          <li>
+            Menggunakan <strong>context</strong> ke komponen yang membutuhkan data
+          </li>
+        </ul>
+
+        <p class="sm-content">
+          <strong>context</strong> bisa membuat OrangTua, bahkan yang jauh banget
+          pun !, menyediakan data untuk seluruh komponen yang ada di dalamnya (secara
+          "teleport") tadi
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>createContext</h2>
+
+        <p class="sm-content">Cara untuk deklarasi context</p>
+
+        <div>
+          <ReactHooksUseContextHowTo01 />
+        </div>
+
+        <div class="fragment">
+          <ReactHooksUseContextHowTo02 />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>Context - Define Parent to Child</h2>
+
+        <p class="sm-content">
+          Cara untuk mendefinisikan context di ComponentOrangTua
+        </p>
+
+        <div>
+          <ReactHooksUseContextHowTo03 />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>Context - Define Parent to Child (ii)</h2>
+
+        <p class="sm-content">
+          Cara untuk mendefinisikan context berdasarkan contoh
+        </p>
+
+        <div>
+          <ReactHooksUseContextHowTo04 />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>Context - Digunakan di Child</h2>
+
+        <div>
+          <ReactHooksUseContextHowTo05 />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>Context - Digunakan di Child (ii)</h2>
+
+        <div>
+          <ReactHooksUseContextHowTo06 />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>Contoh Full Code</h2>
+
+        <p class="sm-content">Bingung yah kl tidak ada kodenya?</p>
+
+        <p class="sm-content">
+          Yuk kita coba demokan dengan menggunakan dengan melanjutkan ToDo kita
+          tadi dengan menambahkan Section dan Heading di dalamnya
+        </p>
+
+        <p class="sm-content text-red-400 animate-pulse">
+          DANGER: kode di dalam sini cukup panjang dan terbagi jadi beberapa
+          bagian, jadi mohon nonton recordingnya bila kurang mengerti yah !
+        </p>
+
+        <a
+          href="https://stackblitz.com/edit/mrd-react-hooks-01c?file=src%2FApp.js"
+          target="_blank">Klik di sini</a
+        >
+        <p class="text-3xl">
+          Lihat pada bagian App.js - <strong>NestedComponentWithContext</strong>
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Ada cara lebih pendeknya loh !</h2>
+
+        <p class="sm-content">
+          Bagaimana jika ada cara lebih mudahnya lagi untuk kasus kita yang
+          tadi? (untuk deklarasi level)
+        </p>
+
+        <p class="sm-content">
+          Kita bahkan tidak perlu <i>deklarasiin</i> !
+        </p>
+
+        <div>
+          <ReactHooksUseContextCase03 />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>Loh kok bisa?</h2>
+
+        <p class="sm-content">
+          Context memperbolehkan kita membaca informasi dari Komponen yang ada
+          di atasnya, sehingga setiap <strong>Section</strong> bisa membaca <strong
+            >level</strong
+          > dari <strong>Section</strong>
+          di atasnya ! (dan secara langsung, bisa memberikan <strong
+            >level + 1</strong
+          > secara otomatis)
+        </p>
+
+        <a
+          href="https://stackblitz.com/edit/mrd-react-hooks-01c?file=src%2FApp.js"
+          target="_blank">Klik di sini</a
+        >
+        <p class="text-3xl">
+          Lihat pada bagian App.js - <strong
+            >NestedComponentWithContextPart2</strong
+          >
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Context dan useContext - WARNING</h2>
+
+        <p class="sm-content">
+          Beberapa saran penggunaan Context dan useContext :
+        </p>
+
+        <ul class="sm-content">
+          <li>
+            Awali dengan penggunaan <strong>props</strong>
+
+            <ul>
+              <li>
+                Sebenarnya umum sekali untuk melempar beberapa props melewati
+                beberapa Komponen, karena lebih jelas terlihat komponen mana
+                yang membutuhkan props tersebut. (Jadi awali dengan props, bila
+                terlalu memberatkan, bisa menggunakan context)
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+        <ul class="sm-content">
+          <li>
+            Ekstrak komponen dan melempar JSX sebagai anakan ke komponen
+            tersebut
+          </li>
+          <ul>
+            <li>
+              Sebenarnya apabila kita melempar beberapa data lewat Komponen
+              "tengah" yang tidak menggunakan data tersebut (cuma lewat saja),
+              umumnya ini artinya kita masih lupa untuk mengekstrak beberapa
+              komponen di tengah tersebut (TL;DR: Buatlah sebuah Higher Order
+              Component-nya !)
+            </li>
+          </ul>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Context dan useContext - Kapan Digunakan?</h2>
+
+        <ul class="sm-content">
+          <li>Pembuatan Theme (e.g. Dark Mode, Custom Theme)</li>
+          <li>Untuk melihat User yang sedang log-in sekarang ini</li>
+          <li>
+            Routing (untuk menginfokan: <i
+              >eh, sekarang lagi di rute yang mana yah?)</i
+            >
+            <ul>
+              <li>Untuk Routing akan ada materi tersendiri nanti</li>
+            </ul>
+          </li>
+          <li>
+            Manajemen State (data)
+            <ul>
+              <li>
+                Seiring berkembangnya aplikasi yang dibuat, sangat umum untuk
+                menggunakan
+                <i>reducer</i> yang dikombinasikan dengan <strong
+                  >context</strong
+                > untuk manajemen state yang kompleks dan dilempar ke komponen yang
+                jauh urutannya tanpa ribet.
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>useReducer</h2>
+
+        <p class="sm-content">
+          Masih ingat dengan <strong>.reduce</strong> di dalam Array?
+        </p>
+
+        <p class="sm-content fragment">React juga punya reducernya loh !</p>
+
+        <ul class="sm-content">
+          <li class="fragment">
+            React <strong>reducer</strong> mengambil ide yang sama dengan array dan
+            mengkonversi ke ala React: Mengambil <strong>state</strong> dan <strong
+              >action</strong
+            >, kemudian akan mengembalikan <strong>state</strong> selanjutnya.
+          </li>
+          <li class="fragment">
+            Sehingga terjadi akumulasi <strong>action</strong> dalam rentang waktu
+            tertentu ke terhadap
+            <strong>state</strong>
+          </li>
+          <li class="fragment">
+            Merupakan alternatif dari <strong>useState</strong>. Menerima
+            reducer dengan tipe
+            <strong>(state, action) =&gt; stateBaru</strong>, dan mengembalikan <strong
+              >state sekarang</strong
+            >
+            yang dikombinasikan dengan method <strong>dispatch</strong>
+          </li>
+          <li class="fragment">
+            <strong>useReducer</strong> akan lebih disarankan daripada <strong
+              >useState</strong
+            >
+            APABILA KITA SUDAH MEMILIKI LOGIC STATE YANG KOMPLEKS yang memiliki sub-nilai
+            (nilai dalam nilai) atau ketika state selanjutnya bergantung dari state
+            sebelumnya
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>useReducer</h2>
+
+        <p class="sm-content">
+          Seiring dengan berkembangnya komponen, pastinya statenya akan
+          berkembang banyak juga. Untuk mengurangi kompleksitas dan membuat
+          logic di satu tempat-yang-mudah-diakses, kita bisa memindahkan logic
+          state ke dalam <strong>SEBUAH FUNGSI</strong> di luar komponen, yang disebut
+          sebagai <strong>reducer</strong>
+        </p>
+
+        <p class="sm-content fragment">
+          Kita bisa melakukan migrasi dari <strong>useState</strong> ke <strong
+            >useReducer</strong
+          > dengan 3 langkah berikut:
+        </p>
+
+        <ul class="sm-content">
+          <li class="fragment">
+            Memindahkan setting state ke dispatching action
+          </li>
+          <li class="fragment">Menuliskan fungsi <strong>reducer</strong></li>
+          <li class="fragment">
+            Menggunakan <strong>reducer</strong> di dalam komponen
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>reducer - Cara Deklarasi</h2>
+
+        <p class="sm-content">Cara mendeklarasi reducer</p>
+
+        <div>
+          <ReactHooksUseReducerHowTo01 />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>useReducer - Cara Pakai</h2>
+
+        <p class="sm-content">Cara pakai reducer</p>
+
+        <div>
+          <ReactHooksUseReducerHowTo02 />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>useReducer - Full Code</h2>
+
+        <p class="sm-content">
+          Mari kita coba mengubah Container ToDo.jsx menjadi versi reducer
+        </p>
+
+        <a
+          href="https://stackblitz.com/edit/mrd-react-hooks-01d?file=src%2FApp.js,src%2Fcontainers%2FToDoWithReducer.jsx"
+          target="_blank"
+        >
+          Di sini
+        </a>
+      </section>
+
+      <section class="center">
+        <h2>Komparasi useState vs useReducer</h2>
+
+        <ul class="sm-content">
+          <li>
+            Ukuran kode - <strong>useState</strong> kode yang tertulis akan lebih
+            kecil di awal, namun untuk <strong>useReducer</strong> akan lebih simple
+            dan lebih mudah untuk dipahami apabila logic untuk memodifikasi statenya
+            mirip
+          </li>
+          <li>
+            Kemudahan membaca kode - <strong>useState</strong> akan lebih mudah dibaca
+            apabila kodenya masih simple. <strong>useReducer</strong> akan memisahkan
+            logic untuk update dan event handlernya
+          </li>
+          <li>
+            Testing - karena <strong>reducer</strong> adalah murni fungsi saja, dapat
+            dilakukan pengetesan secara lebih terisolasi ketimbang <strong
+              >State</strong
+            > yang menempel pada komponen yang ada.
+          </li>
+        </ul>
+
+        <p class="sm-content fragment">
+          Tapi sebenarnya kita akan kembali pada preferensi masing masing.
+          Sebenarnya bisa kita menggunakan keduanya secara equivalent. Bisa
+          dicampur campur kok !
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>React itu "mudah" bukan?</h2>
+
+        <p class="fragment animate-pulse">Bukan !</p>
+
+        <div class="fragment">
+          <div class="w-full flex flex-row justify-center">
+            <lottie-player
+              src="https://assets10.lottiefiles.com/packages/lf20_bsqgewxn.json"
+              background="transparent"
+              speed="1"
+              style="width: 400px; height: 400px;"
+              loop
+              autoplay
+            />
+          </div>
+
+          <p class="text-red-400 animate-pulse">Hayo jangan menyerah !</p>
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>QnA</h2>
+      </section>
+
+      <section id="referensi" class="center">
+        <h2>Referensi</h2>
+
+        <ul class="text-2xl">
+          <li>
+            https://beta.reactjs.org/learn/sharing-state-between-components
+          </li>
+          <li>https://reactjs.org/docs/context.html</li>
+          <li>
+            https://beta.reactjs.org/learn/passing-data-deeply-with-context
+          </li>
+          <li>
+            https://beta.reactjs.org/learn/extracting-state-logic-into-a-reducer
+          </li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .slides {
+    .center {
+      @apply mx-auto w-full flex flex-row justify-center;
+    }
+
+    .left {
+      @apply mx-auto w-full top-16;
+    }
+
+    ul {
+      @apply w-full text-left;
+    }
+
+    div {
+      @apply text-3xl;
+    }
+
+    blockquote {
+      @apply w-full border-2 border-slate-700;
+    }
+
+    .sm-content {
+      @apply text-3xl text-left;
+
+      li {
+        @apply mb-2;
+      }
+    }
+  }
+</style>

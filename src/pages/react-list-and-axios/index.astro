@@ -1,4 +1,721 @@
 ---
+import BaseLayout from "../../layouts/BaseLayoutWithSlidesReact.astro";
+import { Icon } from "astro-icon";
+import { Code } from "astro/components";
+
+const mdCodes = await Astro.glob("./examples/*.md");
+
+const findContent = (title: string) => {
+  return mdCodes?.find((md) => md?.frontmatter?.title === title)!.Content;
+};
+
+const AxiosHowTo = findContent("axios-how-to");
+const AxiosMethodAliases = findContent("axios-method-aliases");
+const AxiosResponseSchema = findContent("axios-response-schema");
+const AxiosInstance = findContent("axios-instance");
+
+const title = "React - List & Axios";
 ---
 
-<h1>React JS - List & Axios</h1>
+<BaseLayout title={title}>
+  <div class="p-4">
+    <div class="slides">
+      <section class="center">
+        <div class="flex flex-row justify-center gap-6">
+          <Icon
+            name="simple-icons:react"
+            class="w-48 animate-spin-slow duration-1000"
+          />
+        </div>
+        <h1>React - List & Axios</h1>
+      </section>
+
+      <section class="center">
+        <h2>Agenda</h2>
+
+        <p class="text-3xl text-left">Apa saja yang akan dibahas?</p>
+        <ul class="sm-content">
+          <li>Theming</li>
+          <li>List</li>
+          <li>API</li>
+          <li>Axios</li>
+          <li>QnA</li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Theming</h2>
+
+        <ul class="sm-content">
+          <li>
+            Dari kemarin kita membuat background colornya, seluruhnya sendiri
+            kan?
+          </li>
+          <li class="fragment">
+            Tapi, pada akhirnya kita akan buatnya satu satu, atau bahkan akan
+            membuat Component sendiri lagi untuk mengatur backgroundnya /
+            padding / marginnya.
+          </li>
+          <li class="fragment">
+            Tapi bagaimana bila ada cara untuk membuat temanya supaya bisa lebih
+            seragam?
+          </li>
+          <li class="fragment">
+            Nah, karena kita menggunakan Material UI, maka kita bisa menggunakan <code
+              >theme</code
+            >
+          </li>
+          <li class="fragment">
+            Bisa dilihat
+            <a
+              href="https://mui.com/material-ui/customization/theming/"
+              target="_blank">di sini</a
+            >
+            yah!
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Theming (ii)</h2>
+
+        <p class="sm-content">Wah kelihatannya cukup ribet yah !</p>
+
+        <p class="sm-content">
+          Ada juga tools yang bisa membantu kita dalam menemukan color pallete /
+          warna / cara penulisan tema yang ada
+        </p>
+
+        <ul class="sm-content">
+          <li>
+            <a
+              href="https://bareynol.github.io/mui-theme-creator/"
+              target="_blank">MUI Theme Creator</a
+            >
+          </li>
+          <li>
+            <a href="https://material.io/inline-tools/color/">Color Palette</a>
+          </li>
+        </ul>
+
+        <p class="sm-content animate-pulse text-red-400">
+          Hati hati ! untuk tools MUI Theme Creator, penulisan codenya dalam
+          typescript, sehingga ada sedikit modifikasi kode yang harus dilakukan
+          yah !
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Yuk bikin Theme</h2>
+
+        <p class="sm-content">
+          Mari kita coba untuk membuat kode theme kita sendiri yah !
+        </p>
+
+        <ul class="sm-content">
+          <li>Buat sebuah project baru react</li>
+          <li>
+            Install MUI, Gunakan Font Roboto, Gunakan Font Icon, set App.css
+            untuk fontnya ke Roboto
+          </li>
+          <li>Buat custom theme yang kita inginkan</li>
+          <li>
+            Kode akhirnya bisa dilihat <a
+              href="https://github.com/withered-flowers/education-react-list-and-axios/tree/1-adding-themes"
+              target="_blank">di sini yah</a
+            >
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>List</h2>
+
+        <p class="sm-content">
+          Yuk sekarang kita coba untuk membuat Listing Movie yang <i>cuakep</i>
+        </p>
+
+        <ul class="sm-content">
+          <li>
+            Untuk awalnya sekarang ini kita akan menggunakan data dari file JSON
+            terlebih dahulu yah
+          </li>
+          <li>
+            Data JSON dapat diambil
+            <a
+              href="https://github.com/withered-flowers/education-react-list-and-axios/blob/2-adding-list-component/src/data/movies.json"
+              target="_blank">di sini</a
+            >
+            yah
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>List - Demo</h2>
+
+        <p class="sm-content">Langkah pembuatan list dalam demo ini adalah:</p>
+
+        <ol class="sm-content">
+          <li>Buat file <strong>src/data/movies.json</strong></li>
+          <li>
+            Copy paste isi dari JSON yang diberikan di atas pada file <strong
+              >movies.json</strong
+            >
+          </li>
+          <li>
+            Buat Card yang akan menampilkan gambar poster, judul film, rating,
+            dan overview
+          </li>
+          <li>
+            Buka dokumentasi yang ada pada MUI tentang card <a
+              href="https://mui.com/material-ui/react-card/#main-content"
+              target="_blank">di sini</a
+            >
+          </li>
+          <li>
+            Buat file <strong>src/containers/ListMovies.css</strong>, file ini
+            akan berisi file CSS yang kita inginkan untuk membuat Listing dari
+            Film yang ingin kita buat
+          </li>
+          <li>
+            Buat file <strong>src/containers/ListMovies.jsx</strong>, file ini
+            akan berisi Component ListMovies yang digunakan untuk menampilkan
+            keseluruhan data yang kita inginkan
+          </li>
+          <li>
+            Modifikasi file <strong>App.js</strong> untuk menampilkan Component ListMovies
+            yang kita buat sebelumnya
+          </li>
+          <li>
+            Buat file <strong>src/components/CardMovie.jsx</strong>, file ini
+            akan berisi Component "satuan" untuk setiap Movie yang akan dibaca
+            dari ListMovies (Poster, Judul Film, dst ditampilkan di sini)
+          </li>
+        </ol>
+      </section>
+
+      <section class="center">
+        <h2>List - Demo (ii)</h2>
+
+        <ol class="sm-content" start={9}>
+          <li>
+            Modifikasi file <strong>src/containers/ListMovies.jsx</strong> untuk
+            menampilkan Component `CardMovie` yang kita buat sebelumnya
+          </li>
+          <li>
+            Sampai pada titik ini kita sudah berhasil menampilkan data JSON,
+            tapi hanya satu saja... dan ada satu masalah lagi, yaitu gambarnya
+            belum nampak loh ! Ya, ini karena data image tersebut kita ambil
+            dari posisi yang salah. Untuk gambar sebenarnya ini diambil dari
+            TMDB (yang akan dibahas nanti) yang semua imagenya harus ada prefix
+            (awalan), yaitu <strong>https://image.tmdb.org/t/p/w200</strong>.
+            Nah sekarang kita akan memodifikasi hal tersebut pada file <strong
+              >CardMovie.jsx</strong
+            > yah
+          </li>
+          <li>
+            Yak sampai di titik ini, seharusnya gambar sudah muncul, tapi hanya
+            satu saja yang muncul. Bagaimana bila kita ingin menampilkan <strong
+              >CardMovie</strong
+            >
+            yang berisi 3 data terakhir dari JSON yang kita miliki sekarang ini?
+            Mari kita modifikasi file <strong>ListMovies.jsx</strong>.
+          </li>
+          <li>
+            Voila ! Sampai di titik ini kita sudah berhasil melakukan pemetaan
+            yang dinamis yah terhadap data yang kita miliki.
+          </li>
+          <li>
+            Kode akhir dapat dilihat <a
+              href="https://github.com/withered-flowers/education-react-list-and-axios/tree/2-adding-list-component"
+              target="_blank">di sini</a
+            >
+          </li>
+        </ol>
+      </section>
+
+      <section class="center">
+        <h2>List - Demo (iii)</h2>
+
+        <p class="sm-content">
+          Secara singkatnya langkah yang dilakukan tadi adalah:
+        </p>
+
+        <ul class="sm-content">
+          <li>
+            Ambil data JSON dengan cara
+            <ul class="sm-content">
+              <li><code>import data from "/path/to/data.json"</code></li>
+              <li>(Ingat, pada React, kita tidak perlu menggunakan fs !</li>
+            </ul>
+          </li>
+          <li>
+            Buat Component CardMovie yang akan menampung satuan data Movie
+          </li>
+          <li>Map data JSON yang kita miliki ke dalam Component CardMovie</li>
+          <li>
+            Passing data dari map tersebut ke dalam Component CardMovie via
+            Props
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>List - Conclusion</h2>
+
+        <p class="sm-content">
+          Nah sampai di sini kita sudah berhasil membuat Listing Movie
+          berdasarkan data internal JSON yang dimiliki oleh aplikasi
+        </p>
+
+        <p class="sm-content">
+          Sekarang, bagaimanakah bila kita ingin mengkonsumsi data yang
+          disediakan oleh penyedia data yang ada di internet?
+        </p>
+
+        <p class="sm-content">
+          Ingat yah, kata kuncinya adalah PENYEDIA, artinya harus ada yang
+          menyediakan data tersebut. (Bukan sembarang ambil / men"curi" data,
+          itu tekniknya berbeda lagi)
+        </p>
+
+        <p class="sm-content">
+          Untuk itu, mari kita coba belajar tentang <strong>API</strong> terlebih
+          dahulu yah
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>API</h2>
+
+        <p class="sm-content">Apa itu API?</p>
+
+        <ul class="sm-content">
+          <li>
+            API, kependekan dari Application Programming Interface, adalah suatu
+            "penengah" dari perangkat lunak <i>software intermediary</i> yang memperbolehkan
+            beberapa aplikasi untuk "berinteraksi" satu sama lain.
+          </li>
+          <li>
+            API itu ada banyak sekali bentuk (dan protokol) yang digunakan.
+            Namun yang akan kita fokuskan di sini adalah <strong
+              >REST API</strong
+            >
+          </li>
+        </ul>
+
+        <div class="w-full flex flex-row justify-center">
+          <img src="/assets/react-list-and-axios/what-is-api.png" />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>REST API - Apa Itu ?</h2>
+
+        <ul class="sm-content">
+          <li>
+            REST API adalah suatu tipe API yang berkomunikasi via HTTP request
+            untuk melakukan suatu fungsi dasar basis data / <i>database</i> seperti
+            <strong>CREATE</strong>, <strong>READ</strong>, <strong
+              >UPDATE</strong
+            >, <strong>DELETE</strong>
+            data (sering disebut juga sebagai <strong>CRUD</strong>)
+          </li>
+          <li>
+            HTTP Method yang digunakan untuk request adalah umumnya sebagai
+            berikut:
+            <ul class="sm-content">
+              <li><code>GET</code>, ekuivalen dengan <strong>READ</strong></li>
+              <li>
+                <code>POST</code>, ekuivalen dengan <strong>CREATE</strong>
+              </li>
+              <li>
+                <code>PUT</code>, ekuivalen dengan <strong>UPDATE</strong>
+              </li>
+              <li>
+                <code>DELETE</code>, ekuivalen dengan <strong>DELETE</strong>
+              </li>
+              <li>dll ...</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>REST API - Apa Itu ? (ii)</h2>
+
+        <p class="sm-content">
+          Mari kita coba lihat gambar berikut yang menyatakan REST API
+        </p>
+
+        <div class="w-full flex flex-row justify-center">
+          <img src="/assets/react-list-and-axios/rest-api.png" />
+        </div>
+
+        <p class="sm-content fragment animate-pulse text-red-400">
+          Pada pembelajaran ini kita TIDAK membuat REST API yah, melainkan kita
+          akan belajar untuk mengkonsumsi data yang disediakan oleh REST API
+        </p>
+
+        <p class="sm-content fragment">
+          Mari sekarang kita belajar suatu tools yang memudahkan kita untuk
+          belajar konsumsi data dari REST API yang bernama <strong
+            >Postman</strong
+          >
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Postman</h2>
+
+        <p class="sm-content">
+          Dikutik dari web <a href="https://www.postman.com" target="_blank"
+            >Postman</a
+          >, ini adalah sebuah Platform API untuk membangun dan menggunakan API.
+        </p>
+
+        <p class="sm-content">
+          Dengan menggunakan Postman ini, kita bisa me-"nembak" API yang ingin
+          kita coba gunakan dengan HTTP Method tertentu dan dengan data
+          (request) tertentu, untuk mendapatkan data kembalian (response) sesuai
+          dengan ketentuan output dari API penyedia data.
+        </p>
+
+        <p class="sm-content">
+          Postman ini dapat digunakan dengan cara install (berupa program)
+          ataupun dengan menggunakan web Postman langsung (dengan limitasi).
+        </p>
+
+        <p class="sm-content">
+          Namun untuk menggunakannya caranya sama: <strong>HARUS</strong> memiliki
+          akun Postman.
+        </p>
+
+        <p class="sm-content">
+          Nah setelah membuat akun, mari kita coba untuk mengkonsumsi API
+          pertama kita yah !
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Konsumsi API dengan Postman</h2>
+
+        <ul class="sm-content">
+          <li>API itu bentuknya umumnya ada 3:</li>
+          <ul>
+            <li>
+              Bebas (Public) terbuka (bisa langsung digunakan tanpa perlu embel
+              embel apapun)
+            </li>
+            <li>
+              Bebas (Public) terproteksi (harus menggunakan "tanda pengenal"
+              berupa kunci / token)
+            </li>
+            <li>
+              Internal (Private), hanya untuk konsumsi internal suatu perusahaan
+              saja
+            </li>
+          </ul>
+          <li>
+            Pada pembelajaran ini kita akan menggunakan API yang Bebas
+            Terproteksi untuk mengambil data film, yaitu dari <a
+              href="https://www.themoviedb.org/"
+              target="_blank">TheMovieDataBase (TMDB)</a
+            >
+          </li>
+          <ul>
+            <li>Bikin akun baru pada TMDB</li>
+            <li>
+              Buka pada bagian <strong>Settings</strong>, lalu <strong
+                >API</strong
+              >, untuk mendapatkan
+              <strong>API Key (v3 Auth)</strong>. Anggap ini sebagai <i
+                >password</i
+              > untuk bisa mengakses API
+            </li>
+            <li>
+              Kemudian mari buka dokumentasi dari API TMDB pada <a
+                href="https://developers.themoviedb.org/3/getting-started/introduction"
+                >Tautan ini</a
+              >
+            </li>
+          </ul>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Konsumsi API dengan Postman (ii)</h2>
+
+        <p class="sm-content">
+          Setelah kita mendapatkan <i>key</i>, maka kita bisa mencoba untuk
+          me-"nembak" API TMDB yang kira kira bentuknya seperti ini (Ganti
+          &lt;&lt;api_key&gt;&gt; dengan key yang kita dapatkan):)
+        </p>
+
+        <Code
+          code={`https://api.themoviedb.org/3/movie/76341?api_key=<<api_key>>`}
+        />
+
+        <p class="sm-content">
+          Untuk me-"nembak" <i>Endpoint</i> API TMDB ini kita akan menggunakan Postman
+          (sesuai gambar di bawah), dan tekan tombol <strong>Send</strong> untuk
+          melihat hasil kembalian dari API TMDB
+        </p>
+
+        <div class="w-full flex flex-row justify-center">
+          <img src="/assets/react-list-and-axios/postman.png" />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>Konsumsi API dengan Postman (iii)</h2>
+
+        <p class="sm-content">
+          Untuk Endpoint yang akan digunakan untuk pembelajaran ini adalah <strong
+            >GET /movie/popular</strong
+          >
+        </p>
+
+        <p class="sm-content">
+          Mari kita coba untuk mengkonsumsi Endpoint API TMDB ini dengan
+          menggunakan Postman
+        </p>
+
+        <p class="sm-content">
+          Nah setelah berhasil kita coba untuk mengambil data ini, tentunya
+          sekarang kita akan memiliki pertanyaan <i>donk</i>:
+        </p>
+
+        <p class="sm-content fragment animate-pulse">
+          Bagaimanakah cara kita menggunakan data ini ke dalam aplikasi React
+          yang kita buat?
+        </p>
+
+        <p class="sm-content fragment">
+          Untuk menjawab itu, mari kita belajar tentang <strong>axios</strong> terlebih
+          dahulu yah !
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Axios</h2>
+
+        <p class="sm-content">
+          Nah dari tadi kita mencoba untuk melakukan Komunikasi dengan server
+          penyedia API via HTTP Protocol bukan?
+        </p>
+
+        <p class="sm-content">
+          <strong>Axios</strong> adalah Library Javascript yang bisa kita gunakan
+          untuk melakukan komunikasi dengan server penyedia API. (HTTP Request) dan
+          sudah berbasis <strong>Promise</strong>
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Axios - How To?</h2>
+
+        <p class="sm-content">Cara menggunakan axios</p>
+
+        <div class="sm-content">
+          <AxiosHowTo />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>Axios - How To? (ii)</h2>
+
+        <p class="sm-content">Axios Method Aliases</p>
+
+        <div class="sm-content">
+          <AxiosMethodAliases />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>Axios - How To? (iii)</h2>
+
+        <p class="sm-content">
+          Axios Response Schema (Hasil kembalian / response yang dibuat oleh
+          axios)
+        </p>
+
+        <div class="sm-content">
+          <AxiosResponseSchema />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>Axios - Demo</h2>
+
+        <p class="sm-content">
+          Mari kita coba untuk mengubah kode sebelumnya menjadi data asli dari
+          TMDB dengan menggunakan Axios
+        </p>
+
+        <p class="sm-content">
+          Adapun langkah pengerjaannya adalah sebagai berikut:
+        </p>
+
+        <ol class="sm-content">
+          <li>Install axios dengan <code>npm install axios</code></li>
+          <li>
+            Buat container baru dengan nama <strong>ListMoviesReal.jsx</strong>
+          </li>
+          <li>
+            Masukkan Kode untuk membuat <strong>ListMoviesReal.jsx</strong> dengan
+            axios dan useEffect
+          </li>
+          <li>
+            Modifikasi <strong>App.js</strong> untuk menerima Container <strong
+              >ListMoviesReal.jsx</strong
+            >
+          </li>
+          <li>
+            PS: Kita tidak perlu memodifikasi <strong>CardMovie</strong> lagi walaupun
+            kita pakai di 2 tempat yang berbeda !
+          </li>
+          <li>PS2: Terima kasih sistem Component !</li>
+        </ol>
+
+        <p class="sm-content fragment">
+          Contoh kode lengkap bisa dilihat <a
+            href="https://github.com/withered-flowers/education-react-list-and-axios/tree/3-using-axios-to-fetch-real-data"
+            target="_blank">di sini</a
+          >
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Axios - Demo (ii)</h2>
+
+        <p class="sm-content">
+          Sampai di sini kita sudah berhasil menarik data dari API TMDB
+        </p>
+
+        <p class="sm-content">
+          Tapi... di sini kita berasa ada yang janggal bukan?
+        </p>
+
+        <p class="sm-content animate-pulse fragment">
+          Apa yang terjadi, seandainya kita punya banyak tarikan data dari TMDB?
+        </p>
+
+        <p class="sm-content animate-pulse fragment">
+          Pastinya akan ada banyak sekali perulangan terhadap string URL yang
+          dibuat bukan?
+        </p>
+
+        <p class="sm-content animate-pulse fragment">
+          Bagaimana cara kita mengakalinya?
+        </p>
+
+        <p class="sm-content animate-pulse fragment">
+          Salah satunya adalah dengan menggunkana <strong>axios Instance</strong
+          >
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Axios - Instance</h2>
+
+        <p class="sm-content">
+          Cara untuk membuat suatu instance axios dengan konfigurasi tertentu
+          agar kode tidak berulang
+        </p>
+
+        <p class="sm-content">Contoh penulisan kode dengan axios instance:</p>
+
+        <div>
+          <AxiosInstance />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>Axios - Instance (Demo)</h2>
+
+        <p class="sm-content">
+          Mari kita coba untuk mengubah kode kita dengan menggunakan axios
+          instance:
+        </p>
+
+        <ol class="sm-content">
+          <li>Buat sebuah file <strong>/src/apis/tmdb.js</strong></li>
+          <li>Masukkan kode axios instance pada <strong>tmdb.js</strong></li>
+          <li>
+            Ubah file <strong>/src/containers/ListMovieReal.jsx</strong>
+            untuk melakukan import dari <strong>/src/apis/tmdb.js</strong>,
+            bukan dari axios langsung lagi
+          </li>
+        </ol>
+
+        <p class="sm-content fragment">
+          Contoh kode lengkap bisa dilihat <a
+            href="https://github.com/withered-flowers/education-react-list-and-axios/tree/4-using-axios-instance"
+            target="_blank">di sini</a
+          >
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Conclusion</h2>
+
+        <p class="sm-content">
+          Nah sampai di titik ini artinya kita sudah berhasil menggunakan Axios
+          untuk bisa me-"nembak" data dari REST API pihak ketiga bernama TMDB.
+        </p>
+
+        <p class="sm-content">Selamat belajar !</p>
+      </section>
+
+      <section class="center">
+        <h2>QnA</h2>
+      </section>
+
+      <section id="referensi" class="center">
+        <h2>Referensi</h2>
+
+        <ul class="text-2xl">
+          <li>https://mui.com/material-ui/customization/theming/</li>
+          <li>https://bareynol.github.io/mui-theme-creator/</li>
+          <li>https://material.io/inline-tools/color/</li>
+          <li>https://mui.com/material-ui/react-card/#main-content</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .slides {
+    .center {
+      @apply mx-auto w-full flex flex-row justify-center;
+    }
+
+    .left {
+      @apply mx-auto w-full top-16;
+    }
+
+    ul,
+    ol {
+      @apply w-full text-left;
+    }
+
+    div {
+      @apply text-3xl;
+    }
+
+    blockquote {
+      @apply w-full border-2 border-slate-700;
+    }
+
+    .sm-content {
+      @apply text-3xl text-left;
+
+      li {
+        @apply mb-2;
+      }
+    }
+  }
+</style>

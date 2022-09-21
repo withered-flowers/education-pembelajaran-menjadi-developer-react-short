@@ -1,4 +1,591 @@
 ---
+import BaseLayout from "../../layouts/BaseLayoutWithSlidesReact.astro";
+import { Icon } from "astro-icon";
+
+const mdCodes = await Astro.glob("./examples/*.md");
+
+const findContent = (title: string) => {
+  return mdCodes?.find((md) => md?.frontmatter?.title === title)!.Content;
+};
+
+const ReactComponentToDoForm = findContent("react-component-todo-form");
+const ReactComponentToDoList = findContent("react-component-todo-list");
+const ReactComponentToDoAppjs = findContent("react-component-todo-app.js");
+const ReactComponentToDoEventClick1 = findContent(
+  "react-component-todo-event-click-1"
+);
+const ReactComponentToDoEventClick2 = findContent(
+  "react-component-todo-event-click-2"
+);
+const ReactComponentToDoEventClick3 = findContent(
+  "react-component-todo-event-click-3"
+);
+const ReactComponentToDoState = findContent("react-component-todo-state");
+const ReactComponentToDoFinalDeclareStateApp = findContent(
+  "react-component-todo-final-declare-state-app"
+);
+const ReactComponentToDoFinalDeclareFunctionAndPropsApp = findContent(
+  "react-component-todo-final-declare-function-and-props-app"
+);
+const ReactComponentToDoFinalModifyToDoList = findContent(
+  "react-component-todo-final-modify-todolist"
+);
+const ReactComponentToDoFinalModifyToDoForm1 = findContent(
+  "react-component-todo-final-modify-todoform-i"
+);
+const ReactComponentToDoFinalModifyToDoForm2 = findContent(
+  "react-component-todo-final-modify-todoform-ii"
+);
+
+const title = "React - Komponen";
 ---
 
-<h1>React JS - Component (Part 1)</h1>
+<BaseLayout title={title}>
+  <div class="p-4">
+    <div class="slides">
+      <section class="center">
+        <div class="flex flex-row justify-center gap-6">
+          <Icon
+            name="simple-icons:react"
+            class="w-48 animate-spin-slow duration-1000"
+          />
+        </div>
+        <h1>React - Komponen</h1>
+      </section>
+
+      <section class="center">
+        <h2>Agenda</h2>
+
+        <p class="text-3xl text-left">Apa saja yang akan dibahas?</p>
+        <ul class="sm-content">
+          <li>Review React</li>
+          <li>Event Handler</li>
+          <li>State</li>
+          <li>QnA</li>
+          <li>Waktunya Tantangan</li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Review React</h2>
+
+        <p class="sm-content">
+          Mari kita <i>nyoba bikin</i> proyek React kembali yah !
+        </p>
+
+        <p class="sm-content">
+          Kita akan coba untuk membuat aplikasi ToDoList dengan React.
+        </p>
+
+        <ul class="sm-content">
+          <li>
+            Buka terminal, lalu ketikkan <code
+              >npx create-react-app project-todolist</code>
+          </li>
+          <li>
+            Selanjutnya kita akan membuat Component ToDo List Sederhana terlebih
+            dahulu
+          </li>
+          <li>
+            Buat dua file dengan nama
+            <ul class="sm-content">
+              <li><strong>src/components/ToDoForm.jsx</strong> dan</li>
+              <li><strong>src/components/ToDoList.jsx</strong></li>
+            </ul>
+          </li>
+          <li>
+            Buka file <strong>index.js</strong>, comment bagian import index.css
+          </li>
+          <li>
+            Buka file <strong>App.js</strong>, comment bagian import logo dan
+            import css
+          </li>
+          <li>
+            Selanjutnya kita akan menuliskan kode untuk <strong
+              >ToDoForm.jsx</strong
+            > terlebih dahulu yah
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Review React (ii)</h2>
+
+        <p class="sm-content">Kode <strong>ToDoForm.jsx</strong></p>
+
+        <div>
+          <ReactComponentToDoForm />
+        </div>
+
+        <p class="sm-content fragment">
+          Selanjutnya kita akan menuliskan kode <strong>ToDoList.jsx</strong>
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Review React (iii)</h2>
+
+        <p class="sm-content">Kode <strong>ToDoList.jsx</strong></p>
+
+        <div>
+          <ReactComponentToDoList />
+        </div>
+
+        <p class="sm-content fragment">
+          Selanjutnya kita akan menggunakannya pada file <strong>App.js</strong>
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Review React (iv)</h2>
+
+        <p class="sm-content">Kode <strong>App.js</strong></p>
+
+        <div>
+          <ReactComponentToDoAppjs />
+        </div>
+
+        <p class="sm-content fragment">
+          Nah sampai di sini kita sudah berhasil membuat kerangka ToDoList
+          sederhana
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Review React (v)</h2>
+
+        <p class="sm-content">
+          Untuk kode proyek ToDo tadi dapat dilihat
+          <a
+            href="https://stackblitz.com/edit/mrd-react-component-01?file=src%2FApp.js"
+            target="_blank">di sini</a
+          > yah.
+        </p>
+
+        <p class="sm-content fragment">
+          Nah masih ada yang terasa aneh dengan ToDo yang baru dibuat kan?
+        </p>
+
+        <p class="sm-content fragment">
+          Aplikasinya masih belum bisa baca data yang dikirimkan oleh user !
+        </p>
+
+        <p class="sm-content fragment">
+          Untuk bisa menyelesaikan ini, kita harus mengerti terlebih dahulu apa
+          itu <strong>State</strong> dan <strong>Event Handler</strong> di React
+          ini yah !
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Event Handler</h2>
+
+        <p class="sm-content fragment">
+          Masih ingat dengan DOM? kita bisa menggunakan Event Handler di dalam
+          DOM bukan?
+        </p>
+
+        <p class="sm-content fragment">Contoh Event Handler</p>
+
+        <ul class="sm-content">
+          <li class="fragment">
+            bila ada sebuah <strong>button</strong>
+            maka bisa memiliki event <strong>click</strong>
+          </li>
+          <li class="fragment">
+            bila ada sebuah <strong>form</strong>
+            maka bisa memiliki event <strong>submit</strong>
+          </li>
+          <li class="fragment">
+            bila ada sebuah <strong>input</strong>
+            maka bisa memiliki event <strong>change</strong>
+          </li>
+          <li class="fragment">
+            bila ada sebuah <strong>select option</strong>
+            maka juga bisa memiliki event <strong>change</strong>
+          </li>
+        </ul>
+
+        <p class="sm-content fragment">
+          Pertanyaan sekarang: bagaimana cara menggunakannya pada React?
+        </p>
+
+        <p class="sm-content fragment">
+          Mari kita kembali ke proyek ToDo yang dibuat tadi
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Event Handler (ii)</h2>
+
+        <p class="sm-content">Demo</p>
+
+        <p class="sm-content fragment">
+          Buat file <strong>src/components/ToDoIncrement.jsx</strong>
+        </p>
+
+        <div class="fragment">
+          <ReactComponentToDoEventClick1 />
+        </div>
+
+        <p class="sm-content fragment">
+          Selanjutnya kita akan memodifikasi file <strong>App.js</strong>
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Event Handler (iii)</h2>
+
+        <p class="sm-content">
+          Modifikasi file <strong>App.js</strong>
+        </p>
+
+        <div class="fragment">
+          <ReactComponentToDoEventClick2 />
+        </div>
+
+        <p class="sm-content fragment">
+          Selanjutnya kita akan modifikasi lagi file <strong
+            >ToDoIncrement.jsx</strong
+          >
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Event Handler (iv)</h2>
+
+        <p class="sm-content">
+          Modifikasi file <strong>ToDoIncrement.jsx</strong>
+        </p>
+
+        <div class="fragment">
+          <ReactComponentToDoEventClick3 />
+        </div>
+
+        <p class="sm-content fragment">
+          Mari jalankan kode dan lihat hasilnya !
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Event Handler (v)</h2>
+
+        <p class="sm-content">
+          Kode yang ditulis sebelumnya dapat dilihat
+          <a
+            href="https://stackblitz.com/edit/mrd-react-component-02?file=src%2FApp.js"
+            target="_blank">di sini</a
+          >
+        </p>
+
+        <p class="sm-content">Mari kita coba analisis kode yang dibuat tadi:</p>
+
+        <ul class="sm-content">
+          <li>
+            Untuk dapat menggunakan event handler, kita membutuhkan sebuah
+            fungsi yang digunakan untuk ditempelkan pada event handler
+          </li>
+          <li>
+            Untuk menempelkan fungsi, pada attribut yang menginginkan ada
+            <strong>Event Handler</strong>, dapat menggunakan
+            on&lt;NamaEvent&gt;, mis: <strong>onClick</strong>, <strong
+              >onSubmit</strong
+            >, dsb
+          </li>
+          <li>
+            Kita masih <strong class="text-red-400">gagal</strong> untuk membuat
+            data yang reaktif terhadap perubahan yang ada. Hal ini terjadi karena
+            kita belum memahami dan menggunakan <strong>State</strong>
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>State</h2>
+
+        <p class="sm-content fragment">
+          Dalam kasus Proyek ToDo yang dibuat sebelumnya, kita memiliki sebuah
+          data dengan nama <strong>increment</strong> yang tidak reaktif (tidak berubah
+          sesuai perubahan yang ada).
+        </p>
+
+        <p class="sm-content fragment">
+          Untuk itu kita harus mengetahui bagaimana cara menggunakan
+          <strong>State</strong> terlebih dahulu agar bisa berbagi data
+        </p>
+
+        <p class="sm-content fragment">
+          <strong>State</strong> adalah suatu Object bawaan di dalam React yang digunakan
+          untuk menampung data atau informasi dari suatu Komponen.
+        </p>
+
+        <p class="sm-content fragment">
+          <strong>State</strong> dari suatu komponen bisa berubah kapanpun, dan ketika
+          hal itu terjadi, maka komponen akan <strong>di-render ulang</strong>.
+        </p>
+
+        <p class="sm-content fragment">
+          Berbeda dengan <strong>Props</strong>, yang digunakan untuk passing
+          data ke komponen anak (<i>children components</i>), <strong
+            >State</strong
+          > digunakan untuk menyimpan data dari komponen yang nantinya harus dirender
+          ke dalam tampilan yang ada.
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>State (ii)</h2>
+
+        <p class="sm-content fragment">Yuk sudah cukup ngomongin teorinya !</p>
+
+        <p class="sm-content fragment">
+          Mari sekarang kita belajar cara menuliskan <strong>State</strong>
+        </p>
+
+        <p class="sm-content fragment">
+          Yuk kita lanjutkan untuk <strong>ToDoIncrement</strong> yang masih error
+          yah !
+        </p>
+
+        <p class="sm-content fragment animate-pulse">
+          Tenang, untuk proyek ToDo Listing tadi akan dibahas setelah ini yah !
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>State - Demo</h2>
+
+        <p class="sm-content">
+          Mari kita modifikasi lagi file <strong>ToDoIncrement.jsx</strong>
+        </p>
+
+        <div class="fragment">
+          <ReactComponentToDoState />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>State - Demo (ii)</h2>
+
+        <p class="sm-content">
+          Untuk Kode final yang dibuat sebelumnya dapat dilihat
+          <a
+            href="https://stackblitz.com/edit/mrd-react-component-03?file=src%2FApp.js"
+            target="_blank">di sini</a
+          > yah
+        </p>
+
+        <p class="sm-content animate-pulse">
+          Perlu diingat bahwa <strong>walaupun state mutable</strong>, selalu <strong
+            >perlakukan state seperti immutable !</strong
+          > (jangan lakukan reassign, tapi gunakan method setter / replacernya) !
+        </p>
+
+        <p class="sm-content">
+          Nah sekarang setelah mengetahui <strong>Event Handler</strong> dan
+          <strong>State</strong> mari sekarang kita menyelesaikan ToDo List ini yah
+          !
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Combination</h2>
+
+        <p class="sm-content">
+          Sekarang kita akan menggabungkan yang sudah dipelajari pada minggu
+          kemarin
+          <strong>Props</strong> dengan materi yang baru dipelajari <strong
+            >Event Handler</strong
+          >
+          dan <strong>State</strong>
+        </p>
+
+        <p class="sm-content fragment">
+          Pertama, kita harus mengetahui karena "data" todos ini akan digunakan
+          oleh dua Komponen anak, maka kita harus menaruh <strong>State</strong>
+          nya di Komponen Orang tuanya (Parent Component). hal ini umum disebut dengan
+          istilah <strong>Lifting up the state</strong>
+        </p>
+
+        <p class="sm-content fragment">
+          Jadi mari buka kembali file <strong>App.js</strong> dan deklarasi state
+          <strong>todos</strong> di App.js
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Combination (ii)</h2>
+
+        <p class="sm-content">Deklarasi state todos di App.js</p>
+
+        <div class="fragment">
+          <ReactComponentToDoFinalDeclareStateApp />
+        </div>
+
+        <p class="sm-content fragment">
+          Selanjutnya kita akan mendeklarasikan fungsi untuk menambah todos dan
+          mendeklarasikan props pada Komponen anak di App.js
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Combination (iii)</h2>
+
+        <p class="sm-content">
+          Deklarasi fungsi untuk menambah todos dan deklarasi Props di App.js
+        </p>
+
+        <div class="fragment">
+          <ReactComponentToDoFinalDeclareFunctionAndPropsApp />
+        </div>
+
+        <p class="sm-content fragment">
+          Selanjutnya kita akan memodifikasi kode pada komponen ToDoList untuk
+          bisa membaca data dari state yang sudah dibuat di App.js
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Combination (iv)</h2>
+
+        <p class="sm-content">
+          Memodifikasi kode pada komponen ToDoList (file <strong
+            >ToDoList.jsx</strong
+          >)
+        </p>
+
+        <div class="fragment">
+          <ReactComponentToDoFinalModifyToDoList />
+        </div>
+
+        <p class="sm-content fragment">
+          Selanjutnya, adalah bagian <span class="text-red-400 animate-pulse"
+            >paling panjang</span
+          > dan terakhir, yaitu memodifikasi komponen ToDoForm
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Combination (v)</h2>
+
+        <p class="sm-content">
+          Memodifikasi kode pada komponen ToDoForm (file <strong
+            >ToDoForm.jsx</strong
+          >)
+        </p>
+
+        <div class="fragment">
+          <ReactComponentToDoFinalModifyToDoForm1 />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>Combination (vi)</h2>
+
+        <p class="sm-content">
+          Memodifikasi kode pada komponen ToDoForm (file <strong
+            >ToDoForm.jsx</strong
+          >)
+        </p>
+
+        <div class="fragment">
+          <ReactComponentToDoFinalModifyToDoForm2 />
+        </div>
+
+        <p class="sm-content fragment">
+          <span class="text-red-400">S-E-L-E-S-A-I !</span>
+          sampai pada tahap ini Proyek ToDoList kita sudah selesai !
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Combination - Recap</h2>
+
+        <p class="sm-content">
+          Cukup panjang yah kodenya ! selamat datang ke dunia React !
+        </p>
+
+        <p class="sm-content">Sampai di sini artinya kita sudah mempelajari:</p>
+
+        <ul class="sm-content">
+          <li>Pembuatan Component</li>
+          <li>Penggunaan Props</li>
+          <li>Penggunaan Event Handler</li>
+          <li>Penggunaan State</li>
+        </ul>
+
+        <p class="sm-content">
+          Selanjutnya kita harus memantapkan dari materi yang didapatkan lagi
+          yah !
+        </p>
+
+        <p class="sm-content">
+          Untuk kode pembelajaran hari ini dapat dilihat sepenuhnya
+          <a
+            href="https://github.com/withered-flowers/education-react-event-and-state"
+            target="_blank">di sini</a
+          >
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>QnA</h2>
+      </section>
+
+      <section class="center">
+        <h2>Waktunya Tantangan</h2>
+
+        <a
+          href="https://github.com/menjadi-react-developer/challenge-react-event-and-state"
+          target="_blank">Klik di sini</a
+        >
+      </section>
+
+      <section id="referensi" class="center">
+        <h2>Referensi</h2>
+
+        <ul class="text-2xl">
+          <li>https://beta.reactjs.org/learn/responding-to-events</li>
+          <li>
+            https://www.simplilearn.com/tutorials/reactjs-tutorial/reactjs-state
+          </li>
+          <li>
+            https://beta.reactjs.org/learn/updating-objects-in-state#recap
+          </li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .slides {
+    .center {
+      @apply mx-auto w-full flex flex-row justify-center;
+    }
+
+    .left {
+      @apply mx-auto w-full top-16;
+    }
+
+    ul {
+      @apply w-full text-left;
+    }
+
+    div {
+      @apply text-3xl;
+    }
+
+    blockquote {
+      @apply w-full border-2 border-slate-700;
+    }
+
+    .sm-content {
+      @apply text-3xl text-left;
+
+      li {
+        @apply mb-2;
+      }
+    }
+  }
+</style>

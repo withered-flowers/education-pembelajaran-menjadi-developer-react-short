@@ -1,0 +1,613 @@
+---
+import BaseLayout from "../../layouts/BaseLayoutWithSlidesReact.astro";
+import { Icon } from "astro-icon";
+import { Code } from "astro/components";
+
+const mdCodes = await Astro.glob("./examples/*.md");
+
+const findContent = (title: string) => {
+  return mdCodes?.find((md) => md?.frontmatter?.title === title)!.Content;
+};
+
+const ReviewReactContainersTodoStart = findContent(
+  "review-react-containers-todo-start"
+);
+const ReviewReactAppStart = findContent("review-react-app-start");
+const ReviewReactComponentsTodoFormStart = findContent(
+  "review-react-components-todo-form-start"
+);
+const ReviewReactComponentsTodoTableStart = findContent(
+  "review-react-components-todo-table-start"
+);
+const ReviewReactContainersTodoAfterTable = findContent(
+  "review-react-containers-todo-after-table"
+);
+const ReviewReactContainersTodoEventAddTodos = findContent(
+  "review-react-containers-todo-event-add-todos"
+);
+const ReviewReactComponentsTodoFormEventAddTodos = findContent(
+  "review-react-components-todo-form-event-add-todos"
+);
+const ReviewReactContainersTodoEventCompleteTodo = findContent(
+  "review-react-containers-todo-event-complete-todo"
+);
+const ReviewReactComponentsTodoTableEventCompleteTodo = findContent(
+  "review-react-components-todo-table-event-complete-todo"
+);
+const ReviewReactComponentsTodoFormAddMUIComponents = findContent(
+  "review-react-components-todo-form-add-mui-components"
+);
+const ReviewReactComponentsTodoFormFinalAddMUIComponents = findContent(
+  "review-react-components-todo-form-final-add-mui-components"
+);
+const ReviewReactContainersTodoAddMUIComponents = findContent(
+  "review-react-containers-todo-add-mui-components"
+);
+const ReviewReactComponentsTodoTableAddMUIComponents = findContent(
+  "review-react-components-todo-table-add-mui-components"
+);
+
+const title = "React - UI Framework";
+---
+
+<BaseLayout title={title}>
+  <div class="p-4">
+    <div class="slides">
+      <section class="center">
+        <div class="flex flex-row justify-center gap-6">
+          <Icon name="simple-icons:react" class="w-48" />
+          <Icon name="simple-icons:mui" class="w-48" />
+        </div>
+        <h1>React - UI Framework</h1>
+      </section>
+
+      <section class="center">
+        <h2>Agenda</h2>
+
+        <p class="text-3xl text-left">Apa saja yang akan dibahas?</p>
+        <ul class="sm-content">
+          <li>Review React</li>
+          <li>UI Component Library</li>
+          <li>QnA</li>
+          <li>Waktunya Tantangan</li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Review React</h2>
+
+        <p class="sm-content">
+          Yuk kita mengingat lagi tentang pembuatan ToDoList kemarin yah
+        </p>
+        <p class="sm-content">
+          Bagaimana bila seandainya sekarang kita ingin membuat ToDoList dalam
+          bentuk sebuah tabel ?
+        </p>
+        <p class="sm-content">Mari kita coba untuk membuatnya yah !</p>
+      </section>
+
+      <section class="center">
+        <h2>Review React (ii)</h2>
+
+        <ul class="sm-content">
+          <li>
+            Membuat projectnya kembali dengan menggunakan
+            <code>npx create-react-app nama-project-yang-diinginkan</code>
+          </li>
+          <li>
+            Memodifikasi file <strong>src/index.js</strong> dan meng-komen bagian
+            <strong>import css</strong>
+          </li>
+          <li>
+            Memodifikasi file <strong>src/App.js</strong> dan meng-komen
+            <strong>seluruh import</strong> serta mengosongkan <strong
+              >return</strong
+            >
+            dari <strong>function app</strong> (sehingga hanya tersisa
+            <code>div className="App"</code>) saja
+          </li>
+          <li>
+            Membuat folder pada <strong>src</strong> dengan nama <strong
+              >components</strong
+            >
+          </li>
+          <li>
+            Membuat dua buah file dengan nama <strong>ToDoForm.jsx</strong> dan
+            <strong>ToDoTable.jsx</strong> pada folder <strong
+              >src/components</strong
+            >
+          </li>
+          <li>
+            Membuat folder pada <strong>src</strong> dengan nama <strong
+              >containers</strong
+            >
+          </li>
+          <li>
+            Membuat file <strong>ToDo.jsx</strong> pada folder <strong
+              >src/containers</strong
+            >
+          </li>
+          <li>
+            Selanjutnya kita akan memulai untuk menuliskan kode, dimulai dari
+            file
+            <strong>ToDo.jsx</strong>
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Review React (iii)</h2>
+
+        <p class="sm-content">File <strong>ToDo.jsx</strong></p>
+
+        <div class="fragment">
+          <ReviewReactContainersTodoStart />
+        </div>
+
+        <p class="sm-content fragment">
+          Apabila saat di save keluar warning di linter, abaikan terlebih dahulu
+          yah !
+        </p>
+
+        <p class="sm-content fragment">
+          Selanjutnya kita akan memodifikasi file <strong>App.js</strong> untuk menampilkan
+          containers <strong>ToDo</strong>
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Review React (iv)</h2>
+
+        <p class="sm-content">File <strong>App.js</strong></p>
+
+        <div class="fragment">
+          <ReviewReactAppStart />
+        </div>
+
+        <p class="sm-content fragment">
+          Selanjutnya kita akan mulai untuk membuat component <strong
+            >ToDoForm</strong
+          >
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Review React (v)</h2>
+
+        <p class="sm-content">File <strong>ToDoForm.jsx</strong></p>
+        <div class="fragment">
+          <ReviewReactComponentsTodoFormStart />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>Review React (vi)</h2>
+
+        <p class="sm-content">Wah kode kita sudah mulai panjang yah !</p>
+        <p class="sm-content">
+          Ya, memang seperti inilah bila sudah masuk ke React yah, harus
+          menerima sikon yang seperti ini !
+        </p>
+        <p class="sm-content">
+          Selanjutnya kita akan mulai membuat component
+          <strong>ToDoTable</strong> yah !
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Review React (vii)</h2>
+
+        <p class="sm-content">File <strong>ToDoTable.jsx</strong></p>
+
+        <div class="sm-content fragment">
+          <ReviewReactComponentsTodoTableStart />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>Review React (viii)</h2>
+
+        <p class="sm-content">
+          Selanjutnya kita akan modifikasi file <strong>ToDo.jsx</strong>
+          kembali, untuk menambahkan <strong>ToDoForm</strong> dan
+          <strong>ToDoTable</strong>
+        </p>
+
+        <div class="sm-content fragment">
+          <ReviewReactContainersTodoAfterTable />
+        </div>
+
+        <p class="sm-content fragment">
+          Apakah sampai di sini sudah selesai? Tentu saja
+          <i><strong>tydaque !</strong></i>
+        </p>
+
+        <p class="sm-content fragment">
+          Sekarang kita akan membuat logic untuk menambahkan data <strong
+            >todos</strong
+          > ke dalam tabel apabila tombol <strong>Tambah kerjaan</strong> ditekan
+          !
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Review React (ix)</h2>
+
+        <p class="sm-content">
+          File <strong>ToDo.jsx</strong>
+        </p>
+
+        <div class="fragment">
+          <ReviewReactContainersTodoEventAddTodos />
+        </div>
+
+        <p class="sm-content fragment">
+          Selanjutnya kita akan modifikasi component <strong>ToDoForm</strong>
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Review React (x)</h2>
+
+        <p class="sm-content">
+          File <strong>ToDoForm.jsx</strong>
+        </p>
+
+        <div class="fragment">
+          <ReviewReactComponentsTodoFormEventAddTodos />
+        </div>
+
+        <p class="sm-content fragment">
+          Sampai di titik ini artinya kita sudah selesai untuk membuat
+          penambahan data <strong>todos</strong> ke dalam tabel !
+        </p>
+
+        <p class="sm-content fragment">
+          Selanjutnya kita akan membuat logic untuk menyelesaikan
+          <strong>todos</strong> yang sudah dibuat !
+        </p>
+
+        <p class="sm-content fragment">
+          Apabila tombol selesaikan dalam tiap baris data ditekan, maka akan
+          membuat data <strong>isCompleted</strong> menjadi
+          <strong>true</strong>
+        </p>
+
+        <p class="sm-content fragment">
+          Mari kita mulai dari modifikasi container <strong>ToDo</strong>
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Review React (xi)</h2>
+
+        <p class="sm-content">File <strong>ToDo.jsx</strong></p>
+
+        <div class="fragment">
+          <ReviewReactContainersTodoEventCompleteTodo />
+        </div>
+
+        <p class="sm-content fragment">
+          Selanjutnya, modifikasi component <strong>ToDoTable</strong>
+          untuk menyelesaikan <strong>todos</strong> yang sudah dibuat !
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Review React (xi)</h2>
+
+        <p class="sm-content">File <strong>ToDoTable.jsx</strong></p>
+
+        <div class="fragment">
+          <ReviewReactComponentsTodoTableEventCompleteTodo />
+        </div>
+
+        <p class="sm-content fragment">
+          Sampai di sini artinya kita sudah menyelesaikan semuanya !
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Review React (xii)</h2>
+
+        <p class="sm-content">Wah ternyata panjang yah !</p>
+
+        <p class="sm-content fragment">
+          Tenang... kalau sudah bekerja pastinya lebih panjang dari ini kok !
+        </p>
+
+        <p class="sm-content fragment">
+          Tapi, ngomong-ngomong soal kerja, ini masih ada yang kurang loh...
+        </p>
+
+        <p class="sm-content fragment">
+          Ya ! kita belum melakukan <strong>styling</strong> agar component kita
+          menjadi lebih baik !
+        </p>
+
+        <p class="sm-content fragment">
+          Untuk bisa melakukan <strong>styling</strong> terhadap component sebenarnya
+          kita bisa saja melakukannya secara manual
+        </p>
+
+        <p class="sm-content fragment">
+          Tapi bagaimana bila ternyata sudah ada yang mau berbaik hati
+          membuatkan
+          <strong>styling</strong>-nya, bahkan sampai sudah membuatkannya dalam
+          bentuk <strong>Component</strong>-based ?
+        </p>
+
+        <p class="sm-content fragment">
+          Yuk, tanpa <i>bak bik buk</i>, kita coba melihatnya !
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>UI Component Library</h2>
+
+        <p class="sm-content">
+          UI Component Library umumnya adalah sekumpulan UI Component yang sudah
+          siap digunakan untuk membuat sebuah aplikasi web.
+        </p>
+
+        <p class="sm-content fragment">
+          Contoh Component, e.g.: <strong>Button</strong>, <strong>Input</strong
+          >,
+          <strong>Dialog</strong>, dsb
+        </p>
+
+        <p class="sm-content fragment">
+          Dibuat sebagai <strong>library</strong> untuk membangun tampilan yang baik
+          dan konsisten !
+        </p>
+
+        <p class="sm-content fragment">
+          Contoh UI Component Library untuk React adalah:
+        </p>
+
+        <ul class="sm-content">
+          <li class="fragment">React Bootstrap</li>
+          <li class="fragment">Ant Design</li>
+          <li class="fragment">MUI (Material-UI)</li>
+          <li class="fragment">Dan masih banyak lainnya lagi...</li>
+        </ul>
+
+        <p class="sm-content fragment">
+          Yang akan kita gunakan pada pembelajaran ini adalah <strong
+            >MUI</strong
+          >
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>UI Component Library (ii)</h2>
+
+        <p class="sm-content">
+          MUI adalah UI Component Library yang didesain berdasarkan
+          <strong>Material Design</strong> yang dibuat oleh Google.
+        </p>
+
+        <p class="sm-content fragment">
+          Punya tampilan yang <i>Google-alike</i>, sehingga cukup cocok untuk
+          tampilan mobile based (dan juga) secara visual akan cocok untuk
+          tampilan desktop based.
+        </p>
+
+        <p class="sm-content fragment">
+          Akan tetapi, bila nantinya tidak dicustom dengan baik, akan dikira
+          sebagai aplikasi yang jadi produknya Google !
+        </p>
+
+        <p class="sm-content fragment">
+          Yuk kita langsung buka <strong>MUI</strong> dan mulai belajar menggunakannya
+          !
+        </p>
+
+        <p class="sm-content fragment">
+          Tautan untuk penggunaan MUI bisa dibuka dengan
+          <a
+            href="https://mui.com/material-ui/getting-started/installation/"
+            target="_blank">Klik di sini</a
+          >
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>UI Component Library (iii)</h2>
+
+        <p class="sm-content">
+          Mari kita kembali lagi ke project ToDo yang kita buat tadi
+        </p>
+
+        <p class="sm-content">
+          Sekarang kita akan menambahkan UI Library MUI ke dalam project yang
+          sudah kita buat
+        </p>
+
+        <p class="sm-content">
+          Untuk menambahkannya kita bisa menggunakan perintah di bawah
+        </p>
+
+        <Code
+          code={"npm install @mui/material @emotion/react @emotion/styled"}
+          lang={"bash"}
+        />
+
+        <p class="sm-content">
+          Nah, setelah menambahkan package ini, saatnya kita menggunakan MUI di
+          dalam project kita !
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>UI Component Library (iv)</h2>
+
+        <p class="sm-content">
+          Kita mulai dari file <strong>ToDoForm.jsx</strong>, dan menambahkan
+          component <strong>Button</strong> MUI untuk menggantikan button standar
+          yang kita buat sebelumnya
+        </p>
+
+        <div class="fragment">
+          <ReviewReactComponentsTodoFormAddMUIComponents />
+        </div>
+
+        <p class="sm-content fragment">
+          Perhatikan di sini ada attribute baru dengan nama <strong
+            >variant</strong
+          >
+          dan <strong>size</strong>, ini merupakan attribute tambahan dari
+          <strong>Button</strong> MUI.
+        </p>
+
+        <p class="sm-content fragment">
+          Untuk Dokumentasi <strong>Button</strong> MUI dapat dilihat
+          <a href="https://mui.com/material-ui/react-button/" target="_blank"
+            >di sini</a
+          >
+        </p>
+
+        <p class="sm-content fragment">
+          Selanjutnya kita akan <i>freestyle</i> menambahkan component MUI !
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>UI Component Library (iv)</h2>
+
+        <p class="sm-content">File <strong>ToDoForm.jsx</strong></p>
+
+        <div class="fragment">
+          <ReviewReactComponentsTodoFormFinalAddMUIComponents />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>UI Component Library (v)</h2>
+
+        <p class="sm-content">File <strong>ToDo.jsx</strong></p>
+
+        <div class="fragment">
+          <ReviewReactContainersTodoAddMUIComponents />
+        </div>
+
+        <p class="sm-content fragment">
+          Dokumentasi <strong>TextInput</strong> dapat dilihat
+          <a
+            href="https://mui.com/material-ui/react-text-field/"
+            target="_blank">di sini</a
+          >
+        </p>
+
+        <p class="sm-content fragment">
+          Dokumentasi <strong>Typography</strong> dapat dilihat
+          <a href="https://mui.com/material-ui/api/typography/" target="_blank"
+            >di sini</a
+          >
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>UI Component Library (vi)</h2>
+
+        <p class="sm-content">File <strong>ToDoTable.jsx</strong></p>
+
+        <div class="fragment">
+          <ReviewReactComponentsTodoTableAddMUIComponents />
+        </div>
+
+        <p class="sm-content fragment">
+          Dokumentasi <strong>Table</strong> dapat dilihat
+          <a href="https://mui.com/material-ui/react-table/" target="_blank"
+            >di sini</a
+          >
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>UI Component Library (vii)</h2>
+
+        <p class="sm-content">Wah panjang sekali yah kodenya?</p>
+
+        <p class="sm-content">Tenang, projekan biasanya lebih dari ini kok !</p>
+
+        <p class="sm-content">
+          Bagi yang tertinggal mengikuti materi ini, atau <i>males</i> mau langsung
+          liat akhirnya aja, bisa <i>ngintip</i> kode finalnya
+          <a
+            href="https://github.com/withered-flowers/education-react-mui-component/tree/02-adding-mui"
+            target="_blank">di sini</a
+          > !
+        </p>
+
+        <p class="sm-content fragment">
+          Atau bagi yang mau langsung mencoba demonya, bisa dibuka
+          <a
+            href="https://stackblitz.com/edit/mrd-react-component-ii-01?file=src%2FApp.js"
+            target="_blank">di Stackblitz</a
+          >
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>QnA</h2>
+      </section>
+
+      <section class="center">
+        <h2>Waktunya Tantangan</h2>
+
+        <a
+          href="https://github.com/menjadi-react-developer/challenge-react-with-mui"
+          target="_blank">Klik di sini</a
+        >
+      </section>
+
+      <section id="referensi" class="center">
+        <h2>Referensi</h2>
+
+        <ul class="text-2xl">
+          <li>
+            https://sunscrapers.com/blog/ui-component-library-in-a-react-project/#what-is-a-ui-component-library
+          </li>
+          <li>
+            https://www.sitepoint.com/popular-react-ui-component-libraries/
+          </li>
+          <li>https://mui.com/material-ui/getting-started/installation/</li>
+          <li>https://mui.com/material-ui/getting-started/learn/</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .slides {
+    .center {
+      @apply mx-auto w-full flex flex-row justify-center;
+    }
+
+    .left {
+      @apply mx-auto w-full top-16;
+    }
+
+    ul {
+      @apply w-full text-left;
+    }
+
+    div {
+      @apply text-3xl;
+    }
+
+    blockquote {
+      @apply w-full border-2 border-slate-700;
+    }
+
+    .sm-content {
+      @apply text-3xl text-left;
+
+      li {
+        @apply mb-2;
+      }
+    }
+  }
+</style>

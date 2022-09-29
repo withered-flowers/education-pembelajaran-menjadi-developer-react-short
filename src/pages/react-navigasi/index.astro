@@ -1,4 +1,770 @@
 ---
+import BaseLayout from "../../layouts/BaseLayoutWithSlidesLottieReact.astro";
+import { Icon } from "astro-icon";
+import { Code } from "astro/components";
+
+const mdCodes = await Astro.glob("./examples/*.md");
+
+const findContent = (title: string) => {
+  return mdCodes?.find((md) => md?.frontmatter?.title === title)!.Content;
+};
+
+const ReactRouterUse01 = findContent("react-router-use-01");
+const ReactRouterUse02 = findContent("react-router-use-02");
+const ReactRouterUse03 = findContent("react-router-use-03");
+
+const DemoInitTailwind = findContent("demo-init-tailwind");
+const DemoInitTailwindCSS = findContent("demo-init-tailwind-css");
+const DemoInitTailwindApp = findContent("demo-init-tailwind-app");
+
+const title = "React - Navigasi";
 ---
 
-<h1>React JS - Navigation</h1>
+<BaseLayout title={title}>
+  <div class="p-4">
+    <div class="slides">
+      <section class="center">
+        <div class="flex flex-row justify-center gap-6">
+          <Icon
+            name="simple-icons:react"
+            class="w-48 animate-spin-slow duration-1000"
+          />
+        </div>
+        <h1>React - Navigasi</h1>
+      </section>
+
+      <section class="center">
+        <h2>Agenda</h2>
+
+        <p class="text-3xl text-left">Apa saja yang akan dibahas?</p>
+        <ul class="sm-content">
+          <li>Routing?</li>
+          <li>React Router - What Is?</li>
+          <li>React Router - How To?</li>
+          <li>React Router - useNavigate</li>
+          <li>React Router - Parameters & Query Strings</li>
+          <li>React Router - Nested Page</li>
+          <li>React Router - No Match Route</li>
+          <li>Bonus - ???</li>
+          <li>QnA</li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Routing?</h2>
+
+        <p class="sm-content">
+          Sampai dengan pembelajaran terakhir, kita sudah berhasil membuat
+          aplikasi React, berbasis komponen, mantap bukan?
+        </p>
+
+        <p class="sm-content fragment">
+          Tapi semuanya itu masih ada yang kurang loh...
+        </p>
+
+        <p class="sm-content fragment">Apakah yang masih kurang itu?</p>
+
+        <p class="sm-content fragment">
+          Coba kita ingat ingat lagi ketika kita ingin menampilkan suatu
+          "halaman" dan ber-pindah ke halaman lainnya
+        </p>
+
+        <p class="sm-content fragment">
+          Kita masih harus menggunakan conditional rendering untuk menampilkan
+          dan menghilangkan page yang ada bukan?
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Routing? (ii)</h2>
+
+        <p class="sm-content">
+          Mari kita coba untuk melihat contoh berikut untuk lebih jelasnya
+        </p>
+
+        <p class="sm-content">
+          <a
+            href="https://stackblitz.com/edit/mrd-react-navigation-01?file=src%2FApp.js"
+            target="_blank">Klik di sini</a
+          >
+        </p>
+
+        <p class="sm-content fragment">Nah sudah liat kekurangannya bukan?</p>
+
+        <p class="sm-content fragment">
+          Perpindahan halaman tersebut walaupun terdapat conditional rendering,
+          tetapi setiap kali refresh component akan kembali seperti kondisi
+          semula
+        </p>
+
+        <p class="sm-content fragment">
+          Berbeda dengan perpindahan halaman pada aplikasi pada umumnya bukan?
+        </p>
+
+        <p class="sm-content fragment">
+          Yang bisa berpindah berdasarkan <strong>trailing slash</strong> (/nama-rute)
+          yang ada di belakang dari alamat url
+        </p><ul class="sm-content fragment">
+          <li>e.g.: http://localhost:3000/A untuk ke Halaman Pertama</li>
+          <li>dan http://localhost:3000/B untuk ke Halaman Kedua</li>
+        </ul>
+
+        <p class="sm-content fragment">
+          Nah sekarang <strong class="animate-pulse"
+            >bagaimana caranya kita bisa mengimplementasikan hal tersebut?</strong
+          >
+        </p>
+
+        <p class="sm-content fragment">
+          Ya, salah satu jawabannya adalah dengan menggunakan <strong
+            class="animate-pulse">React Router</strong
+          >
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>React Router - What Is?</h2>
+
+        <p class="sm-content">
+          Dikutip dari situsnya langsung, <a
+            href="https://reactrouter.com/en/v6.3.0/getting-started/tutorial"
+            target="_blank">React Router</a
+          > (atau yang terbaru di <a href="https://reactrouter.com/en/main"
+            >React Router v6.4+</a
+          >) adalah sebuah library lengkap pada server-side dan client-side
+          untuk Routing / Navigasi pada React.
+        </p>
+
+        <p class="sm-content fragment">
+          Yang akan kita pelajari di sini adalah React Router yang digunakan
+          untuk React pada client-side (client-side routing) yah !
+        </p>
+
+        <p class="sm-content fragment">
+          Yuk sekarang kita coba melihat cara menggunakan React Router !
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>React Router - How To?</h2>
+
+        <p class="sm-content">
+          Cara untuk menginstall React Router adalah dengan menggunakan
+          <strong>npm install react-router-dom@6</strong>
+          (pada folder yang sudah ada project dengan CRA sebelumnya)
+        </p>
+
+        <p class="sm-content fragment">
+          Kemudian setelah itu, kita bisa menggunakan React Router pada file <strong
+            >src/index.js</strong
+          >
+        </p>
+
+        <div class="sm-content fragment">
+          <ReactRouterUse01 />
+        </div>
+
+        <p class="sm-content fragment">
+          Sampai di sini sudah selesai? tentu <strong>tydaque</strong> ! Mari kita
+          edit file <strong>src/App.js</strong>
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>React Router - How To? (ii)</h2>
+
+        <p class="sm-content">Modifikasi file <strong>src/App.js</strong></p>
+
+        <div class="sm-content fragment">
+          <ReactRouterUse02 />
+        </div>
+
+        <p class="sm-content fragment">
+          Selanjutnya kita akan melakukan sesuatu yang
+          <strong class="text-red-400">TIDAK BOLEH DILAKUKAN</strong>
+          saat membuat real case yah! (Hanya untuk pembelajaran saja)
+        </p>
+
+        <p class="sm-content fragment">
+          Mari kita modifikasi lagi file <strong>src/App.js</strong>
+          untuk menambahkan Component Home dan About
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>React Router - How To? (iii)</h2>
+
+        <p class="sm-content">
+          Modifikasi file <strong>src/App.js</strong> (sebelum export)
+        </p>
+
+        <div class="sm-content fragment">
+          <ReactRouterUse03 />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>React Router - How To? (iii)</h2>
+
+        <p class="sm-content">
+          Jalankan kode yang sudah dibuat dan lihat hasilnya !
+        </p>
+
+        <p class="sm-content fragment">
+          Nah sampai di titik ini kita sudah berhasil menggunakan React Router
+          untuk navigasi sederhana saja (dengan menggunakan <strong>Link</strong
+          >)
+        </p>
+
+        <p class="sm-content fragment">
+          Bila tertinggal, bisa dilihat pada kode yang ada
+          <a
+            href="https://stackblitz.com/edit/mrd-react-navigation-02?file=src%2FApp.js"
+            target="_blank">di sini</a
+          > yah
+        </p>
+
+        <p class="sm-content fragment">
+          Bagaimana bila sekarang ini kita akan menggunakan
+          <strong>Link</strong> namun versi "javascript"-nya?
+        </p>
+
+        <p class="sm-content fragment">
+          Untuk hal ini kita akan menggunakan hooks bawaan React Router bernama <strong
+            >useNavigate</strong
+          > untuk bisa berpindah halaman
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>React Router - useNavigate</h2>
+
+        <p class="sm-content">
+          React Router ini menyediakan banyak sekali hooks yang bisa digunakan
+          untuk memudahkan developer dalam membuat Routing.
+        </p>
+
+        <p class="sm-content">
+          Salah satunya adalah yang bernama <strong>useNavigate</strong>
+        </p>
+
+        <p class="sm-content">
+          Dokumentasi untuk <strong>useNavigate</strong> bisa dibaca
+          <a
+            href="https://reactrouter.com/docs/en/v6/hooks/use-navigate"
+            target="_blank">di sini</a
+          >
+        </p>
+
+        <p class="sm-content">
+          Nah setelah membaca dokumentasi, mari kita melanjutkan kode yang
+          dibuat ini yah !
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>React Router - useNavigate (ii)</h2>
+
+        <p class="sm-content">Mari kita lanjutkan kode yang tadi</p>
+
+        <ol class="sm-content">
+          <li>
+            Membuat sebuah file baru pada <strong
+              >src/components/CustomForm.jsx</strong
+            >
+          </li>
+          <li>
+            Menuliskan kode untuk membuat Form sederhana yang hanya memiliki
+            sebuah button submit. Pada saat submit ditekan, halaman akan
+            berpindah ke <strong>Route /</strong>
+          </li>
+          <li>
+            Memodifikasi file <strong>src/App.js</strong> untuk menambahkan routes
+            yang mengarahkan ke CustomForm
+          </li>
+          <li>Jalankan perubahan dan lihat hasilnya</li>
+          <li class="fragment">
+            Keseluruhan kode yang ada dituliskan di atas dapat dilihat <a
+              href="https://stackblitz.com/edit/mrd-react-navigation-03?file=src%2Fcomponents%2FCustomForm.jsx"
+              target="_blank">di sini</a
+            >
+          </li>
+
+          <li class="fragment">
+            Sampai di sini artinya kita sudah berhasil untuk membuat navigasi
+            yang terprogram (Programmatic Navigation)
+          </li>
+
+          <li class="fragment">
+            Nah sekarang kita memiliki permasalahan selanjutnya:
+            <strong>
+              Bagaimana bila ada routing yang ingin kita ambil sebagai parameter
+              / input untuk ditampilkan atau diproses lagi?
+            </strong>
+          </li>
+
+          <li class="fragment">
+            Istilahnya adalah Navigasi dengan URL Parameter (Navigation with URL
+            Parameters)
+          </li>
+
+          <li class="fragment">
+            Untuk mengetahui hal ini kita bisa membaca terlebih dahulu mengenai
+            hal tersebut
+            <a
+              href="https://reactrouter.com/docs/en/v6/getting-started/overview#reading-url-parameters"
+              target="_blank">di sini</a
+            > yah !
+          </li>
+        </ol>
+      </section>
+
+      <section class="center">
+        <h2>React Router - Parameters & Query Strings</h2>
+
+        <p class="sm-content">
+          Misalkan kita memiliki sebuah URL sebagai berikut:
+        </p>
+
+        <ul class="sm-content">
+          <li>
+            <strong>{"https://xxx.web.app/branded/1?q=cari&sort=asc"}</strong>
+          </li>
+        </ul>
+
+        <p class="sm-content">
+          Dan pada React Routernya terdapat definisi Routes adalah sebagai
+          berikut:
+        </p>
+
+        <ul class="sm-content">
+          <li>
+            <strong
+              >{'<Route path="branded/:productId" element={...} />'}
+            </strong>
+          </li>
+        </ul>
+
+        <p class="sm-content">Artinya adalah:</p>
+
+        <ul class="sm-content">
+          <li>
+            Rute /branded memiliki <strong>parameter</strong> bernama <strong
+              >productId</strong
+            >
+            yang memiliki value <strong>1</strong>
+          </li>
+          <li>
+            Rute /branded/1 memiliki object <strong>URLSearchParams</strong>
+            (atau umumnya disebut <strong>query strings</strong>) yang berisi
+            key <strong>q</strong> yang memiliki value <strong>cari</strong> dan
+            key <strong>sort</strong> yang memiliki value <strong>asc</strong>
+          </li>
+        </ul>
+
+        <p class="sm-content">
+          Nah, dengan menggunakan React Router, bagaimanakah cara kita membaca
+          hal ini?
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>React Router - Parameters & Query Strings (ii)</h2>
+
+        <p class="sm-content">
+          Untuk bisa membaca Parameters & Query Strings, kita akan menggunakan 2
+          hooks yang berbeda:
+        </p>
+
+        <ul class="sm-content">
+          <li><strong>useParams</strong> untuk membaca Parameters</li>
+          <li><strong>useSearchParams</strong> untuk membaca Query Strings</li>
+        </ul>
+
+        <p class="sm-content">
+          Dokumentasi untuk masing masing hooks dapat dibaca di sini:
+        </p>
+
+        <ul class="sm-content">
+          <li>
+            <a
+              href="https://reactrouter.com/docs/en/v6/hooks/use-params"
+              target="_blank">useParams</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://reactrouter.com/docs/en/v6/hooks/use-search-params"
+              target="_blank">useSearchParams</a
+            >
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>React Router - Parameters & Query Strings (iii)</h2>
+
+        <p class="sm-content">
+          Mari kita coba mulai dengan <strong>useParams</strong> terlebih dahulu
+        </p>
+
+        <ol class="sm-content">
+          <li>
+            Buat file <strong>src/data/animal.js</strong> yang berisi data kita (asumsikan
+            data ini adalah data tarikan eksternal)
+          </li>
+          <li>
+            Deklarasikan route pada <strong>src/App.js</strong> dengan nama <strong
+              >animals/:animalId</strong
+            >
+          </li>
+          <li>
+            Membuat component untuk menampilkan data binatang yang terpilih
+            berdasarkan id pada file
+            <strong>src/containers/AnimalDetailPage.jsx</strong>
+          </li>
+        </ol>
+
+        <p class="sm-content fragment">
+          Keseluruhan kode yang dibuat dapat dilihat dengan klik
+          <a
+            href="https://stackblitz.com/edit/mrd-react-navigation-04?file=src%2FApp.js"
+            target="_blank"
+          >
+            di sini</a
+          >
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>React Router - Parameters & Query Strings (iv)</h2>
+
+        <p class="sm-content">
+          Selanjutnya kita akan coba untuk menggunakan query strings yah
+        </p>
+
+        <p class="sm-content">
+          Langkah untuk membaca query strings dalam bentuk demo ini adalah
+          sebagai berikut:
+        </p>
+
+        <ol class="sm-content">
+          <li>
+            Modifikasi file <strong>src/App.js</strong> untuk menambahkan rute <strong
+              >animals</strong
+            >
+          </li>
+          <li>
+            Membuat container baru dengan nama <strong>AnimalListPage</strong>
+            yang akan menggunakan useState, useEffect, dan <strong
+              >useSearchParams</strong
+            >. Container ini akan menampilkan Listing dari animal id yang ada
+            secara ascending (kecil ke besar) ataupun descending (besar ke
+            kecil) tergantung dari filter yang diberikan
+          </li>
+          <li>
+            Untuk melihat kode yang dituliskan, dapat dilihat
+            <a
+              href="https://stackblitz.com/edit/mrd-react-navigation-05?file=src%2FApp.js"
+              target="_blank">di sini</a
+            >
+          </li>
+        </ol>
+
+        <p class="sm-content fragment">
+          Sekarang kita akan menyelesaikan permasalahan satu lagi:
+          <strong class="animate-pulse"
+            >Bagaimanakah bila kita memiliki rute anakan? (Child / Nested
+            Routes)?</strong
+          >
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>React Router - Nested Page</h2>
+
+        <p class="sm-content">
+          Untuk dapat membuat Nested Routes pada React Router, kita akan
+          menggunakan
+          <strong>Outlet</strong>
+        </p>
+
+        <p class="sm-content">
+          Dokumentasi tentang <strong>Outlet</strong> bisa dibaca
+          <a href="https://reactrouter.com/docs/en/v6/components/outlet"
+            >di sini</a
+          >
+        </p>
+
+        <p class="sm-content">
+          Langkah untuk menggunakan <strong>Outlet</strong>, berdasarkan demo
+          kita adalah sebagai berikut:
+        </p>
+
+        <ol class="sm-content">
+          <li>
+            Memodifikasi file <strong>src/App.js</strong> untuk menjadikan Route
+            <strong>/animals/:animalId</strong> menjadi Nested Route di dalam Route
+            <strong>/animals</strong>
+          </li>
+          <li>
+            Memodifikasi file <strong>src/containers/AnimalListPage.jsx</strong>
+            untuk menggunakan
+            <strong>Link</strong> dan <strong>Outlet</strong> di sini.
+            <ul class="sm-content">
+              <li>
+                <strong>Link</strong> sebagai anchor-nya (setiap list yang ada akan
+                dibuatkan anchornya)
+              </li>
+              <li>
+                <strong>Outlet</strong> sebagai Component untuk menampilkan AnimalDetailPage-nya
+                nanti
+              </li>
+            </ul>
+          </li>
+          <li>
+            Memodifikasi file <strong
+              >src/containers/AnimalDetailPage.jsx</strong
+            >, pada bagian dependency list dari <strong>useEffect</strong>,
+            untuk menggunakan <strong>useParams</strong>.
+          </li>
+        </ol>
+
+        <p class="sm-content fragment">
+          Untuk melihat kode yang dituliskan, dapat dilihat
+          <a
+            href="https://stackblitz.com/edit/mrd-react-navigation-06?file=src%2FApp.js"
+            target="_blank">di sini</a
+          >
+        </p>
+
+        <p class="sm-content fragment">
+          Nah sekarang kita akan masuk ke masalah terakhir: <strong
+            class="animate-pulse"
+            >Bagaimanakah cara kita menggunakan "default route" atau "no match
+            route"?</strong
+          >
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>React Router - No Match Route</h2>
+
+        <p class="sm-content">
+          Pada saat kita menggunakan React Router, kita akan selalu berasumsi
+          bahwa <strong>
+            Akan selalu ada orang iseng yang menuliskan route yang salah
+          </strong>
+        </p>
+
+        <p class="sm-content">
+          Contoh: Pada demo kita barusan, kita menuliskan route <strong
+            >/binatang/1</strong
+          >, pastinya tidak ditemukan bukan?
+        </p>
+
+        <p class="sm-content">
+          Nah, bagaimanakah cara kita "memarahi" orang yang menuliskan route
+          yang salah?
+        </p>
+
+        <p class="sm-content">
+          Salah satu alternatifnya adalah dengan menggunakan <strong
+            >No match route</strong
+          >
+        </p>
+
+        <p class="sm-content">
+          Dokumentasi untuk menggunakan <strong>No match route</strong> dapat dilihat
+          <a
+            href="https://reactrouter.com/docs/en/v6/getting-started/tutorial#adding-a-no-match-route"
+            target="_blank">di sini</a
+          >
+        </p>
+
+        <p class="sm-content">
+          Untuk implementasinya dalam demo kita tadi pun, kita cukup
+          memodifikasi file <strong>src/App.js</strong> saja
+        </p>
+
+        <p class="sm-content fragment">
+          Kode demo penggunaan <strong>No match route</strong> dapat dilihat
+          <a
+            href="https://stackblitz.com/edit/mrd-react-navigation-07?file=src%2FApp.js"
+            >di sini</a
+          >
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Kesimpulan</h2>
+
+        <div class="w-full flex flex-row justify-center">
+          <lottie-player
+            src="https://assets5.lottiefiles.com/private_files/lf30_kvdn44jg.json"
+            background="transparent"
+            speed="0.75"
+            style="width: 300px; height: 300px;"
+            loop
+            autoplay
+          />
+        </div>
+
+        <p class="sm-content">
+          Selamat, kita telah menyelesaikan semua permasalahan yang ada di dalam
+          React Router. Kita bisa menggunakan React Router untuk membuat
+          aplikasi yang lebih mudah untuk digunakan.
+        </p>
+
+        <p class="sm-content">
+          Selamat <strong
+            class="line-through opacity-0 hover:opacity-50 transition-opacity duration-500"
+            >membaca dokumentasi</strong
+          > menggunakan React Router!
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Bonus</h2>
+
+        <p class="sm-content">
+          Rasa-rasanya dari aplikasi yang dibuat barusan tanpa tampilan yang
+          "wah" terasa cukup hambar bukan?
+        </p>
+
+        <p class="sm-content">
+          Mari kita coba untuk "menghias" tampilan dari aplikasi yang dibuat
+          barusan ini, namun kita coba untuk tidak menggunakan MUI yah !
+        </p>
+
+        <p class="sm-content">
+          Kita coba sedikit untuk menggunakan salah satu CSS Library yang cukup
+          populer belakangan ini: <strong>TailwindCSS</strong>
+        </p>
+
+        <p class="sm-content">
+          Bagi yang mungkin belum mengetahui tentang TailwindCSS, bisa dibuka
+          pada
+          <a href="https://tailwindcss.com/" target="_blank">Tautan di sini</a>
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Demo - Install TailwindCSS</h2>
+
+        <p class="sm-content">
+          Langkah-langkah untuk memulainya adalah sebagai
+          <a
+            href="https://tailwindcss.com/docs/guides/create-react-app"
+            target="_blank">berikut</a
+          >:
+        </p>
+
+        <ol class="sm-content">
+          <li><code>cd nama-project-yang-dibuat-dengan-cra</code></li>
+          <li>
+            Install tailwind dengan <code
+              >npm install -D tailwindcss postcss autoprefixer</code
+            >
+          </li>
+          <li>
+            Inisialisasi tailwind dengan <code>npx tailwindcss init -p</code>
+          </li>
+          <li>
+            Setelah inisialiasi ini akan dibuatkan dua buah file: <strong
+              >tailwind.config.js</strong
+            >
+            dan <strong>postcss.config.js</strong>
+          </li>
+          <li>
+            Modifikasi file <strong>tailwind.config.js</strong> dengan kode berikut:
+            <DemoInitTailwind />
+          </li>
+        </ol>
+      </section>
+
+      <section class="center">
+        <h2>Demo - Install TailwindCSS (ii)</h2>
+
+        <ol class="sm-content" start={7}>
+          <li>
+            Modifikasi file index.css untuk menambahkan tailwindcss sebagai
+            berikut:
+            <DemoInitTailwindCSS />
+          </li>
+        </ol>
+      </section>
+
+      <section class="center">
+        <h2>Demo - Install Tailwind CSS (iii)</h2>
+
+        <ol class="sm-content" start={8}>
+          <li>
+            Modifikasi file App.js untuk menggunakan class TailwindCSS sebagai
+            berikut:
+            <DemoInitTailwindApp />
+          </li>
+          <li>Jalankan aplikasi dengan <strong>npm run start</strong></li>
+          <li>
+            Sampai di sini, ketika aplikasi berjalan, kita sudah berhasil
+            menggunakan TailwindCSS
+          </li>
+        </ol>
+
+        <p class="sm-content fragment">Yay ! selesai !</p>
+
+        <p class="sm-content fragment">
+          Untuk mengetahui lebih lanjut tentang TailwindCSS, bisa dibuka pada
+          dokumentasi TailwindCSS langsung yah !
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>QnA</h2>
+      </section>
+
+      <section id="referensi" class="center">
+        <h2>Referensi</h2>
+
+        <ul class="text-2xl">
+          <li>https://reactrouter.com/docs/en/v6</li>
+          <li>https://reactrouter.com/docs/en/v6/getting-started/tutorial</li>
+          <li>https://tailwindcss.com/docs/installation</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .slides {
+    .center {
+      @apply mx-auto w-full flex flex-row justify-center;
+    }
+
+    .left {
+      @apply mx-auto w-full top-16;
+    }
+
+    ul,
+    ol {
+      @apply w-full text-left;
+    }
+
+    div {
+      @apply text-3xl;
+    }
+
+    blockquote {
+      @apply w-full border-2 border-slate-700;
+    }
+
+    .sm-content {
+      @apply text-3xl text-left;
+
+      li {
+        @apply mb-2;
+      }
+    }
+  }
+</style>

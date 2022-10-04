@@ -1,4 +1,750 @@
 ---
+import BaseLayout from "../../layouts/BaseLayoutWithSlidesLottieReact.astro";
+import { Icon } from "astro-icon";
+
+const mdCodes = await Astro.glob("./examples/*.md");
+
+const findContent = (title: string) => {
+  return mdCodes?.find((md) => md?.frontmatter?.title === title)!.Content;
+};
+
+const Empty = findContent("empty");
+
+const title = "React - Redux";
 ---
 
-<h1>React JS - Redux</h1>
+<BaseLayout title={title}>
+  <div class="p-4">
+    <div class="slides">
+      <section class="center">
+        <div class="flex flex-row justify-center gap-6">
+          <Icon name="logos:redux" class="w-48" />
+        </div>
+        <h1>React - Redux</h1>
+      </section>
+
+      <section class="center">
+        <h2>Agenda</h2>
+
+        <p class="text-3xl text-left">Apa saja yang akan dibahas?</p>
+        <ul class="sm-content">
+          <li>Revisiting Reducer</li>
+          <li>Redux - What Is?</li>
+          <li>Redux Toolkit - What Is?</li>
+          <li>Redux Toolkit - How to?</li>
+          <li>QnA</li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Revisiting Reducer</h2>
+
+        <p class="sm-content">
+          Mari kita coba ingat ingat lagi yah tentang penggunaan Hooks yang ada
+          hubungannya dengan materi hari ini: <strong>useReducer</strong>
+        </p>
+
+        <p class="sm-content">
+          Yuk kita coba dengan membuat contoh yang cukup sederhana tentang
+          reducer:
+          <strong>Membuat counter angka</strong>
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Revisiting Reducer - Demo</h2>
+
+        <p class="sm-content">
+          Dalam project yang didemokan ini kita akan menggunakan paket lengkap
+          yah (React + MUI + Router + useReducer + Redux... lainnya nanti)
+        </p>
+
+        <ol class="sm-content">
+          <li>
+            Membuat Project CRA baru dengan nama <strong
+              >belajar-counter-redux</strong
+            > dengan
+            <strong>npx create-react-app belajar-counter-redux</strong>
+          </li>
+          <li>
+            Masuk ke dalam project tersebut, dan lakukan instalasi React MUI
+            dengan
+            <strong
+              >npm install @mui/material @emotion/react @emotion/styled</strong
+            >
+          </li>
+          <li>
+            Membuat component Navbar dulu pada file <strong
+              >src/components/NavBar.jsx</strong
+            >
+          </li>
+          <li>
+            Membuat <strong>reducers</strong>-nya terlebih dahulu pada file <strong
+              >src/reducers/counterReducer.js</strong
+            >
+          </li>
+          <li>
+            Membuat containers CounterReducerContainer pada file <strong
+              >src/containers/CounterReducerContainer.jsx</strong
+            >
+          </li>
+          <li>
+            Memodifikasi file App.js untuk memuat component <strong
+              >NavBar</strong
+            > dan container <strong>CounterReducerContainer</strong>
+          </li>
+        </ol>
+
+        <p class="sm-content">
+          Mulai pusing bukan? tenang, source code dari kode yang ditulis di atas
+          bisa dibaca pada
+          <a
+            href="https://github.com/withered-flowers/education-react-redux/tree/1-review-usereducer"
+            target="_blank">link di sini</a
+          > yah
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Revisiting Reducer - Conclusion</h2>
+
+        <p class="sm-content">
+          Jadi apa yang kita dapat setelah menggunakan hooks useReducer ini?
+        </p>
+
+        <ul class="sm-content">
+          <li>
+            Apabila kita ingin menambahkan reducer yang baru, kita harus import
+            semuanya satu per satu (Ke dalam container / component yang dibuat)
+          </li>
+          <li>
+            Sampai sekarang ini, reducer yang kita gunakan, masih hanya bisa
+            menggunakan state awal non side effect (tidak bisa menggunakan state
+            dari data fetching)
+          </li>
+        </ul>
+
+        <p class="sm-content">
+          Wah terdengar cukup menyeramkan yah masalah di atas, lalu solusinya
+          bagaimana <i>donk</i>?
+        </p>
+
+        <p class="sm-content">
+          Salah satu solusinya adalah dengan menggunakan Library tambahan
+          bernama <strong>Redux</strong>
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Redux - What Is?</h2>
+
+        <p class="sm-content">
+          Mengutip dari dokumentasi Redux yang bisa dibaca
+          <a href="https://redux.js.org/" target="_blank">di sini</a>, Redux
+          adalah:
+        </p>
+
+        <ul class="sm-content">
+          <li>
+            <strong>Predictable state container</strong> untuk aplikasi JavaScript
+          </li>
+          <li>
+            Digunakan untuk menuliskan aplikasi yang <strong
+              >bertindak secara konsisten</strong
+            >
+          </li>
+          <li>
+            Cara penulisan dan penggunaan state yang <strong>Global</strong> dan
+            <strong>Tersentralisasi</strong>
+          </li>
+        </ul>
+
+        <p class="sm-content">Kata kunci utamanya adalah:</p>
+
+        <ul class="sm-content">
+          <li>Tidak semua project (berbasis React) membutuhkan Redux</li>
+          <li>
+            Kita mungkin membutuhkan Redux apabila tidak mau menggunakan Props
+            Drilling
+          </li>
+        </ul>
+
+        <p class="sm-content">
+          Anggap saja ini seperti <strong>State</strong>, hanya saja <strong
+            >bisa diakses dari manapun !</strong
+          >
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Redux - Why?</h2>
+
+        <p class="sm-content">
+          Sampai di titik perkenalan ini mungkin akan ada pertanyaan: <strong
+            class="text-red-400 animate-pulse">Kenapa Redux?</strong
+          >
+        </p>
+
+        <p class="sm-content">
+          Padahal kan sudah ada <strong>useContext</strong> dan/atau <strong
+            >useReducer</strong
+          >?
+        </p>
+
+        <p class="sm-content fragment">Jawabannya adalah ...</p>
+
+        <ul class="sm-content fragment">
+          <li>
+            Belum ada fitur dari React secara native yang mengkombinasikan semua
+            Reducer jadi ada di satu tempat saja (Tidak ada cara untuk
+            menggabungkan seluruh reducer di satu tempat saja)
+          </li>
+          <li>
+            Setiap useReducer pada akhirnya akan memiliki fungsi <strong
+              >Dispatch</strong
+            >-nya sendiri ! (lagi-lagi) tidak ada fungsi yang bisa menggabungkan
+            seluruh <strong>Dispatch</strong>-nya jadi satu.
+          </li>
+          <li>
+            (Tingkat lanjut) Tidak ada middleware pada <strong
+              >useReducer</strong
+            >
+          </li>
+          <li>
+            (Tingkat lanjut) Tidak ada middleware yang bisa menggunakan side
+            effect dengan useReducer. Bisa, tapi harus menggabungkan tiga hooks
+            (<strong>useReducer</strong>, <strong>useContext</strong>, dan <strong
+              >useEffect</strong
+            > jadi satu), sehingga kode yang dibuat menjadi terlalu sulit untuk dimaintain
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Redux - When?</h2>
+
+        <p class="sm-content">
+          Jadi kapan donk <i>khaque</i> kita akan menggunakan redux ini?
+        </p>
+
+        <p class="sm-content">
+          <i>Rules of Thumb</i>-nya adalah sebagai berikut:
+        </p>
+
+        <ul class="sm-content">
+          <li>
+            Gunakan <strong>useState</strong> untuk aplikasi yang simple / small
+            size apps
+          </li>
+          <li>
+            Gunakan <strong>useState</strong> + <strong>useReducer</strong> + <strong
+              >useContext</strong
+            > untuk aplikasi yang advanced / medium size apps
+          </li>
+          <li>
+            Gunakan <strong>useState</strong> / <strong>Reducer</strong> + <strong
+              >Redux</strong
+            > untuk aplikasi yang complex / large size apps
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Bingung dengan Penjelasannya?</h2>
+
+        <p class="sm-content">
+          Sampai di titik ini pastinya kita masih akan bingung dengan penggunaan
+          Redux itu seperti apa yah !
+        </p>
+
+        <p class="sm-content fragment">
+          Mari kita coba analogikan seperti apa Redux itu bekerja
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Redux - How it Work? (Analogy)</h2>
+
+        <ul class="sm-content">
+          <li class="fragment">
+            Misalnya sekarang ini kita akan menarik uang kita yang ada di bank
+            (asumsi kita sekarang sudah di bank yah)
+          </li>
+
+          <li class="fragment">
+            Maka sekarang, di otak kita, hanya ada satu intensi / aksi a.k.a <strong
+              >Action</strong
+            >, yaitu:
+            <strong class="animate-pulse">TARIK_UANG</strong>
+          </li>
+
+          <li class="fragment">
+            Lalu selanjutnya kita akan menuju Teller untuk memberitahukan apa
+            yang ingin kita lakukan
+          </li>
+
+          <li class="fragment">
+            Kita beritahukan kepada Teller: saya ingin <strong
+              class="animate-pulse">TARIK_UANG</strong
+            >
+          </li>
+
+          <li class="fragment">
+            Selanjutnya, Teller akan menginputkan perintah pada komputer yang
+            dia miliki dan <i>poof</i>, kita mendapatkan uangnya
+          </li>
+
+          <li class="fragment">
+            Pertanyannya adalah: <strong
+              >Kok kita ga langsung ke brankas kita di bank untuk ambil uangnya?</strong
+            >
+          </li>
+
+          <li class="fragment">
+            Ya, seperti yang kita sudah ketahui, <i class="text-red-400"
+              >Bank ga gitu keles !</i
+            >, Memang uang kita ada nya di brankas Bank-nya, tapi kita harus
+            berkomunikasi via Teller untuk membantu kita dalam memenuhi
+            langkah-langkah yang dibutuhkan untuk menarik uang kita sendiri !
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Redux - How it Work? (Analogi)</h2>
+
+        <p class="sm-content">
+          Apabila digambarkan secara redux, langkah tersebut dapat dianalogikan
+          sebagai berikut:
+        </p>
+
+        <div class="w-full grid grid-cols-3 justify-center gap-4">
+          <div class="flex flex-col items-center gap-2">
+            <img class="w-64 h-64" src="/assets/react-redux/redux03.png" />
+            <span>
+              <strong>Brankas Bank ≈ Redux Store</strong>
+            </span>
+            <span>
+              Merupakan sumber data Aplikasi. Menyimpan <strong>state</strong> dalam
+              sebuah object yang di-<i>manage</i> oleh <strong
+                >Redux Store</strong
+              >.
+            </span>
+          </div>
+          <div class="flex flex-col items-center gap-2">
+            <img class="w-64 h-64" src="/assets/react-redux/redux01.png" />
+            <span class="sm-content">
+              <strong>Otak Kita ≈ Action</strong>
+            </span>
+            <span>
+              <strong>State</strong> sifatnya <i>read-only</i>. Satu-satunya
+              cara untuk mengubah <strong>State</strong> adalah dengan cara meng-<strong
+                >emit</strong
+              >
+              suatu <strong>action</strong>, suatu Object yang mendeskripsikan
+              apa yang terjadi.
+            </span>
+          </div>
+          <div class="flex flex-col items-center gap-2">
+            <img class="w-64 h-64" src="/assets/react-redux/redux02.png" />
+            <span class="sm-content">
+              <strong>Teller ≈ Reducer</strong>
+            </span>
+            <span>
+              Untuk menjelaskan bagaimana pohon (struktur) <strong>state</strong
+              >
+              ditransformasikan oleh <strong>action</strong>, kita akan membuat
+              <strong>reducer</strong> murni.
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>Redux - How it Work? (Analogi)</h2>
+
+        <div class="w-full flex flex-row justify-center items-center">
+          <img src="/assets/react-redux/redux04.png" />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>Redux - How it Work? (Flow)</h2>
+
+        <p class="sm-content">
+          Nah berdasarkan analogi sebelumnya, alur kerja redux kira kira adalah
+          sebagai berikut
+        </p>
+
+        <div class="w-full flex flex-row justify-center items-center">
+          <img
+            class="w-[36rem] mx-auto"
+            src="/assets/react-redux/redux-flow.gif"
+          />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>Redux - Demo</h2>
+
+        <p class="sm-content">
+          Sudah sudah teorinya, mari kita demo untuk membuat kode kita dengan
+          redux !
+        </p>
+
+        <p class="sm-content">Langkah pengerjaannya adalah sebagai berikut:</p>
+
+        <ol class="sm-content">
+          <li>Pastikan sudah inisialisasi project dengan CRA</li>
+          <li>Install redux dengan <strong>npm i redux react-redux</strong></li>
+          <li>
+            Membuat reducers yang baru dengan nama <strong
+              >src/reducers/rootReducer.js</strong
+            >
+            (dibuat dari pengembangan <strong
+              >src/reducers/counterReducer.js)</strong
+            >
+          </li>
+          <li>
+            Membuat <strong>store</strong> pada root component yang ada di <strong
+              >index.js</strong
+            >
+          </li>
+          <li>
+            Import <strong>Provider</strong> dari <strong>react-redux</strong>,
+            kemudian gunakan di dalam <strong>index.js</strong>
+            (Anggap ini sebagai <strong>Context API</strong> dari redux ini, sehingga
+            nanti bisa "teleport" ke dalam component apapun dalam React)
+          </li>
+          <li>
+            Membuat kerangka Containers <strong
+              >CounterReduxContainer.jsx</strong
+            > terlebih dahulu, dan tambahkan pada routing yang ada di <strong
+              >index.js</strong
+            >
+          </li>
+          <li>
+            Menggunakan <strong>useSelector</strong> (untuk memilih state) dan <strong
+              >useDispatch</strong
+            > (untuk memanggil action) pada Containers <strong
+              >CounterReduxContainer</strong
+            >
+          </li>
+        </ol>
+      </section>
+
+      <section class="center">
+        <h2>Redux - Demo</h2>
+
+        <p class="sm-content">
+          Sampai di sini kita sudah berhasil nih, menggunakan Action dari
+          reducer yang tidak memiliki data tambahan (a.k.a <strong
+            >Payload</strong
+          >).
+        </p>
+
+        <p class="sm-content fragment">
+          Lalu pertanyaannya sekarang adalah, bagaimanakah cara kita menggunakan
+          redux, apabila actionnya membutuhkan suatu <strong>Payload?</strong>
+        </p>
+
+        <p class="sm-content fragment">
+          Mari kita coba untuk memodifikasi kode sebelumnya agar bisa
+          menggunakan Payload
+        </p>
+
+        <p class="sm-content fragment">Langkahnya adalah sebagai berikut:</p>
+
+        <ol class="sm-content">
+          <li class="fragment">
+            Memodifikasi <strong>CounterReduxContainer.jsx</strong> untuk menerima
+            TextField dan 2 Button
+          </li>
+          <li class="fragment">
+            Memodifikasi <strong>CounterReduxContainer.jsx</strong> untuk menggunakan
+            local state (Menangkap input dari TextField)
+          </li>
+          <li class="fragment">
+            Memodifikasi <strong>rootReducer.js</strong> untuk menambahkan reducer
+            tambahan dengan menerima payload bernama <strong>amount</strong>
+          </li>
+          <li class="fragment">
+            Memodifikasi <strong>CounterReduxContainer</strong> untuk men-dispatch
+            action yang ditambahkan sebelumnya
+          </li>
+        </ol>
+
+        <p class="text-3xl fragment">
+          Kode yang dituliskan di atas dapat dilihat
+          <a
+            href="https://github.com/withered-flowers/education-react-redux/tree/1c-using-redux-part-2"
+            target="_blank">di sini</a
+          > yah
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Redux - Conclusion</h2>
+
+        <p class="sm-content">
+          Bagaimana setelah kita menggunakan Redux sejauh ini?
+        </p>
+
+        <ul class="sm-content">
+          <li>Sudah cukup mudah bukan?</li>
+          <li>
+            Tapi... untuk project yang besar, yang menggunakan Redux dengan
+            reducer yang cukup banyak, nantinya cara redux manual ini akan
+            mengalami kesulitan yang cukup besar
+          </li>
+          <li>
+            Khususnya ketika kita ingin menyatukan seluruh reducer yang ada ke
+            dalam suatu tempat (a.k.a
+            <strong>combining the reducer</strong>)
+          </li>
+          <li>
+            Maka muncul suatu solusi yang baru: Bagaimana bila kita membuat
+            suatu tools yang teropini yang bisa mempermudah penggunaan redux dan
+            react-redux di dalam ekosistem React?
+          </li>
+          <li>
+            Sehingga muncul tools baru yang kekinian: <strong
+              class="animate-pulse">Redux Toolkit (RTK)</strong
+            >
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Redux Toolkit - What Is?</h2>
+
+        <p class="sm-content">Jadi apa itu Redux Toolkit?</p>
+
+        <p class="sm-content">
+          <strong>Redux Toolkit</strong> adalah suatu package yang diharapkan menjadi
+          cara umum dalam menuliskan logic Redux. awalnya Redux Toolkit ini dibuat
+          untuk membantu programmer dalam menghadapi 3 masalah berikut:
+        </p>
+
+        <ul class="sm-content">
+          <li>"Konfigurasi <strong>Redux Store</strong> terlalu ribet !"</li>
+          <li>
+            "Duh, package yang diinstall untuk redux doank terlalu banyak !"
+          </li>
+          <li>
+            "Redux butuh terlalu banyak kode <i>boilerplate</i>-nya nih !"
+          </li>
+          <li>
+            Menuliskan <strong>actions</strong> dan <strong>reducers</strong> makin
+            kompleks seiring dengan semakin besarnya aplikasi
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Redux Toolkit - How To?</h2>
+
+        <p class="sm-content">
+          Wah kelihatannya seru yah ! Kita langsung masuk ke kodenya saja kalau
+          gitu !
+        </p>
+
+        <p class="sm-content">
+          Yuk kita coba ubah lagi kode yang sebelumnya kita buat untuk
+          menggunakan <strong>Redux Toolkit</strong>
+        </p>
+
+        <ol class="sm-content">
+          <li class="fragment">
+            Install react-toolkit dengan <strong
+              class="bg-yellow-200 px-2 rounded-lg"
+              >npm i @reduxjs/toolkit</strong
+            >
+          </li>
+          <li class="fragment">
+            Membuat sebuah file store utama kita pada <strong
+              >src/app/store.js</strong
+            >, file ini nantinya akan berisi seluruh reducer yang akan digunakan
+            pada aplikasi.
+          </li>
+          <li class="fragment">
+            Modifikasi kode pada <strong>index.js</strong> untuk menggunakan store
+            dari redux toolkit yang dibuat sebelumnya
+          </li>
+          <li class="fragment">
+            Voila ! Kode kita menjadi lebih ringkas bukan?
+          </li>
+        </ol>
+
+        <p class="sm-content fragment">Kok kesannya mirip mirip saja yah...?</p>
+
+        <p class="sm-content fragment">
+          Ya ! karena kita baru menggunakan <i>secuil</i> kekuatan dari Redux Toolkit
+          ini saja !
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Redux Toolkit - How To?</h2>
+
+        <p class="sm-content">
+          Mari kita belajar sesuatu yang diperkenalkan pada Redux Toolkit: <strong
+            >createSlice</strong
+          >
+        </p>
+
+        <p class="sm-content">
+          <strong>createSlice</strong> merupakan fungsi bawaan dari Redux Toolkit,
+          yang menerima <strong>initial state</strong>,
+          <strong>sebuah Object yang berisi fungsi reducer</strong>, dan <strong
+            >nama dari "slice"</strong
+          > dan ...
+        </p>
+
+        <p class="sm-content fragment">
+          secara <strong>OTOMATIS</strong> akan men-generate <strong
+            >action creators</strong
+          > dan <strong>action type</strong> yang berhubungan dengan reducer dan
+          state yang dibuat !
+        </p>
+
+        <p class="sm-content fragment">
+          Untuk apa ada ini? yuk kita coba lihat kode dengan slice ini !
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Redux Toolkit - How To?</h2>
+
+        <p class="sm-content">Langkah pengerjaannya adalah sebagai berikut:</p>
+
+        <ol class="sm-content">
+          <li class="fragment">
+            Membuat sebuah file pada <strong
+              >src/features/counter/sliceCounter.js</strong
+            >
+          </li>
+          <li class="fragment">
+            Membuat actions, selectors, dan reducersnya pada <strong
+              >sliceCounter.js</strong
+            >
+          </li>
+          <li class="fragment">
+            Modifikasi file <strong>src/app/store.js</strong> untuk menggunakan slice
+            yang baru saja dibuat
+          </li>
+          <li class="fragment">
+            Modifikasi file <strong
+              >src/containers/CounterReduxContainer.jsx</strong
+            > untuk menggunakan reducer yang ada di store
+          </li>
+        </ol>
+
+        <p class="sm-content fragment">
+          Sampai disini mulai terlihat betapa "banyak otomasi" nya dengan <strong
+            >Redux Toolkit</strong
+          > ini bukan?
+        </p>
+
+        <p class="text-3xl fragment">
+          Kode yang dituliskan bisa dilihat
+          <a
+            href="https://github.com/withered-flowers/education-react-redux/tree/2-using-rtk"
+            target="_blank">di sini</a
+          > yah
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Redux Toolkit - Conclusion</h2>
+
+        <p class="sm-content">
+          Hayo, apa yang kita dapatkan setelah menggunakan toolkit sejauh ini?
+        </p>
+
+        <ul class="sm-content">
+          <li>Kode menjadi lebih reusable</li>
+          <li>
+            Lebih mudah dimengerti dan tidak mengandung if ... else ... yang
+            terlalu banyak
+          </li>
+          <li>Lebih mudah dimantain apabila kode sudah besar</li>
+          <li>
+            Kode lebih terfokus pada permasalahan (logic), bye bye <i
+              >switch ... case ...</i
+            >
+          </li>
+        </ul>
+
+        <p class="sm-content">Notes:</p>
+
+        <ul class="sm-content">
+          <li>
+            Selanjutnya di dalam pembelajaran ini kita akan menggunakan <strong
+              >Redux Toolkit</strong
+            >, karena sudah menjadi standar React <i>zaman now</i> !
+          </li>
+          <li>
+            Dengan belajar langkah-per-langkah seperti ini, kita jadi mengerti
+            betapa "enak"-nya menggunakan redux toolkit bukan? (Coba kalau kita
+            belajar langsung ke toolkit, pasti dibilangnya.... susah bukan?)
+          </li>
+          <li>
+            Mengenai apa itu <strong>Thunk</strong> dan bagaimana cara menggunakannya
+            (Hint: fetching data), akan kita pelajari pada pembelajaran selanjutnya
+            yah !
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>QnA</h2>
+      </section>
+
+      <section id="referensi" class="center">
+        <h2>Referensi</h2>
+
+        <ul class="text-2xl">
+          <li>https://www.robinwieruch.de/redux-vs-usereducer/</li>
+          <li>https://redux.js.org/</li>
+          <li>https://react-redux.js.org/</li>
+          <li>https://redux-toolkit.js.org/</li>
+          <li>https://redux-toolkit.js.org/tutorials/quick-start</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .slides {
+    .center {
+      @apply mx-auto w-full flex flex-row justify-center;
+    }
+
+    .left {
+      @apply mx-auto w-full top-16;
+    }
+
+    ul,
+    ol {
+      @apply w-full text-left;
+    }
+
+    div {
+      @apply text-3xl;
+    }
+
+    blockquote {
+      @apply w-full border-2 border-slate-700;
+    }
+
+    .sm-content {
+      @apply text-3xl text-left;
+
+      li {
+        @apply mb-2;
+      }
+    }
+  }
+</style>

@@ -1,4 +1,764 @@
 ---
+import BaseLayout from "../../layouts/BaseLayoutWithSlidesLottieReact.astro";
+import { Icon } from "astro-icon";
+
+const mdCodes = await Astro.glob("./examples/*.md");
+
+const findContent = (title: string) => {
+  return mdCodes?.find((md) => md?.frontmatter?.title === title)!.Content;
+};
+
+const ResponseApiColors = findContent("response-api-colors");
+
+const title = "React Redux Middleware";
 ---
 
-<h1>React JS - Redux Middleware</h1>
+<BaseLayout title={title}>
+  <div class="p-4">
+    <div class="slides">
+      <section class="center">
+        <div class="flex flex-row justify-center gap-6">
+          <Icon name="logos:redux" class="w-48" />
+        </div>
+        <h1>React Redux Middleware</h1>
+      </section>
+
+      <section class="center">
+        <h2>Agenda</h2>
+
+        <p class="text-3xl text-left">Apa saja yang akan dibahas?</p>
+        <ul class="sm-content">
+          <li>Intro</li>
+          <li>Redux Middleware</li>
+          <li>Redux Toolkit - Thunk</li>
+          <li>RTK Query</li>
+          <li>QnA</li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Intro</h2>
+
+        <p class="text-3xl">
+          Pertemuan sebelumnya sudah belajar <strong>Redux Toolkit</strong> nih
+        </p>
+
+        <div class="w-full flex flex-row justify-center items-center">
+          <img src="/assets/react-redux-middleware/redux-001.jpg" />
+        </div>
+
+        <h2 class="flex flex-row gap-8 justify-center items-center">
+          <Icon name="mdi:emoticon-devil" class="w-20" />
+          <span class="text-2xl font-light"
+            >Mari hari ini kita belajar mengenai Redux <strong
+              >tingkat lanjut</strong
+            > yah</span
+          >
+          <Icon name="mdi:emoticon-devil" class="w-20" />
+        </h2>
+      </section>
+
+      <section class="center">
+        <h2>Redux Middleware</h2>
+
+        <p class="sm-content">
+          <strong>Middleware</strong>
+          <span class="fragment">= <i>Middle</i> (Tengah),</span>
+          <span class="fragment"><i>Ware</i> (Sesuatu)</span>
+        </p>
+
+        <p class="sm-content fragment">
+          <i>Sesuatu yang diselipkan di tengah-tengah</i>
+        </p>
+
+        <p class="sm-content fragment">
+          <strong>Redux Middleware ?</strong>
+        </p>
+
+        <p class="sm-content fragment">
+          <i>Sesuatu yang diselipkan di tengah tengah (alur logika) Redux</i>
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Redux Middleware (ii)</h2>
+
+        <p class="sm-content">
+          Mari kita coba lihat untuk alur kerja Redux dengan Middleware
+        </p>
+
+        <div class="w-full flex flex-row justify-center items-center">
+          <img src="/assets/react-redux-middleware/redux-middleware-001.png" />
+        </div>
+
+        <p class="sm-content">
+          Lalu sekarang pertanyaannya, untuk apa kita butuh <i>Middleware</i> ini?
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Redux Middleware (iii)</h2>
+
+        <p class="sm-content">Untuk apa kita butuh Middleware?</p>
+
+        <p class="sm-content fragment">
+          Katanya untuk menarik data dari API kan? Kenapa kita menggunakan <strong
+            >Reducer</strong
+          >
+          saja secara langsung?
+        </p>
+
+        <ul class="sm-content">
+          <li class="fragment">
+            Reducers dirancang untuk selalu menjadi fungsi yang "murni" (<strong
+              >Pure Function</strong
+            >). Sehingga menarik data tidak bisa dilakukan di dalam reducer
+          </li>
+          <li class="fragment">
+            Sedangkan kalau kita ingin Action untuk melakukan sesuatu, setiap
+            kode harus dituliskan (hidup / live) di dalam sebuah function
+          </li>
+          <li class="fragment">
+            Sehingga dengan menggunakan Middleware, <strong
+              >akan melihat seluruh Action yang lewat dari aplikasi kita</strong
+            >, dan apabila berupa function, Middleware akan <strong
+              >Memanggil function tersebut</strong
+            >.
+          </li>
+          <li class="fragment">
+            Ini <i>saja kok</i> pekerjaan dari Middleware.
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Redux Middleware - Example</h2>
+
+        <div class="w-full flex flex-row justify-center items-center">
+          <img src="/assets/react-redux-middleware/redux-middleware-002.png" />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>Redux Middleware - Example</h2>
+
+        <p class="sm-content">
+          Salah tiga dari Middleware untuk Redux yang cukup terkenal mungkin
+          adalah
+          <strong>Thunk</strong>, <strong>Saga</strong>, <strong
+            >Obseverable</strong
+          >
+        </p>
+
+        <p class="sm-content">
+          Middleware ini akan menjadi penengah antara extension pihak ketiga
+          (third-party extension) untuk
+          <i>dispatch action</i> dan ketika Middleware ini sampai ke reducer.
+        </p>
+
+        <p class="sm-content">
+          Dalam real casenya, Middleware ini sering digunakan sebagai:
+        </p>
+
+        <ul class="sm-content">
+          <li>Logging dan Crash Reporting</li>
+          <li>Berkomunikasi dengan API secara async</li>
+          <li>Routing tingkat lanjut, dll</li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Redux Middleware - Example</h2>
+
+        <p class="sm-content">
+          Duh, ketika melihat kayak ini, apakah kita akan belajar ketiga-tiganya
+          di hari ini?
+        </p>
+
+        <p class="sm-content">
+          Tentu saja <strong>tydaque</strong>, karena kita hanya akan fokus
+          terhadap satu saja: <strong>Thunk</strong>
+        </p>
+
+        <p class="sm-content fragment">
+          Tapi... tahukah Anda, ada hal yang menarik loh mengenai Thunk ini.
+        </p>
+
+        <p class="sm-content fragment">
+          Thunk <strong>sudah di-include-kan</strong> ketika kita menggunakan <strong
+            >configureStore</strong
+          > yang ada di <strong>Redux Toolkit !</strong>
+        </p>
+
+        <p class="sm-content fragment">
+          Jadi tanpa bersusah payah lagi, mari kita gunakan ... <strong
+            >Redux Toolkit</strong
+          > dan belajar tentang Thunk !
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Redux Toolkit - Thunk</h2>
+
+        <p class="sm-content">
+          Jadi kita akan langsung belajar menggunakan Redux Toolkit untuk bisa
+          melakukan fetch data dari luar yah !
+        </p>
+
+        <p class="sm-content">
+          (Walaupun katanya reducer tidak bisa mengambil data dari luar, tapi
+          dengan Redux Toolkit yang sudah menyediakan Thunk di balik layar, kita
+          bisa membuat "middleware" yang akan bertindak "seolah" seperti reducer
+          yang kita buat sebelumnya loh !)
+        </p>
+
+        <p class="sm-content">
+          Misalnya dalam pembelajaran ini kita akan menggunakan kode kita pada
+          pertemuan sebelumnya untuk mengambil data dari luar
+          <strong>(https://reqres.in/api/users/:id)</strong>
+        </p>
+
+        <p class="sm-content">Bagaimanakah cara kita melakukannya?</p>
+      </section>
+
+      <section class="center">
+        <h2>Redux Toolkit - Thunk (Demo)</h2>
+
+        <p class="sm-content">Langkah-langkahnya adalah sebagai berikut:</p>
+
+        <ol class="sm-content">
+          <li>
+            Clone repo starter dari link
+            <a
+              href="https://github.com/withered-flowers/education-react-redux-middleware"
+              target="_blank">di sini</a
+            >
+          </li>
+          <li>
+            <strong>cd</strong> ke project tersebut dan <strong
+              >npm install</strong
+            > terlebih dahulu untuk menginstall package yang dibutuhkan
+          </li>
+          <li>
+            Tambahkan package axios dengan menggunakan <strong
+              >npm install axios</strong
+            >
+          </li>
+          <li>
+            Jalankan project dengan menggunakan <strong>npm run start</strong>
+          </li>
+          <li>
+            Modifikasi file <strong>src/features/counter/sliceCounter.js</strong
+            > untuk menggunakan <strong>axios</strong> dan
+            <strong>createAsyncThunk</strong>
+          </li>
+          <li>
+            Modifikasi file <strong
+              >src/containers/CounterReduxContainer.jsx</strong
+            > untuk bisa memanfaatkan
+            <strong>createAsyncThunk</strong> yang dibuat pada langkah sebelumnya
+          </li>
+        </ol>
+
+        <p class="sm-content animate-pulse text-red-400">
+          (Kelihatannya langkah nya sedikit, namun sebenarnya yang ditulis cukup
+          banyak yah !)
+        </p>
+
+        <p class="sm-content">
+          Untuk melihat kode akhir yang dituliskan pada pembelajaran ini, dapat
+          dilihat
+          <a
+            href="https://github.com/withered-flowers/education-react-redux-middleware/tree/1-using-redux-toolkit-thunk"
+            target="_blank">di sini</a
+          > yah
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Redux Toolkit - Thunk (Conclusion Pt 1)</h2>
+
+        <p class="sm-content">Bagaimana setelah melihat kodenya tadi?</p>
+
+        <p class="sm-content">
+          Cukup banyak yah otomasi yang terjadi di balik layarnya?
+        </p>
+
+        <p class="sm-content">
+          Ingat baik baik bahwa RTK ini adalah sesuatu yang <strong
+            >opinionated</strong
+          >, sehingga banyak otomasi dan ruleset yang harus diikuti yah !
+        </p>
+
+        <p class="sm-content">
+          (Tapi sebenarnya itu sangat memudahkan kita sekali ketimbang harus
+          menggunakan semuanya secara manual loh ...)
+        </p>
+
+        <p class="sm-content">
+          Yuk kita mencoba untuk memodifikasi kodenya sedikit lagi sehingga bisa
+          menerima data dari userId yang berbeda-beda
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Redux Toolkit - Thunk (Demo Pt 2)</h2>
+
+        <p class="sm-content">
+          Langkah yang harus dilakukan adalah sebagai berikut:
+        </p>
+
+        <ul class="sm-content">
+          <li>
+            Modifikasi file <strong
+              >src/containers/ContainerReduxContainer.jsx</strong
+            >
+          </li>
+          <ol class="sm-content">
+            <li>
+              Menambahkan sebuah <strong>TextField</strong> untuk menampung userId
+              yang akan dipilih dan sebuah <strong>Button</strong> untuk melakukan
+              aksi pengambilan datanya
+            </li>
+            <li>
+              Menambahkan sebuah <strong>State</strong> untuk <strong
+                >TextField</strong
+              > dan sebuah function untuk meng-handle onChange pada <strong
+                >TextField</strong
+              >
+            </li>
+            <li>
+              Menambahkan event onClick untuk <strong>Button</strong> dan membuat
+              sebuah function untuk meng-handle onClick pada Button tersebut. Di
+              dalam function ini kita akan meng-<strong>dispatch</strong> function
+              Thunk yang kita buat sebelumnya untuk mengambil data berdasarkan userId
+            </li>
+            <li>Voila ! Mari kita coba !</li>
+          </ol>
+        </ul>
+
+        <p class="sm-content fragment">
+          Apabila tertinggal, untuk kode lengkapnya dapat dilihat <a
+            href="https://github.com/withered-flowers/education-react-redux-middleware/tree/2-using-redux-toolkit-thunk-part-2"
+            target="_blank">di sini</a
+          > yah
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Redux Toolkit - Thunk (Conclusion Pt 2)</h2>
+
+        <p class="sm-content">
+          Wah, kode Part 2 ini perubahannya sedikit yah !
+        </p>
+
+        <p class="sm-content">
+          Ya, sedikit, karena logic untuk meng-<i>fetch</i> datanya sudah kita buat
+          pada <strong>slice</strong> dengan sebaik-baiknya, sehingga perubahan kode
+          pada Component menjadi sangat minimal
+        </p>
+
+        <p class="sm-content fragment">
+          Ini juga menjadi dasar dari penggunaan Redux (baik RTK maupun murni
+          Redux): Globalisasi / Sentralisasi Fitur !
+        </p>
+
+        <p class="sm-content fragment">
+          Walaupun apabila kita tidak menggunakan RTK kode yang dibuat akan
+          menjadi lebih ... banyak boilerplatenya
+        </p>
+
+        <p class="sm-content fragment">
+          Tapi dari kode yang kita buat sebelumnya dengan RTK itu masih ada
+          suatu <i>kebimbangan hati</i>:
+        </p>
+
+        <p class="sm-content fragment">
+          <strong>
+            Apabila kita ingin menggunakan banyak tarikan data dari satu API
+            yang sama (misal sama sama dari https://reqres.in/api, tapi ingin
+            GET POST PUT PATCH DELETE), bagaimanakah cara kita
+            mengelompokan-nya?
+          </strong>
+        </p>
+
+        <p class="sm-content fragment">
+          Please welcome salah satu solusi yang dihadirkan di dalam RTK: <strong
+            >Redux Toolkit Query (RTK Query)</strong
+          >
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>RTK Query</h2>
+
+        <p class="sm-content">
+          Dokumentasi RTK Query bisa kita lihat <a
+            href="https://redux-toolkit.js.org/rtk-query/overview"
+            target="_blank">di sini</a
+          > yah
+        </p>
+
+        <p class="sm-content">
+          Dilihat dari Dokumentasi, RTK Query ini adalah:
+        </p>
+
+        <ul class="sm-content">
+          <li>
+            Tool untuk melakukan <i>fetching data</i> yang mumpuni dan untuk melakukan
+            <i>caching</i>, yang didesain untuk mempermudah kasus umum untuk
+            mengambil dan menunggu suatu data terambil di dalam sebuah aplikasi
+            web.
+          </li>
+          <li>
+            Dibuat di atas Redux Toolkit Core, dan memanfaatkan <strong
+              >createSlice</strong
+            > dan <strong>createAsyncThunk</strong> untuk mengimplement segala kemampuan
+            RTK Query
+          </li>
+          <li>
+            Sudah masuk di dalam package <strong>@reduxjs/toolkit</strong> sebagai
+            <strong>ADDON TAMBAHAN</strong>
+          </li>
+          <li>
+            <strong class="text-red-400">RTK Query boleh tidak digunakan</strong
+            > ketika kita menggunakan RTK. Tapi dari developernya RTK menganggap
+            bahwa RTK Query ini akan mempermudah hidup banyak developer...
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>RTK Query - Demo</h2>
+
+        <p class="sm-content">Yuk kita langsung demo lagi</p>
+
+        <p class="sm-content">
+          Pada demo kali ini kita akan menggunakan data yang disediakan dari
+          <a href="https://reqres.in/api/colors">https://reqres.in/api/colors</a
+          >
+        </p>
+
+        <p class="sm-content">
+          Kita akan memetakan seluruh HTTP Method yang ada pada API tersebut ke
+          dalam RTK Query yang kita buat yah !
+        </p>
+
+        <div>
+          <ResponseApiColors />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>RTK Query - Demo</h2>
+
+        <p class="sm-content">
+          Available Endpoints for <strong>https://reqres.in/api/colors:</strong>
+        </p>
+
+        <ul class="sm-content">
+          <li>GET /colors</li>
+          <li>POST /colors</li>
+          <li>GET /colors/:id</li>
+          <li>PUT /colors/:id</li>
+          <li>PATCH /colors/:id</li>
+          <li>DELETE /colors/:id</li>
+        </ul>
+
+        <p class="sm-content">
+          Untuk mempermudah testing yang kita miliki, sudah disediakan juga
+          untuk Postman Collection-nya yang dapat diunduh
+          <a
+            href="https://gist.github.com/withered-flowers/a4e74a2e3526de2a8542e1e80e74bb03"
+            target="_blank">di sini</a
+          > yah
+        </p>
+
+        <p class="sm-content">
+          Bayangkan apabila kita harus membuat ini satu-per-satu...
+        </p>
+
+        <p class="sm-content">
+          6 fnThunk + 6 x 3 ExtraReducers ... = 24 Fungsi yang harus dibuat !
+        </p>
+
+        <p class="sm-content">
+          Mari kita coba lihat dengan menggunakan RTK Query
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>RTK Query - Demo</h2>
+
+        <p class="sm-content">Dengan RTK Query kita bisa apa saja sekarang?</p>
+
+        <ul class="sm-content">
+          <li>
+            Dengan RTK Query, kita bisa mendefinisikan API Endpoint seluruhnya
+            dalam satu file
+          </li>
+          <li>
+            Jadi di dalam file ini, kita bisa mendefinisikan Method apa saja
+            yang ada dan bagaimana cara kita meng-handlenya
+          </li>
+          <li>
+            RTK Query akan <strong class="animate-pulse">SECARA OTOMATIS</strong
+            > membuatkan <strong>Hooks</strong>
+            untuk menggunakan API berdasarkan Method yang didefinisikan (Psstttt:
+            tidak perlu <strong>Axios</strong> loh !)
+          </li>
+          <li>
+            Setelah membuat file <strong>Service</strong> ini, kita bahkan bisa langsung
+            menambahkannya ke reducer yang dibuat ke dalam store (Ya, ini bahkan
+            juga dibuat secara <strong class="animate-pulse">OTOMATIS</strong>),
+            dan Middlewarenya pun bisa kita definisikan nantinya (Woah....)
+          </li>
+          <li>
+            Dan pada akhirnya, YES, kita bisa menggunakan Hooks yang dibuat
+            secara otomatis ini.
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>RTK Query - Demo</h2>
+
+        <p class="sm-content">Langkah-langkahnya adalah sebagai berikut</p>
+
+        <ol class="sm-content">
+          <li>
+            Membuat sebuah file baru pada <strong
+              >src/services/reqresinColorAPI.js</strong
+            >
+          </li>
+          <li>
+            Menambahkan kode untuk membuat Service pada file tersebut dengan
+            menggunakan
+            <strong>@reduxjs/toolkit/query/react</strong>
+          </li>
+          <li>
+            Menambahkan service yang sudah dibuat sebelumnya ke dalam store (<strong
+              >src/app/store.js</strong
+            >)
+          </li>
+          <li>
+            Membuat component yang akan menampung nama dari warna yang ada pada <strong
+              >src/components/ColorItem.jsx</strong
+            >
+          </li>
+          <li>
+            Membuat component yang akan menampung seluruh warna (listing warna)
+            yang ada pada <strong>src/components/ColorList.jsx</strong>
+            (Di sini lah kita akan menggunakan Hooks yang dibuat sebelumnya)
+          </li>
+          <li>
+            Menampilkannya pada <strong
+              >src/containers/ContainerReduxContainer.jsx</strong
+            >
+          </li>
+        </ol>
+
+        <p class="sm-content">
+          Penulisan kode di atas dapat dilihat <a
+            href="https://github.com/withered-flowers/education-react-redux-middleware/tree/3-using-rtk-query"
+            target="_blank">di sini</a
+          > yah
+        </p>
+
+        <p class="sm-content animate-pulse text-red-400">
+          (WARNING): Langkah ini terlihat sedikit, namun sebenarnya kode yang
+          dituliskan cukup banyak yah !
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>RTK Query - Conclusion Pt 1</h2>
+
+        <p class="sm-content">
+          Wah setelah kita ngoding tadi, sepertinya jadi JAUH lebih pendek yah
+          ketimbang kita menggunakan createAsyncThunk secara manual?
+        </p>
+
+        <p class="sm-content">
+          Tapi karena ini <strong>Opinionated</strong>, ada <strong
+            >ruleset</strong
+          > (aturan) yang harus kita ikuti yah jadinya !
+        </p>
+
+        <p class="sm-content">Lalu dari tadi, kita cm GET GET GET aja nih...</p>
+
+        <p class="sm-content">
+          Bagaimana bila seandainya kita ingin memanfaatkan yang ada Mutation
+          datanya? (POST PUT PATCH DELETE)?
+        </p>
+
+        <p class="sm-content">
+          Yuk kita coba ubah kode kita sedikit lagi sehingga bisa menggunakan
+          Mutation !
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>RTK Query - Demo Pt 2</h2>
+
+        <p class="sm-content">
+          Langkah-langkah untuk menggunakan Mutation adalah sebagai berikut:
+        </p>
+
+        <ol class="sm-content">
+          <li>
+            Membuat Component baru pada <strong
+              >src/components/ColorForm.jsx</strong
+            >
+          </li>
+          <li>
+            Memasukkan Logic untuk menghandle state dari TextField yang
+            dibutuhkan
+          </li>
+          <li>
+            Import useMutation yang dibutuhkan (<i>useAddColorMutation</i>) dari
+            services
+          </li>
+          <li>
+            Menggunakan <strong>useAddColorMutation</strong> di dalam Component
+          </li>
+          <li>
+            Import Component ColorForm pada <strong
+              >src/containers/CounterReduxContainer.jsx</strong
+            >
+          </li>
+        </ol>
+
+        <p class="sm-content animate-pulse text-red-400">
+          WARNING: walaupun di sini terlihat langkahnya sedikit, tapi sebenarnya
+          butuh waktu lebih untuk bisa memahami langkah dan step yang ada di
+          sini yah !
+        </p>
+
+        <p class="sm-content">
+          Untuk Kode yang dituliskan dapat dilihat
+          <a
+            href="https://github.com/withered-flowers/education-react-redux-middleware/tree/4-using-rtk-query-part-2"
+            target="_blank">di sini</a
+          > yah
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>RTK Query - Conclusion Pt 2</h2>
+
+        <div class="w-full flex flex-row justify-center">
+          <lottie-player
+            src="https://assets5.lottiefiles.com/private_files/lf30_kvdn44jg.json"
+            background="transparent"
+            speed="0.75"
+            style="width: 300px; height: 300px;"
+            loop
+            autoplay
+          />
+        </div>
+
+        <p class="sm-content">
+          Sampai di titik ini artinya kita sudah berhasil menggunakan query dan
+          mutation yang ada pada RTK Query
+        </p>
+
+        <p class="text-3xl">Selamat !</p>
+      </section>
+
+      <section class="center">
+        <h2>RTK Query - Conclusion Pt 2</h2>
+
+        <p class="sm-content">
+          Tapi... apakah ini berarti kita sudah berhasil menguasai semua yang
+          ada di RTK Query? Maka jawabannya adalah <strong>tydaque</strong> yah
+        </p>
+
+        <p class="sm-content">
+          Sebenarnya di dalam RTK Query ini sendiri masih banyak fitur fitur
+          tersembunyi yang belum dibahas di sini:
+        </p>
+
+        <ul class="sm-content">
+          <li>Menyiapkan fitur manual refetch data ketika terjadi Mutation</li>
+          <li>
+            Menggunakan Tag untuk Meng-invalidate data yang ada, sehingga bisa
+            dinyatakan tidak sah dan akan di-fetch ulang secara otomatis
+          </li>
+          <li>Dan RTK Query tingkat lanjut lainnya...</li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>RTK Query - Conclusion Pt 2</h2>
+
+        <p class="sm-content">
+          Jadi ada baiknya untuk mencoba yang versi standard (yang kita
+          pelajari) ini terlebih dahulu yah, sebelum akhirnya kita mencoba
+          menggunakannya dalam project kita ini
+        </p>
+
+        <p class="sm-content">
+          Sekali lagi, <strong
+            >Redux Toolkit ini adalah kumpulan cara penggunaan Redux yang SANGAT
+            TEROPINI sehingga banyak ruleset yang harus diikuti</strong
+          >
+        </p>
+
+        <p class="sm-content">
+          Namun di balik hal tersebut, kita akan mendapatkan banyak keringanan
+          dalam "memutuskan" suatu cara dan fitur fitur powerful,
+          <strong class="animate-pulse"
+            >Apabila kita dapat memanfaatkannya dengan sebaik-baiknya</strong
+          >
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>QnA</h2>
+      </section>
+
+      <section id="referensi" class="center">
+        <h2>Referensi</h2>
+
+        <ul class="text-2xl">
+          <li>https://medium.com/@andrewrymaruk/thunk-in-redux-360fe8ae8b5a</li>
+          <li>https://redux-toolkit.js.org/rtk-query/overview</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .slides {
+    .center {
+      @apply mx-auto w-full flex flex-row justify-center;
+    }
+
+    .left {
+      @apply mx-auto w-full top-16;
+    }
+
+    ul,
+    ol {
+      @apply w-full text-left;
+    }
+
+    div {
+      @apply text-3xl;
+    }
+
+    blockquote {
+      @apply w-full border-2 border-slate-700;
+    }
+
+    .sm-content {
+      @apply text-3xl text-left;
+
+      li {
+        @apply mb-2;
+      }
+    }
+  }
+</style>

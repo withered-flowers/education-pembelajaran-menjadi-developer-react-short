@@ -9,6 +9,10 @@ const findContent = (title: string) => {
 };
 
 const Empty = findContent("empty");
+const ReactZustandHowToI = findContent("react-zustand-how-to-i");
+const ReactZustandHowToII = findContent("react-zustand-how-to-ii");
+const ReactZustandHowToAsyncI = findContent("react-zustand-how-to-async-i");
+const ReactZustandHowToAsyncII = findContent("react-zustand-how-to-async-ii");
 
 const title = "React - Zustand";
 ---
@@ -35,6 +39,7 @@ const title = "React - Zustand";
             <li>Intro</li>
             <li>What Is?</li>
             <li>How to?</li>
+            <li>Demo</li>
             <li>Bonus (Simple Loader)</li>
           </ul>
           <li>Conclusion</li>
@@ -48,7 +53,7 @@ const title = "React - Zustand";
 
         <p class="sm-content">Masih ingat bagaimana cara menggunakan RTK?</p>
 
-        <p class="sm-content">
+        <p class="sm-content fragment">
           Mari kita coba lihat kembali kode yang terakhir dituliskan <a
             href="https://github.com/withered-flowers/education-react-redux/tree/2-using-rtk"
             target="_blank">di sini</a
@@ -98,13 +103,13 @@ const title = "React - Zustand";
           (API) pada saat menggunakan RTK?
         </p>
 
-        <p class="sm-content">
+        <p class="sm-content fragment">
           Salah satu solusi yang diberikan dari RTK, adalah dengan menggunakan <strong
             >RTK Query</strong
           >
         </p>
 
-        <p class="sm-content">
+        <p class="sm-content fragment">
           Mari kita coba lihat kembali kode yang terakhir dituliskan <a
             href="https://github.com/withered-flowers/education-react-redux-middleware/tree/4-using-rtk-query-part-2"
             target="_blank">di sini</a
@@ -143,14 +148,165 @@ const title = "React - Zustand";
 
       <section class="center">
         <h2>Zustand - Intro</h2>
+
+        <p class="sm-content fragment">
+          Cukup menyulitkan bukan menggunakan Redux Toolkit dan RTK Query ini?
+        </p>
+
+        <p class="sm-content fragment">
+          Jadi bagaimana apabila kita ingin membuat sebuah project yang
+          menggunakan state management?
+        </p>
+
+        <p class="sm-content fragment">
+          Apakah harus selalu menggunakan boilerplate dan template yang sebanyak
+          ini?
+        </p>
+
+        <p class="sm-content fragment">
+          Apakah ada solusi lainnya untuk State Management selain <strong
+            >Redux Toolkit</strong
+          > ini?
+        </p>
+
+        <p class="sm-content fragment">
+          Please welcome ... <strong>Zustand</strong>
+        </p>
+
+        <div class="flex flex-row justify-center gap-6 sm-content fragment">
+          <Icon name="zustand" class="w-48" />
+        </div>
       </section>
 
       <section class="center">
         <h2>Zustand - What Is?</h2>
+
+        <p class="sm-content">
+          Dikutip dari halaman <a
+            href="https://github.com/pmndrs/zustand"
+            target="_blank">Github-nya Zustand</a
+          >
+        </p>
+
+        <p class="sm-content fragment">
+          <strong>Zustand</strong> adalah solusi state management yang kecil, cepat,
+          dan bisa di-scale yang menggunakan <a
+            href="https://medium.com/@goatslacker/principles-of-flux-ea872bc20772"
+            target="_blank">prinsip flux</a
+          >, berbasis hooks, tidak terlalu ber-boilerplate ataupun teropini !
+        </p>
+
+        <p class="sm-content fragment animate-pulse">
+          Pssttttt..... cara penggunaan <strong>Zustand</strong> bisa jadi JAUH lebih
+          mudah ketimbang menggunakan Redux Toolkit
+        </p>
+
+        <p class="sm-content fragment animate-pulse text-red-400">
+          (Apabila tidak memikirkan RTK Query-nya)
+        </p>
       </section>
 
       <section class="center">
         <h2>Zustand - How To?</h2>
+
+        <p class="sm-content">
+          Cara menggunakan Zustand pun tidak terlalu sulit:
+        </p>
+
+        <ul class="sm-content">
+          <li class="fragment">
+            Install zustand terlebih dahulu dengan <code class="font-bold"
+              >npm i zustand</code
+            >
+          </li>
+          <li class="fragment">Membuat store-nya terlebih dahulu</li>
+          <div class="fragment">
+            <ReactZustandHowToI />
+          </div>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Zustand - How To?</h2>
+
+        <ul class="sm-content">
+          <li>Gunakan di dalam Component</li>
+          <div class="fragment">
+            <ReactZustandHowToII />
+          </div>
+          <li class="fragment">Dan selesai !</li>
+          <li class="fragment">Lebih mudah bukan menggunakannya?</li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Zustand - How To? (Async)</h2>
+
+        <p class="sm-content">
+          Bagaimanakah kasusnya bila kita ingin memiliki suatu data yang
+          didapatkan dari external seperti dari API?
+        </p>
+
+        <p class="sm-content fragment">
+          Apakah harus menggunakan Middleware seperti kita menggunakan RTK
+          Query?
+        </p>
+
+        <p class="sm-content fragment">
+          Jawaban pendeknya adalah: <strong>TYDAQUE !</strong>
+        </p>
+
+        <p class="sm-content fragment">
+          <strong>Zustand</strong> tidak peduli apakah suatu "action" yang dibuat
+          adalah bersifat <strong>async</strong> ataupun tidak. Keduanya bisa digunakan
+          bersamaan
+        </p>
+
+        <p class="sm-content fragment">a.k.a Tinggal declare saja !</p>
+
+        <p class="sm-content fragment animate-pulse">
+          Psssstttttt.... tapi kita jadi butuh <strong>axios</strong> lagi nih.
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Zustand - How To? (Async)</h2>
+
+        <p class="sm-content">
+          Misalkan kita ingin mengambil data dari JSONPlaceholder (Posts), maka
+          yang dilakukan adalah:
+        </p>
+
+        <ul class="sm-content">
+          <li class="fragment">Membuat store-nya terlebih dahulu</li>
+          <div class="fragment">
+            <ReactZustandHowToAsyncI />
+          </div>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Zustand - How To? (Async)</h2>
+
+        <ul class="sm-content">
+          <li>Menggunakannya di Component</li>
+          <div class="fragment">
+            <ReactZustandHowToAsyncII />
+          </div>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Zustand - Demo</h2>
+
+        <p class="sm-content">
+          Yuk sudah cukup kita liat yang sepintas-pintasnya tadi yah !
+        </p>
+
+        <p class="sm-content">
+          Mari sekarang kita demo untuk Mengkonversi aplikasi yang sebelumnya
+          dibuat dengan Redux Toolkit menjadi versi Zustand !
+        </p>
       </section>
 
       <section class="center">

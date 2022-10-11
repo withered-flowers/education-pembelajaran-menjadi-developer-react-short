@@ -1,4 +1,597 @@
 ---
+import BaseLayout from "../../layouts/BaseLayoutWithSlidesLottieReact.astro";
+import { Icon } from "astro-icon";
+
+const mdCodes = await Astro.glob("./examples/*.md");
+
+const findContent = (title: string) => {
+  return mdCodes?.find((md) => md?.frontmatter?.title === title)!.Content;
+};
+
+const Empty = findContent("empty");
+const ReactZustandHowToI = findContent("react-zustand-how-to-i");
+const ReactZustandHowToII = findContent("react-zustand-how-to-ii");
+const ReactZustandHowToAsyncI = findContent("react-zustand-how-to-async-i");
+const ReactZustandHowToAsyncII = findContent("react-zustand-how-to-async-ii");
+
+const title = "React - Zustand";
 ---
 
-<h1>React JS - Zustand</h1>
+<BaseLayout title={title}>
+  <div class="p-4">
+    <div class="slides">
+      <section class="center">
+        <div class="flex flex-row justify-center gap-6">
+          <Icon name="zustand" class="w-48" />
+        </div>
+        <h1>React - Zustand</h1>
+      </section>
+
+      <section class="center">
+        <h2>Agenda</h2>
+
+        <p class="text-3xl text-left">Apa saja yang akan dibahas?</p>
+        <ul class="sm-content">
+          <li>Revisiting Redux (Toolkit)</li>
+          <li>Revisiting RTK Query</li>
+          <li>Zustand</li>
+          <ul class="sm-content">
+            <li>Intro</li>
+            <li>What Is?</li>
+            <li>How to?</li>
+            <li>Demo</li>
+            <li>Bonus (Simple Loader)</li>
+          </ul>
+          <li>Conclusion</li>
+          <li>QnA</li>
+          <li>Referensi</li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Revisiting Redux (Toolkit)</h2>
+
+        <p class="sm-content">Masih ingat bagaimana cara menggunakan RTK?</p>
+
+        <p class="sm-content fragment">
+          Mari kita coba lihat kembali kode yang terakhir dituliskan <a
+            href="https://github.com/withered-flowers/education-react-redux/tree/2-using-rtk"
+            target="_blank">di sini</a
+          > dan mengingat langkah apa saja yang sudah dilakukan:
+        </p>
+
+        <ol class="sm-content">
+          <li class="fragment">
+            Menginstall RTK terlebih dahulu <strong
+              >npm i @reduxjs/toolkit react-redux</strong
+            >
+          </li>
+          <li class="fragment">
+            Membuat sebuah slice untuk fitur yang ingin digunakan (<strong
+              >/src/features/sliceCounter.js</strong
+            >)
+          </li>
+          <li class="fragment">
+            Membuat store (<strong>/src/app/store.js</strong>)
+          </li>
+          <li class="fragment">
+            Mem-<strong>Provide</strong> store yang dibuat pada entry point aplikasi
+            (<strong>index.js</strong>)
+          </li>
+          <li class="fragment">
+            Menggunakan state dan action dari slice pada Component berdasarkan
+            logic yang ingin dirancang
+          </li>
+        </ol>
+
+        <p class="sm-content fragment">
+          Dan... selesai, kita sudah berhasil menggunakan Redux Toolkit dengan
+          baik !
+        </p>
+
+        <p class="sm-content fragment text-red-400 animate-pulse">
+          WARNING: ini hanyalah langkahnya saja, sebenarnya kode yang ditulis
+          cukup banyak.
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Revisiting RTK Query</h2>
+
+        <p class="sm-content">
+          Bagaimanakah bila kita ingin melakukan penarikan data dari external
+          (API) pada saat menggunakan RTK?
+        </p>
+
+        <p class="sm-content fragment">
+          Salah satu solusi yang diberikan dari RTK, adalah dengan menggunakan <strong
+            >RTK Query</strong
+          >
+        </p>
+
+        <p class="sm-content fragment">
+          Mari kita coba lihat kembali kode yang terakhir dituliskan <a
+            href="https://github.com/withered-flowers/education-react-redux-middleware/tree/4-using-rtk-query-part-2"
+            target="_blank">di sini</a
+          > dan mengingat langkah apa saja yang sudah dilakukan:
+        </p>
+
+        <ol class="sm-content">
+          <li class="fragment">
+            Membuat sebuah services terlebih dahulu berdasarkan API yang ingin
+            ditembak (<strong>/src/services/reqresinAPI</strong>)
+          </li>
+          <li class="fragment">
+            Mencantolkan services yang dibuat pada store (<strong
+              >/src/app/store.js</strong
+            >) dalam bentuk <strong>reducer</strong> dan <strong
+              >middleware</strong
+            >
+          </li>
+          <li class="fragment">
+            Menggunakan logic yang dibuat pada Component yang ada <strong
+              >DALAM BENTUK HOOKS</strong
+            > yang dibuatkan secara otomatis pada saat membuat services
+          </li>
+        </ol>
+
+        <p class="sm-content fragment">
+          Dan... selesai, kita sudah berhasil menggunakan RTK Query dengan baik
+          !
+        </p>
+
+        <p class="sm-content fragment text-red-400 animate-pulse">
+          WARNING: ini hanyalah langkahnya saja, sebenarnya kode yang ditulis
+          cukup banyak.
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Zustand - Intro</h2>
+
+        <p class="sm-content fragment">
+          Cukup menyulitkan bukan menggunakan Redux Toolkit dan RTK Query ini?
+        </p>
+
+        <p class="sm-content fragment">
+          Jadi bagaimana apabila kita ingin membuat sebuah project yang
+          menggunakan state management?
+        </p>
+
+        <p class="sm-content fragment">
+          Apakah harus selalu menggunakan boilerplate dan template yang sebanyak
+          ini?
+        </p>
+
+        <p class="sm-content fragment">
+          Apakah ada solusi lainnya untuk State Management selain <strong
+            >Redux Toolkit</strong
+          > ini?
+        </p>
+
+        <p class="sm-content fragment">
+          Please welcome ... <strong>Zustand</strong>
+        </p>
+
+        <div class="flex flex-row justify-center gap-6 sm-content fragment">
+          <Icon name="zustand" class="w-48" />
+        </div>
+      </section>
+
+      <section class="center">
+        <h2>Zustand - What Is?</h2>
+
+        <p class="sm-content">
+          Dikutip dari halaman <a
+            href="https://github.com/pmndrs/zustand"
+            target="_blank">Github-nya Zustand</a
+          >
+        </p>
+
+        <p class="sm-content fragment">
+          <strong>Zustand</strong> adalah solusi state management yang kecil, cepat,
+          dan bisa di-scale yang menggunakan <a
+            href="https://medium.com/@goatslacker/principles-of-flux-ea872bc20772"
+            target="_blank">prinsip flux</a
+          >, berbasis hooks, tidak terlalu ber-boilerplate ataupun teropini !
+        </p>
+
+        <p class="sm-content fragment animate-pulse">
+          Pssttttt..... cara penggunaan <strong>Zustand</strong> bisa jadi JAUH lebih
+          mudah ketimbang menggunakan Redux Toolkit
+        </p>
+
+        <p class="sm-content fragment animate-pulse text-red-400">
+          (Apabila tidak memikirkan RTK Query-nya)
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Zustand - How To?</h2>
+
+        <p class="sm-content">
+          Cara menggunakan Zustand pun tidak terlalu sulit:
+        </p>
+
+        <ul class="sm-content">
+          <li class="fragment">
+            Install zustand terlebih dahulu dengan <code class="font-bold"
+              >npm i zustand</code
+            >
+          </li>
+          <li class="fragment">Membuat store-nya terlebih dahulu</li>
+          <div class="fragment">
+            <ReactZustandHowToI />
+          </div>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Zustand - How To?</h2>
+
+        <ul class="sm-content">
+          <li>Gunakan di dalam Component</li>
+          <div class="fragment">
+            <ReactZustandHowToII />
+          </div>
+          <li class="fragment">Dan selesai !</li>
+          <li class="fragment">Lebih mudah bukan menggunakannya?</li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Zustand - How To? (Async)</h2>
+
+        <p class="sm-content">
+          Bagaimanakah kasusnya bila kita ingin memiliki suatu data yang
+          didapatkan dari external seperti dari API?
+        </p>
+
+        <p class="sm-content fragment">
+          Apakah harus menggunakan Middleware seperti kita menggunakan RTK
+          Query?
+        </p>
+
+        <p class="sm-content fragment">
+          Jawaban pendeknya adalah: <strong>TYDAQUE !</strong>
+        </p>
+
+        <p class="sm-content fragment">
+          <strong>Zustand</strong> tidak peduli apakah suatu "action" yang dibuat
+          adalah bersifat <strong>async</strong> ataupun tidak. Keduanya bisa digunakan
+          bersamaan
+        </p>
+
+        <p class="sm-content fragment">a.k.a Tinggal declare saja !</p>
+
+        <p class="sm-content fragment animate-pulse">
+          Psssstttttt.... tapi kita jadi butuh <strong>axios</strong> lagi nih.
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Zustand - How To? (Async)</h2>
+
+        <p class="sm-content">
+          Misalkan kita ingin mengambil data dari JSONPlaceholder (Posts), maka
+          yang dilakukan adalah:
+        </p>
+
+        <ul class="sm-content">
+          <li class="fragment">Membuat store-nya terlebih dahulu</li>
+          <div class="fragment">
+            <ReactZustandHowToAsyncI />
+          </div>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Zustand - How To? (Async)</h2>
+
+        <ul class="sm-content">
+          <li>Menggunakannya di Component</li>
+          <div class="fragment">
+            <ReactZustandHowToAsyncII />
+          </div>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Zustand - Demo</h2>
+
+        <p class="sm-content">
+          Yuk sudah cukup kita lihat "Intro Zustand" tadi
+        </p>
+
+        <p class="sm-content">Mari sekarang kita demo:</p>
+
+        <p class="sm-content fragment animate-pulse">
+          Mengkonversi aplikasi yang sebelumnya dibuat dengan Redux Toolkit
+          menjadi versi Zustand !
+        </p>
+
+        <p class="sm-content fragment">
+          Langkah-langkah pengerjaannya adalah sebagai berikut: (Simple Counter)
+        </p>
+
+        <ol class="sm-content">
+          <li class="fragment">
+            Clone starter pack yang akan digunakan <a
+              href="https://github.com/withered-flowers/education-react-zustand"
+              target="_blank">di sini</a
+            >
+          </li><li class="fragment">
+            Install seluruh package yang harus digunakan dengan <code
+              class="font-semibold">npm install</code
+            >
+          </li>
+          <li class="fragment">
+            Install package tambahan (Zustand) dengan <code
+              class="font-semibold">npm install zustand</code
+            >
+          </li>
+          <li class="fragment">
+            Membuat sebuah file store <strong>/src/stores/counter.js</strong>
+          </li>
+          <li class="fragment">
+            Menggunakan store tersebut pada <strong
+              >/src/containers/CounterZustandContainer.jsx</strong
+            >
+          </li>
+          <li class="fragment">
+            Dan selesai, Aplikasi Counter kita pun sudah bisa berjalan dengan
+            baik !
+          </li>
+        </ol>
+
+        <p class="sm-content fragment animate-pulse text-red-400">
+          Langkahnya sedikit namun kodenya lumayan loh yah !
+        </p>
+
+        <p class="sm-content fragment">
+          Untuk melihat kodenya bisa diintip <a
+            href="https://github.com/withered-flowers/education-react-zustand/tree/1-simple-counter"
+            target="_blank">di sini</a
+          > yah
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Zustand - Demo</h2>
+
+        <p class="sm-content">
+          Mari sekarang kita mencoba untuk melakukan fetch data dari <strong
+            >reqres.in</strong
+          > API yah
+        </p>
+
+        <p class="sm-content fragment">
+          Langkah-langkah pengerjaannya adalah sebagai berikut: (Fetch User)
+        </p>
+
+        <ol class="sm-content">
+          <li class="fragment">
+            Membuat sebuah file store <strong>/src/stores/user.js</strong>
+          </li>
+          <li class="fragment">
+            Menuliskan state, action, hooks, serta selector yang digunakan
+          </li>
+          <li class="fragment">
+            Menggunakan store tersebut pada <strong
+              >/src/containers/CounterZustandContainer.jsx</strong
+            >
+          </li>
+          <li class="fragment">
+            Dan selesai, Aplikasi fetch data users dari API <strong
+              >reqres.in</strong
+            > kita pun sudah bisa berjalan dengan baik
+          </li>
+        </ol>
+
+        <p class="sm-content fragment animate-pulse text-red-400">
+          Langkahnya sedikit namun kodenya lumayan loh yah !
+        </p>
+
+        <p class="sm-content fragment">
+          Untuk melihat kodenya bisa diintip <a
+            href="https://github.com/withered-flowers/education-react-zustand/tree/2-simple-fetch-users-async"
+            target="_blank">di sini</a
+          > yah
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Zustand - Demo</h2>
+
+        <p class="sm-content">
+          Sekarang mari kita coba untuk menyelesaikan fetch data colors dari <strong
+            >reqres.in</strong
+          > API yah
+        </p>
+
+        <p class="sm-content fragment">
+          Tapi sekarang kita punya syarat: <strong
+            >datanya ingin kita buat "seperti mutable"</strong
+          >
+        </p>
+
+        <p class="sm-content fragment">
+          Masih ingat dengan RTK yang bisa membuat perubahan statenya "seperti
+          mutable" dengan apa?
+        </p>
+
+        <p class="sm-content fragment">
+          Ya, dengan <strong>immer</strong> !
+        </p>
+
+        <p class="sm-content fragment">
+          Langkah-langkah pengerjaannya adalah sebagai berikut: (With Immer)
+        </p>
+
+        <ol class="sm-content">
+          <li class="fragment">
+            Menginstall immer dengan <code class="font-semibold"
+              >npm i immer</code
+            >
+          </li>
+          <li class="fragment">
+            Membuat sebuah file store <strong>/src/stores/color.js</strong>
+          </li>
+          <li class="fragment">
+            Menggunakan immer dalam memutasikan state yang dibuat
+          </li>
+          <li class="fragment">
+            Menggunakan store tersebut pada <strong
+              >/src/components/ColorListZustand.jsx</strong
+            >
+          </li>
+          <li class="fragment">
+            Dan selesai, Aplikasi Fetch Colors dengan menggunakan Immer sudah
+            bisa berjalan dengan baik !
+          </li>
+        </ol>
+
+        <p class="sm-content fragment animate-pulse text-red-400">
+          Langkahnya sedikit namun kodenya lumayan loh yah !
+        </p>
+
+        <p class="sm-content fragment">
+          Untuk melihat kodenya bisa diintip <a
+            href="https://github.com/withered-flowers/education-react-zustand/tree/3-fetch-colors-immer"
+            target="_blank">di sini</a
+          > yah
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Zustand - Demo (Conclusion)</h2>
+
+        <p class="sm-content">
+          Dan selesai sudah untuk demo yang kita lakukan ini.
+        </p>
+
+        <p class="sm-content fragment">
+          Dengan demikian kita sudah berhasil membuat aplikasi yang mirip dengan
+          versi RTK dan RTK Query, namun dengan menggunakan Zustand
+        </p>
+
+        <p class="sm-content fragment">
+          Bagaimana, apakah dengan menggunakan Zustand lebih baik? ataukan
+          menggunakan RTK + RTK Query lebih enak?
+        </p>
+
+        <p class="sm-content fragment">
+          Teman-teman sebagai developer yang pada akhirnya menentukan yah
+          "enakan" yang mana?
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Zustand - Bonus (Simple Loader)</h2>
+
+        <p class="sm-content">
+          Nah dari tadi kita menggunakan Zustand tanpa ada "Loading" nya sama
+          sekali yah ...
+        </p>
+
+        <p class="sm-content fragment">
+          Karena memang dalam Zustand, tidak ada "Loading" yang bisa digunakan
+          secara langsung !
+        </p>
+
+        <p class="sm-content fragment">
+          Lalu apabila seperti itu kita harus bagaimana bila ingin membuat
+          semacam "Loading" dengan Zustand ini?
+        </p>
+
+        <p class="sm-content fragment">
+          Jawabannya adalah: <strong>dengan menggunakan sedikit "logic"</strong>
+        </p>
+
+        <p class="sm-content fragment">
+          Mari kita coba membuatnya untuk fetch data user yah !
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Zustand - Bonus (Simple Loader)</h2>
+
+        <p class="sm-content">
+          Langkah-langkah pengerjaannya adalah sebagai berikut: (Simple Loaders)
+        </p>
+
+        <ol class="sm-content fragment">
+          <li class="fragment">
+            Membuat file store <strong>/src/stores/userWithLoader.js</strong>
+          </li>
+          <li class="fragment">
+            Memasukkan store tambahan dengan nama <strong>loading</strong> dan <strong
+              >error</strong
+            >
+          </li>
+          <li class="fragment">
+            Modifikasi file <strong
+              >/src/containers/CounterZustandContainer.jsx</strong
+            >
+          </li>
+          <li class="fragment">
+            Dan selesai, kita sudah berhasil menggunakan Loader dengan logic
+            sederhana, menakjubkan bukan?
+          </li>
+        </ol>
+
+        <p class="sm-content fragment">
+          Untuk melihat kodenya bisa diintip <a
+            href="https://github.com/withered-flowers/education-react-zustand/tree/4-fetch-with-loaders"
+            target="_blank">di sini</a
+          > yah
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>QnA</h2>
+      </section>
+
+      <section id="referensi" class="center">
+        <h2>Referensi</h2>
+
+        <ul class="text-2xl">
+          <li>https://github.com/pmndrs/zustand</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .slides {
+    .center {
+      @apply mx-auto w-full flex flex-row justify-center;
+    }
+
+    .left {
+      @apply mx-auto w-full top-16;
+    }
+
+    ul,
+    ol {
+      @apply w-full text-left;
+    }
+
+    div {
+      @apply text-3xl;
+    }
+
+    blockquote {
+      @apply w-full border-2 border-slate-700;
+    }
+
+    .sm-content {
+      @apply text-3xl text-left;
+
+      li {
+        @apply mb-2;
+      }
+    }
+  }
+</style>

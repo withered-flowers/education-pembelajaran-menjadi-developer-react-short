@@ -357,7 +357,195 @@ const title = "React - Zustand";
       </section>
 
       <section class="center">
+        <h2>Zustand - Demo</h2>
+
+        <p class="sm-content">
+          Mari sekarang kita mencoba untuk melakukan fetch data dari <strong
+            >reqres.in</strong
+          > API yah
+        </p>
+
+        <p class="sm-content fragment">
+          Langkah-langkah pengerjaannya adalah sebagai berikut: (Fetch User)
+        </p>
+
+        <ol class="sm-content">
+          <li class="fragment">
+            Membuat sebuah file store <strong>/src/stores/user.js</strong>
+          </li>
+          <li class="fragment">
+            Menuliskan state, action, hooks, serta selector yang digunakan
+          </li>
+          <li class="fragment">
+            Menggunakan store tersebut pada <strong
+              >/src/containers/CounterZustandContainer.jsx</strong
+            >
+          </li>
+          <li class="fragment">
+            Dan selesai, Aplikasi fetch data users dari API <strong
+              >reqres.in</strong
+            > kita pun sudah bisa berjalan dengan baik
+          </li>
+        </ol>
+
+        <p class="sm-content fragment animate-pulse text-red-400">
+          Langkahnya sedikit namun kodenya lumayan loh yah !
+        </p>
+
+        <p class="sm-content fragment">
+          Untuk melihat kodenya bisa diintip <a
+            href="https://github.com/withered-flowers/education-react-zustand/tree/2-simple-fetch-users-async"
+            target="_blank">di sini</a
+          > yah
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Zustand - Demo</h2>
+
+        <p class="sm-content">
+          Sekarang mari kita coba untuk menyelesaikan fetch data colors dari <strong
+            >reqres.in</strong
+          > API yah
+        </p>
+
+        <p class="sm-content fragment">
+          Tapi sekarang kita punya syarat: <strong
+            >datanya ingin kita buat "seperti mutable"</strong
+          >
+        </p>
+
+        <p class="sm-content fragment">
+          Masih ingat dengan RTK yang bisa membuat perubahan statenya "seperti
+          mutable" dengan apa?
+        </p>
+
+        <p class="sm-content fragment">
+          Ya, dengan <strong>immer</strong> !
+        </p>
+
+        <p class="sm-content fragment">
+          Langkah-langkah pengerjaannya adalah sebagai berikut: (With Immer)
+        </p>
+
+        <ol class="sm-content">
+          <li class="fragment">
+            Menginstall immer dengan <code class="font-semibold"
+              >npm i immer</code
+            >
+          </li>
+          <li class="fragment">
+            Membuat sebuah file store <strong>/src/stores/color.js</strong>
+          </li>
+          <li class="fragment">
+            Menggunakan immer dalam memutasikan state yang dibuat
+          </li>
+          <li class="fragment">
+            Menggunakan store tersebut pada <strong
+              >/src/components/ColorListZustand.jsx</strong
+            >
+          </li>
+          <li class="fragment">
+            Dan selesai, Aplikasi Fetch Colors dengan menggunakan Immer sudah
+            bisa berjalan dengan baik !
+          </li>
+        </ol>
+
+        <p class="sm-content fragment animate-pulse text-red-400">
+          Langkahnya sedikit namun kodenya lumayan loh yah !
+        </p>
+
+        <p class="sm-content fragment">
+          Untuk melihat kodenya bisa diintip <a
+            href="https://github.com/withered-flowers/education-react-zustand/tree/3-fetch-colors-immer"
+            target="_blank">di sini</a
+          > yah
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Zustand - Demo (Conclusion)</h2>
+
+        <p class="sm-content">
+          Dan selesai sudah untuk demo yang kita lakukan ini.
+        </p>
+
+        <p class="sm-content fragment">
+          Dengan demikian kita sudah berhasil membuat aplikasi yang mirip dengan
+          versi RTK dan RTK Query, namun dengan menggunakan Zustand
+        </p>
+
+        <p class="sm-content fragment">
+          Bagaimana, apakah dengan menggunakan Zustand lebih baik? ataukan
+          menggunakan RTK + RTK Query lebih enak?
+        </p>
+
+        <p class="sm-content fragment">
+          Teman-teman sebagai developer yang pada akhirnya menentukan yah
+          "enakan" yang mana?
+        </p>
+      </section>
+
+      <section class="center">
         <h2>Zustand - Bonus (Simple Loader)</h2>
+
+        <p class="sm-content">
+          Nah dari tadi kita menggunakan Zustand tanpa ada "Loading" nya sama
+          sekali yah ...
+        </p>
+
+        <p class="sm-content fragment">
+          Karena memang dalam Zustand, tidak ada "Loading" yang bisa digunakan
+          secara langsung !
+        </p>
+
+        <p class="sm-content fragment">
+          Lalu apabila seperti itu kita harus bagaimana bila ingin membuat
+          semacam "Loading" dengan Zustand ini?
+        </p>
+
+        <p class="sm-content fragment">
+          Jawabannya adalah: <strong>dengan menggunakan sedikit "logic"</strong>
+        </p>
+
+        <p class="sm-content fragment">
+          Mari kita coba membuatnya untuk fetch data user yah !
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Zustand - Bonus (Simple Loader)</h2>
+
+        <p class="sm-content">
+          Langkah-langkah pengerjaannya adalah sebagai berikut: (Simple Loaders)
+        </p>
+
+        <ol class="sm-content fragment">
+          <li class="fragment">
+            Membuat file store <strong>/src/stores/userWithLoader.js</strong>
+          </li>
+          <li class="fragment">
+            Memasukkan store tambahan dengan nama <strong>loading</strong> dan <strong
+              >error</strong
+            >
+          </li>
+          <li class="fragment">
+            Modifikasi file <strong
+              >/src/containers/CounterZustandContainer.jsx</strong
+            >
+          </li>
+          <li class="fragment">
+            Dan selesai, kita sudah berhasil menggunakan Loader dengan logic
+            sederhana, menakjubkan bukan?
+          </li>
+        </ol>
+
+        <p class="sm-content fragment">
+          Untuk melihat kodenya bisa diintip <a
+            href="https://github.com/withered-flowers/education-react-zustand/tree/4-fetch-with-loaders"
+            target="_blank">di sini</a
+          > yah
+        </p>
       </section>
 
       <section class="center">

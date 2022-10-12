@@ -1,4 +1,537 @@
 ---
+import BaseLayout from "../../layouts/BaseLayoutWithSlidesLottieReact.astro";
+import { Icon } from "astro-icon";
+import { Code } from "astro/components";
+
+const mdCodes = await Astro.glob("./examples/*.md");
+
+const findContent = (title: string) => {
+  return mdCodes?.find((md) => md?.frontmatter?.title === title)!.Content;
+};
+
+const empty = findContent("empty");
+
+const title = "React - Firebase Authentication";
 ---
 
-<h1>React JS - Firebase Authentication</h1>
+<BaseLayout title={title}>
+  <div class="p-4">
+    <div class="slides">
+      <section class="center">
+        <div class="flex flex-row justify-center gap-6">
+          <Icon name="logos:react" class="w-48" />
+          <Icon name="logos:firebase" class="w-36" />
+        </div>
+        <h1>{title}</h1>
+      </section>
+
+      <section class="center">
+        <h2>Agenda</h2>
+
+        <p class="text-3xl text-left">Apa saja yang akan dibahas?</p>
+
+        <ul class="sm-content">
+          <li>Intro</li>
+          <li>Authentication</li>
+          <li>Firebase - What Is?</li>
+          <li>Firebase - Authentication</li>
+          <li>Demo</li>
+          <li>QnA</li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Intro</h2>
+
+        <p class="sm-content">
+          Dari awal sampai dengan pembelajaran kita sebelumnya, kita fokusnya di
+          dasar react dan konten saja bukan?
+        </p>
+
+        <p class="sm-content fragment">
+          Nah, tapi, pada aplikasi yang umumnya dibuat, umumnya tidak seperti
+          itu bukan?
+        </p>
+
+        <p class="sm-content fragment">
+          Minimal pasti ada saja aplikasinya yang meminta kita untuk memasukkan
+          "tanda pengenal" di dalam aplikasi yang digunakan
+        </p>
+
+        <ul class="sm-content fragment">
+          <li>
+            Entah tanda pengenal itu berupa identifikasi muka atau wajah atau
+            tangan (a.k.a biometric)
+          </li>
+          <li>
+            Ataupun yang cukup sederhana seperti email dan password yang sudah
+            ditentukan sebelumnya di dalam aplikasi
+          </li>
+        </ul>
+
+        <p class="sm-content fragment">
+          Nah proses seperti ini adalah sesuatu yang bernama otentikasi <strong
+            >(Authentication)</strong
+          >
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Authentication</h2>
+
+        <blockquote class="text-3xl fragment">
+          Suatu proses untuk menentukan si seseorang itu benar benar seseorang
+          atau bukan.
+        </blockquote>
+
+        <p class="sm-content fragment">
+          Umumnya untuk membuat Authentication ini, kita membutuhkan suatu
+          server untuk membuat BackEnd (bagian belakang dari suatu aplikasi)
+        </p>
+
+        <p class="sm-content fragment">
+          Serta segala macam teknologi dan infrastruktur di balik layarnya (e.g.
+          NodeJS dengan ExpressJS + Database PostgreSQL + Logic tentang keamanan
+          yang cukup baik agar tidak mudah dijebol)
+        </p>
+
+        <p class="sm-content fragment">
+          Namun, <strong class="animate-text"
+            >Apa daya kita sebagai seorang FrontEnd-er ?</strong
+          >
+        </p>
+
+        <p class="sm-content fragment">
+          Masa harus belajar BackEnd dulu baru bisa membuat aplikasi dengan
+          Authentication ini?
+        </p>
+
+        <p class="sm-content fragment">
+          Tenang, <strong class="animate-pulse text-[#FFA000]">Firebase</strong>
+          datang menyelamatkan kita !
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Firebase - What Is?</h2>
+
+        <p class="sm-content">
+          <strong class="animate-pulse text-[#FFA000]">Firebase</strong>,
+          <span class="fragment"
+            >kalau diterjemahkan harafiah, <strong>Basis Api</strong>,</span
+          >
+          <span class="fragment">kalau disingkat... jadinya FB?</span>
+        </p>
+
+        <p class="sm-content fragment">
+          Oh ! <i
+            >Berarti ini adalah produk sosial media bikinan <strong>Meta</strong
+            >
+          </i>?
+        </p>
+
+        <p class="sm-content fragment">
+          Tentu saja, <strong>bukan !</strong>
+        </p>
+
+        <p class="sm-content fragment">
+          Mari kita coba untuk buka dokumentasi sebuah produk yang bernama <strong
+            class="animate-pulse text-[#FFA000]">Firebase</strong
+          >
+          <a href="https://firebase.google.com/?hl=id" target="_blank"
+            >di sini</a
+          > yah !
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Firebase - What Is?</h2>
+
+        <p class="sm-content">
+          Jadi sudah tau <strong class="animate-pulse text-[#FFA000]"
+            >Firebase</strong
+          > itu apa?
+        </p>
+
+        <p class="sm-content fragment">
+          Ya, ini adalah produk buatan <i>Mbah Google</i>, yang dikhususkan
+          untuk mempercepat developer / perusahaan dalam membuat aplikasi, baik
+          berbasis web ataupun berbasis mobile.
+        </p>
+
+        <p class="sm-content fragment">
+          Firebase ini sebenarnya adalah kumpulan dari produk-produk yang
+          dikhususkan untuk merancang aplikasi
+        </p>
+
+        <p class="sm-content fragment">Beberapa produk yang dimaksud adalah:</p>
+
+        <ol class="sm-content">
+          <li class="fragment">
+            <strong>Cloud Firestore</strong> - Menyimpan dan menyinkronkandata aplikasi
+            pada skala global
+          </li>
+          <li class="fragment">
+            <strong>Crashlytics</strong> - Produk untuk melacak error sehingga bisa
+            memperbaiki bug dengan lebih cepat
+          </li>
+          <li class="fragment">
+            <strong>Firebase Cloud Messaging (FCM)</strong> - Produk untuk mengirimkan
+            notifikasi ke perangkat apa saja secara cepat
+          </li>
+          <li class="fragment">
+            <strong>Firebase Authentication</strong> - Produk untuk membuat Login
+            dengan mudah, sederhana, dan <strong>GRATIS <sup>*</sup></strong>
+          </li>
+        </ol>
+
+        <p class="sm-content fragment">
+          Nah pada pembelajaran ini yang akan kita gunakan adalah <strong
+            class="animate-pulse text-[#FFA000]">Firebase Authentication</strong
+          >
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Firebase - Authentication</h2>
+
+        <p class="sm-content fragment">
+          Mari kita coba untuk membuka dari halaman produknya <a
+            href="https://firebase.google.com/docs/auth"
+            target="_blank">di sini</a
+          >
+        </p>
+
+        <p class="sm-content fragment">
+          Jadi setelah melihat halaman dokumentasinya ini, kita akan mengetahui
+          beberapa hal tentang <strong>Firebase Authentication</strong>
+        </p>
+
+        <ul class="sm-content">
+          <li class="fragment">
+            Ini adalah produk layanan backend (umumnya dikenal dengan <strong
+              >Backend as a Service - BaaS</strong
+            >)
+          </li>
+          <li class="fragment">
+            Produk ini disediakan dalam bentuk SDK yang mudah digunakan dan
+            Library UI siap pakai untuk authentication pengguna dalam aplikasi
+            yang dibuat
+          </li>
+          <li class="fragment">
+            Mendukung Authentication berbasis email, nomor telpon, dan Penyedia
+            Identitas Gabungan, seperti Google, Meta, Twitter, Github, dll (nama
+            kerennya: <strong>Federated Identity & Social Sign In</strong>)
+          </li>
+        </ul>
+
+        <p class="sm-content fragment">
+          Pada pembelajaran ini kita akan mencoba untuk menggunakan:
+        </p>
+
+        <p class="sm-content fragment">
+          Authentikasi berbasis email dan password dari Firebase Authentication
+          SDK saja (tidak menggunakan Firebase Authentication UI)
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Firebase - Authentication</h2>
+
+        <p class="sm-content">
+          DISCLAIMER: dalam aplikasi yang kita buat ini, kita juga akan
+          menggunakan hooks tambahan yang didesain untuk mempermudah kita dalam
+          menggunakan Firebase, yaitu <strong>react-firebase-hooks</strong>
+        </p>
+
+        <p class="sm-content">
+          Ini berisi kumpulan Hooks yang digunakan untuk memudahkan kita
+          berbasis Firebase
+        </p>
+
+        <p class="sm-content">
+          Yang digunakan adalah sebuah hooks dengan nama <strong
+            >useAuthState</strong
+          >
+        </p>
+
+        <p class="sm-content">
+          Untuk dokumentasi dari <strong>react-firebase-hooks</strong>-nya dapat
+          dibaca
+          <a
+            href="https://www.npmjs.com/package/react-firebase-hooks"
+            target="_blank">di sini</a
+          > yah
+        </p>
+
+        <p class="sm-content">
+          Dan untuk dokumentasi terhadap <strong>useAuthState</strong> dapat dibaca
+          <a
+            href="https://github.com/csfrequency/react-firebase-hooks/tree/edab3f3f3b5ec01c8aafcc6096755dfcc69e4408/auth#useauthstate"
+            target="_blank">di sini</a
+          > yah
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Demo - Part 1 (Initialize)</h2>
+
+        <p class="sm-content">
+          Sebelum kita memulai demo ini, kita harus melakukan inisialisasi dulu
+          terhadap project Firebase yang akan digunakan
+        </p>
+
+        <p class="sm-content">
+          Langkah inisialisasi project Firebase adalah sebagai berikut
+        </p>
+
+        <ol class="sm-content">
+          <li>
+            Pastikan kita sudah memiliki sebuah akun <a
+              href="https://firebase.google.com"
+              target="_blank">Firebase</a
+            > yah (bisa menggunakan akun GMail)
+          </li>
+          <li>
+            Pilih <strong>Create a project</strong> lalu buat nama dari Project yang
+            akan dibuat (berbeda dari nama Apps)
+          </li>
+          <li>
+            Pilih untuk <strong>Skip Analytics</strong>
+          </li>
+          <li>
+            Pilih untuk menambahkan <strong>Web App</strong> yang dilambangkan dengan
+            {"< / >"}
+          </li>
+          <li>
+            Masukkan data yang dibutuhkan untuk aplikasi yang dibuat, dan di
+            titik ini kita akan diberikan konfigurasi untuk Aplikasi yang akan
+            digunakan, CATAT dan simpan baik baik
+          </li>
+          <li>
+            Sampai di titik ini, sebelum kita mulai membuat aplikasi, kita harus
+            memberikan ijin pada Firebase Authentication untuk bisa menggunakan
+            Email sebagai sumber otentikasi (<strong
+              >Native Providers - Email / Password - Enable</strong
+            >)
+          </li>
+        </ol>
+      </section>
+
+      <section class="center">
+        <h2>Demo - Part 1 (Coding)</h2>
+
+        <p class="text-3xl">
+          Yuk kita langsung demo menggunakan Firebase Authentication + React !
+        </p>
+
+        <p class="text-3xl animate-pulse">
+          Untuk demo ini kita akan menggunakan referensi dari
+          <a
+            href="https://blog.logrocket.com/user-authentication-firebase-react-apps/"
+            >LogRocket</a
+          > dan dokumentasi <strong>Firebase Authentication</strong>-nya
+          langsung yah !
+        </p>
+
+        <p class="sm-content">Untuk langkah demonya adalah sebagai berikut:</p>
+
+        <ol class="sm-content">
+          <li>
+            Clone repository awal dari template yang akan kita gunakan
+            <a
+              href="https://github.com/withered-flowers/education-react-firebase-authentication"
+              target="_blank">dari sini</a
+            >
+          </li>
+          <li>
+            Menginstall firebase dan react-firebase-hooks dengan <strong
+              >npm i firebase react-firebase-hooks</strong
+            >
+          </li>
+          <li>
+            Membuat file <strong>src/authentication/firebase.js</strong>
+          </li>
+          <li>
+            Menambahkan logic untuk melakukan login dan register pada file <strong
+              >src/authentication/firebase.js</strong
+            >
+          </li>
+          <li>
+            Memodifikasi file <strong
+              >src/components/LoginOrRegisterForm.jsx</strong
+            > untuk dapat melakukan login dan register
+          </li>
+          <li>
+            Memodifikasi file <strong>src/components/NavBar.jsx</strong> untuk dapat
+            melakukan signout
+          </li>
+          <li>
+            Memodifikasi file <strong>App.js</strong> untuk menggunakan proteksi
+            route berdasarkan kondisi user apakah sedang ada yang login atau tidak
+          </li>
+        </ol>
+      </section>
+
+      <section class="center">
+        <h2>Demo - Part 1 (Conclusion)</h2>
+
+        <p class="sm-content">
+          Seluruh kode yang dituliskan sebelumnya, dapat dilihat pada
+          <a
+            href="https://github.com/withered-flowers/education-react-firebase-authentication/tree/1-using-firebase-authentication"
+            target="_blank">link berikut</a
+          > yah
+        </p>
+
+        <p class="sm-content">
+          Sampai di titik ini kita sudah berhasil untuk membuat seluruh logic
+          yang kita inginkan dengan baik
+        </p>
+
+        <p class="sm-content">Tapi ada sesuatu yang cukup mengganjal:</p>
+
+        <p class="sm-content animate-pulse text-red-400 fragment">
+          Apabila nanti ingin menambah Component / Page lagi, useEffect yang
+          dibuat harus dituliskan ulang lagi yah?
+        </p>
+
+        <p class="sm-content animate-pulse text-red-400 fragment">
+          Mubazir sekali yah !
+        </p>
+
+        <p class="sm-content animate-pulse text-red-400 fragment">
+          Bagaimana cara untuk menanggulangi hal ini?
+        </p>
+
+        <p class="sm-content fragment">
+          Maka solusinya adalah menggunakan suatu logic yang dinamakan <strong
+            class="animate-pulse">Protected Routes</strong
+          >
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Demo - Part 2 (Intro)</h2>
+
+        <p class="sm-content">
+          <strong>Protected Routes</strong><span class="fragment">
+            adalah suatu cara yang memperbolehkan kita untuk memilih Component
+            dari Rute mana yang harus kita lindungi dari suatu logic tertentu</span
+          >
+        </p>
+
+        <p class="sm-content fragment">
+          Kebetulan, dalam <strong>React Router</strong> ini sendiri <strong
+            class="text-red-400">TIDAK</strong
+          > disediakan suatu cara khusus untuk bisa menggunakan <strong
+            >Protected Routes</strong
+          > ini,
+          <span class="fragment animate-pulse"
+            >sehingga kita harus membuatnya secara mandiri.</span
+          >
+        </p>
+
+        <p class="sm-content fragment">
+          Jadi pada demo selanjutnya ini kita akan berusaha untuk membuat <strong
+            >Protected Routes</strong
+          > ini demi meringankan pekerjaan kita nantinya...
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Demo - Part 2 (Coding)</h2>
+
+        <p class="sm-content">Langkah pengerjaannya adalah sebagai berikut:</p>
+
+        <ol class="sm-content">
+          <li>
+            Membuat sebuah file baru dengan nama <strong
+              >src/components/ProtectedComponent.jsx</strong
+            >
+            (Component ini akan menjadi HOC + Logic untuk proteksi rute)
+          </li>
+          <li>
+            Memodifikasi file <strong>ProtectedComponents.jsx</strong> untuk menambahkan
+            logic proteksi rute dan untuk mengembalikan component children yang digunakan
+          </li>
+          <li>
+            Memodifikasi file <strong>App.js</strong> untuk menghapuskan logic yang
+            digunakan untuk proteksi rute
+          </li>
+          <li>
+            Menambahkan <strong>ProtectedComponent</strong> dan penggunaannya pada
+            <strong>index.js</strong>
+          </li>
+          <li>
+            Sampai di tahap ini proteksi sudah selesai ! Selanjutnya kita cukup
+            memodifikasi halaman <strong>HomePage.jsx</strong>
+            untuk bisa menampilkan nama dari user dengan menggunakan.... <strong
+              >useAuthState</strong
+            > dan <strong>auth</strong> dari
+            <strong>authentication/firebase.js</strong> lagi !
+          </li>
+        </ol>
+
+        <p class="sm-content">
+          Seluruh kode yang dituliskan di atas, dapat dilihat
+          <a
+            href="https://github.com/withered-flowers/education-react-firebase-authentication/tree/2-using-protected-routes"
+            target="_blank">di sini</a
+          > yah
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>QnA</h2>
+      </section>
+
+      <section id="referensi" class="center">
+        <h2>Referensi</h2>
+
+        <ul class="text-2xl">
+          <li>
+            https://blog.logrocket.com/user-authentication-firebase-react-apps/
+          </li>
+          <li>
+            https://medium.com/firebase-developers/what-is-firebase-the-complete-story-abridged-bcc730c5f2c0
+          </li>
+          <li>https://www.robinwieruch.de/react-router-private-routes/</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .slides {
+    .center {
+      @apply mx-auto w-full flex flex-row justify-center;
+    }
+
+    .left {
+      @apply mx-auto w-full top-16;
+    }
+
+    ul,
+    ol {
+      @apply w-full text-left;
+    }
+
+    div {
+      @apply text-3xl;
+    }
+
+    blockquote {
+      @apply w-full border-2 border-slate-700;
+    }
+
+    .sm-content {
+      @apply text-3xl text-left;
+
+      li {
+        @apply mb-2;
+      }
+    }
+  }
+</style>

@@ -1,4 +1,142 @@
 ---
+import BaseLayout from "../../layouts/BaseLayoutWithSlidesLottieReact.astro";
+import { Icon } from "astro-icon";
+
+const title = "React - Review 2";
 ---
 
-<h1>React JS - Review 2</h1>
+<BaseLayout title={title}>
+  <div class="p-4">
+    <div class="slides">
+      <section class="center">
+        <div class="flex flex-row justify-center gap-6">
+          <Icon
+            name="simple-icons:react"
+            class="w-48 animate-spin-slow duration-1000"
+          />
+        </div>
+        <h1>React - Review 2</h1>
+      </section>
+
+      <section class="center">
+        <h2>Agenda</h2>
+
+        <p class="text-3xl text-left">Apa saja yang akan dibahas?</p>
+        <ul class="sm-content">
+          <li>Review (Firebase Apps)</li>
+          <li>QnA</li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Review (Firebase Apps)</h2>
+
+        <p class="sm-content">
+          Jadi dari kemarin kita sudah belajar state management dan Firebase
+          Auth kan?
+        </p>
+
+        <p class="sm-content fragment">
+          Hari ini kita akan coba untuk bikin aplikasi "sederhana"
+        </p>
+
+        <p class="sm-content fragment">
+          Daripada lama lama, mari kita coba buat yah
+        </p>
+
+        <p class="sm-content fragment">
+          Aplikasi yang akan dibuat adalah sebuah aplikasi yang akan menggunakan
+          Firebase Authentication, dan API Pihak Ketiga (Jikan.moe + Reqres.in)
+        </p>
+
+        <p class="sm-content fragment">
+          Yuk tanpa bak bik buk, kita coba untuk membuatya sekarang !
+        </p>
+
+        <p class="sm-content fragment">
+          Apabila tertinggal, teman teman bisa melihat kode finalnya:
+        </p>
+
+        <ul class="sm-content fragment">
+          <li>
+            <a
+              href="https://github.com/withered-flowers/education-react-review-part-two"
+              target="_blank"
+            >
+              di sini (Zustand Version)
+            </a> atau ...
+          </li>
+          <li>
+            <a
+              href="https://github.com/withered-flowers/education-react-review-part-two-rtk-ver"
+              target="_blank">di sini (RTK Version)</a
+            >
+          </li>
+        </ul>
+
+        <p class="sm-content fragment text-red-400 animate-pulse">
+          (Pilih branch <strong>final</strong> untuk melihat kode akhirnya yah !)
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Review (Firebase Apps)</h2>
+
+        <div class="w-full flex flex-row justify-center">
+          <lottie-player
+            src="https://assets4.lottiefiles.com/packages/lf20_8qDRX7nBln.json"
+            background="transparent"
+            speed="0.75"
+            style="width: 300px; height: 300px;"
+            loop
+            autoplay
+          />
+        </div>
+
+        <p class="sm-content">
+          Selamat, kita telah mencoba untuk membuat Aplikasi "Sederhana" yang
+          memanfaatkan Firebase dan Third Party API yah !
+        </p>
+
+        <p class="sm-content">Mantap bukan ?</p>
+      </section>
+
+      <section class="center">
+        <h2>QnA</h2>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .slides {
+    .center {
+      @apply mx-auto w-full flex flex-row justify-center;
+    }
+
+    .left {
+      @apply mx-auto w-full top-16;
+    }
+
+    ul,
+    ol {
+      @apply w-full text-left;
+    }
+
+    div {
+      @apply text-3xl;
+    }
+
+    blockquote {
+      @apply w-full border-2 border-slate-700;
+    }
+
+    .sm-content {
+      @apply text-3xl text-left;
+
+      li {
+        @apply mb-2;
+      }
+    }
+  }
+</style>

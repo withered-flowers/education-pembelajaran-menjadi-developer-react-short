@@ -1,0 +1,424 @@
+---
+import BaseLayout from "../../layouts/BaseLayoutWithSlidesLottieReact.astro";
+import { Icon } from "astro-icon";
+import { Code } from "astro/components";
+
+const mdCodes = await Astro.glob("./examples/*.md");
+
+const findContent = (title: string) => {
+  return mdCodes?.find((md) => md?.frontmatter?.title === title)!.Content;
+};
+
+const Empty = findContent("empty");
+
+const title = "Apps - Deployment & Recap";
+---
+
+<BaseLayout title={title}>
+  <div class="p-4">
+    <div class="slides">
+      <section class="center">
+        <div class="flex flex-row justify-center gap-6">
+          <Icon name="logos:netlify" class="w-48" />
+        </div>
+        <h1>Apps - Deployment & Recap</h1>
+      </section>
+
+      <section class="center">
+        <h2>Agenda</h2>
+
+        <p class="text-3xl text-left">Apa saja yang akan dibahas?</p>
+        <ul class="sm-content">
+          <li>Intro</li>
+          <li>Deployment - What Is?</li>
+          <li>Deployment - Where?</li>
+          <li>Deployment - How To? (Initialize)</li>
+          <li>Deployment - How To? (Protect)</li>
+          <li>Deployment - How To? (Deploy)</li>
+          <li>Recap</li>
+          <li>AMA</li>
+          <li>Announcement</li>
+          <li>Closing - Lecture</li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Intro</h2>
+
+        <p class="sm-content">
+          Ketika kita membuat aplikasi, harapan kita akhirnya pasti adalah:
+          <strong>Aplikasi ingin dilihat / digunakan orang lain</strong> bukan?
+        </p>
+
+        <p class="sm-content fragment">
+          Kondisi ketika aplikasi yang dikembangkan <strong>siap dipakai</strong
+          > oleh orang lain = tahap
+          <strong class="text-[#4285F4]">Production</strong>
+        </p>
+
+        <p class="sm-content fragment">
+          Ketika sudah masuk tahap <strong class="text-[#4285F4]"
+            >Production</strong
+          >, artinya aplikasi siap <i>release</i> atau istilahnya siap di-<strong
+            class="text-[#0F9D58]">Deploy</strong
+          >
+        </p>
+
+        <p class="sm-content fragment">
+          Nah pertanyaannya adalah: <strong class="text-[#0F9D58] animate-pulse"
+            >Deploy itu <i>apaan sih</i>?</strong
+          >
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Deployment - What Is?</h2>
+
+        <p class="sm-content">
+          <strong class="text-[#0F9D58] animate-pulse">Deploy(ment)</strong> adalah
+          suatu tahapan untuk membuat aplikasi kita menjadi
+          <strong class="text-[#FFA000]">Live</strong>, biasanya di-<i>serve</i>
+          via internet, sehingga menjadi jaringan global yang bisa dibuka oleh siapa
+          saja, di mana saja.
+        </p>
+
+        <p class="sm-content fragment">
+          Kode aplikasinya AWALNYA dibuat di <i>komputernya si developer</i> (atau
+          bahasa keren-nya adalah <i>workstation</i>), dan dijalankan di tempat
+          lain yang bernama <strong class="text-[#4285F4]">Production</strong> server
+          (atau disebut juga dengan istilah <strong class="text-[#4285F4]"
+            >Live Environment</strong
+          >)
+        </p>
+
+        <p class="sm-content fragment">
+          Nah sekarang pertanyaannya adalah: <strong
+            class="text-[#4285F4] animate-pulse"
+            >Production server bisa di mana saja?</strong
+          >
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Deployment - Where?</h2>
+
+        <p class="sm-content">Kita bisa menaruh kode production kita di:</p>
+
+        <ul class="sm-content">
+          <li class="fragment">
+            Komputer kita sendiri, asalkan kita memiliki ip public yang statis
+            dari ISP (Internet Service Provider), beserta dengan komputer yang
+            siap nyala 24 jam. (istilah kerennya adalah <strong
+              >on-premise</strong
+            >)
+          </li>
+          <li class="fragment">
+            Menyewa komputer di komputasi awan, atau istilahnya adalah <strong
+              >Virtual Private Server (VPS)</strong
+            >
+          </li>
+          <li class="fragment">
+            Dengan menggunakan Web Hosting, seperti <strong>Niagahoster</strong
+            >, ataupun <strong>Dewaweb</strong>, dll.
+          </li>
+          <li class="fragment">
+            Dengan menggunakan suatu Platform yang sudah didesain untuk
+            menyediakan server dan manajemennya secara otomatis, sehingga kita
+            hanya perlu membawa kode dan aplikasi bisa berjalan, (atau istilah
+            kerennya adalah
+            <strong>Platform-as-a-service (PaaS)</strong>), seperti <strong
+              >Heroku</strong
+            >, <strong>Netlify</strong>, dan <strong>Vercel</strong>
+          </li>
+        </ul>
+
+        <p class="sm-content fragment">
+          Pada pembelajaran ini, kita akan mendeploy aplikasi kita dengan <strong
+            >PaaS</strong
+          > bernama <strong>Netlify</strong>
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Deployment - Where?</h2>
+
+        <p class="sm-content">
+          Netlify, yang bisa dibuka pada <a
+            href="https://www.netlify.com/"
+            target="_blank">tautan ini</a
+          >, merupakan suatu platform yang dapat mendeploy aplikasi kita ke
+          dalam jaringan global, HANYA dengan bermodalkan akses git ke source
+          code aplikasi yang ingin dideploy saja !
+        </p>
+
+        <p class="sm-content fragment">
+          Dan tentunya, teman-teman sudah pasti tau bukan kenapa kita memilih
+          untuk menggunakan <strong>Netlify</strong>?
+        </p>
+
+        <p class="sm-content fragment">
+          Ya, karena pada <strong>Netlify</strong> ini, <strong
+            class="text-red-400">pricing</strong
+          >-nya sangat bersahabat sekali !
+        </p>
+
+        <p class="sm-content fragment">
+          Bisa membuat banyak project (Unlimited Project) + bandwidth 100GB per
+          month untuk aplikasi (shared untuk seluruh project)
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Deployment - How To? (Initialize)</h2>
+
+        <p class="sm-content">
+          Yuk, sudah sudah kita ngobrolnya, mari kita mencoba untuk deploy yah !
+        </p>
+
+        <p class="sm-content">
+          Kita akan mulai dulu dari inisialisasi project yah
+        </p>
+
+        <p class="sm-content">
+          Untuk itu kita harus memiliki 2 hal: <strong>akun netlify</strong> dan
+          <strong>akun github</strong>
+          (sampai di titik ini harusnya sudah punya akun <strong>github</strong>
+          kan?)
+        </p>
+
+        <p class="sm-content fragment">
+          Langkah inisialisasi projectnya adalah sebagai berikut
+        </p>
+
+        <ol class="sm-content fragment">
+          <li>Membuat Akun Netlify (dengan menggunakan akun Github)</li>
+          <li>Membuat project baru dan memilih repo Github</li>
+          <li>
+            Memilih branch yang digunakan sebagai deployment (default: <strong
+              >main</strong
+            > atau <strong>master</strong>)
+          </li>
+          <li>Dan 🪄 deployment selesai 🪄</li>
+        </ol>
+
+        <p class="text-3xl animate-pulse fragment">
+          <strong>Hah !? Gitu doank khaque?</strong>
+        </p>
+
+        <p class="fragment text-3xl">
+          Ya, hanya begitu saja, tapi sekarang kita akan mencoba untuk menaikkan
+          tingkat kesulitannya yah, dengan melindungi beberapa kode yang ingin
+          dicoba untuk dilindungi
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Deployment - How To? (Protect)</h2>
+
+        <p class="sm-content">
+          Bagaimana bila kita memiliki tulisan (key) yang ingin kita lindungi?
+        </p>
+
+        <p class="sm-content">
+          Sebenarnya kita harus memegang satu prinsip ketika kita sedang membuat
+          aplikasi sisi client (<strong>Client Side Rendering</strong>):
+        </p>
+
+        <p class="sm-content font-bold animate-pulse text-[#FFA000]">
+          Seluruh kode yang ada di client, artinya kodenya dapat dilihat,
+          sekalipun sudah diutak-atik !
+        </p>
+
+        <p class="sm-content">
+          Oke oke, mari kita akan coba untuk melindungi key sebisa kita yah,
+          supaya lebih susah dicarinya:
+        </p>
+
+        <ol class="sm-content">
+          <li class="fragment">Membuka dashboard Netlify</li>
+          <li class="fragment">
+            Membuka Settings - Build & Deploy - environment variables
+          </li>
+          <li class="fragment">
+            Menambahkan key (<strong>environment variable</strong>) yang
+            dibutuhkan di dalam aplikasi kita
+          </li>
+          <li class="fragment">
+            (Untuk Create React App, selalu awali dengan prefix REACT_APP,
+            sehingga menjadi (REACT_APP_NAMA_VAR)
+          </li>
+          <li class="fragment">
+            Ganti pada kode yang dibuat untuk menggunakan
+            <strong>process.env.REACT_APP_NAMA_VAR</strong> instead of key yang digunakan
+          </li>
+        </ol>
+
+        <p class="fragment text-3xl">
+          Voila, aplikasi sudah menggunakan key yang disembunyikan !
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Deployment - How To? (Deploy)</h2>
+
+        <p class="sm-content">
+          Sekarang bagaimana bila kita <i>kurang suka</i> dengan nama yang ingin
+          digunakan?
+        </p>
+
+        <p class="sm-content">
+          Netlify (dan provider lainnya) umumnya juga menyediakan cara untuk
+          mengganti nama dari site yang digunakan.
+        </p>
+
+        <p class="sm-content">Pada netlify caranya adalah sebagai berikut:</p>
+
+        <ol class="sm-content">
+          <li>
+            Membuka halaman dashboard dan pilih project yang ingin diganti
+            namanya
+          </li>
+          <li>Membuka tab Site Overview</li>
+          <li>Memilih Site Settings</li>
+          <li>Memilih change site name</li>
+        </ol>
+
+        <p class="text-3xl">
+          Voila, aplikasi sudah menggunakan nama site yang baru !
+        </p>
+      </section>
+
+      <section class="center">
+        <h2>Recap</h2>
+
+        <p class="sm-content">
+          Sebelum kita menutup materi kita, mari kita coba lihat, apa saja yang
+          sudah kita pelajari selama ini?
+        </p>
+
+        <p class="sm-content fragment">
+          (dan mari kita highlight, apa saja yang lumayan penting untuk menjadi
+          Developer React)
+        </p>
+
+        <ul class="sm-content">
+          <li class="fragment">
+            Git
+
+            <ul class="sm-content">
+              <li>Init Project</li>
+              <li>Create Branch</li>
+              <li>Commit and Push to Git Provider (Github)</li>
+            </ul>
+          </li>
+
+          <li class="fragment">
+            Javascript
+
+            <ul class="sm-content">
+              <li>Callback, Promise, Async / Await</li>
+            </ul>
+          </li>
+
+          <li class="fragment">
+            HTML
+
+            <ul class="sm-content">
+              <li>DOM</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>Recap</h2>
+
+        <ul class="sm-content">
+          <li class="fragment">
+            React
+
+            <ul class="sm-content">
+              <li>Initialize - CRA</li>
+              <li>JSX</li>
+              <li>Functional Component</li>
+              <li>Props and State</li>
+              <li>Hooks - useState, useEffect, useContext, useReducer</li>
+              <li>Fetching Data External</li>
+              <li>Routing (React Router)</li>
+              <li>
+                State Management
+
+                <ul class="sm-content">
+                  <li>Redux (Toolkit + RTK Query)</li>
+                  <li>Zustand</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+
+          <li class="fragment">
+            Authentication
+
+            <ul class="sm-content">
+              <li>Concept</li>
+              <li>Firebase Authentication</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+
+      <section class="center">
+        <h2>What's Next?</h2>
+
+        <a href="https://roadmap.sh/react" target="_blank"
+          >Roadmap to Become React Developer</a
+        >
+      </section>
+
+      <section class="center">
+        <h2>AMA</h2>
+      </section>
+
+      <section class="center">
+        <h2>Announcement</h2>
+      </section>
+
+      <section class="center">
+        <h2>Closing</h2>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .slides {
+    .center {
+      @apply mx-auto w-full flex flex-row justify-center;
+    }
+
+    .left {
+      @apply mx-auto w-full top-16;
+    }
+
+    ul,
+    ol {
+      @apply w-full text-left;
+    }
+
+    div {
+      @apply text-3xl;
+    }
+
+    blockquote {
+      @apply w-full border-2 border-slate-700;
+    }
+
+    .sm-content {
+      @apply text-3xl text-left;
+
+      li {
+        @apply mb-2;
+      }
+    }
+  }
+</style>
